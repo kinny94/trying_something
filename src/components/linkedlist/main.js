@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class MinLinkedList extends Component{
+class MainLinkedList extends Component{
     render(){
         return(
             <h2>Wll render linked list stuff here!!s</h2>
