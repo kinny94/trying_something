@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class MainBst extends Component{
+class MainTrees extends Component{
     render(){
         return(
             <h2>Wll render BST stuff here!!s</h2>
@@ -8,4 +8,4 @@ class MainBst extends Component{
     }
 }
 
-export default MainBst;
+export default MainTrees;

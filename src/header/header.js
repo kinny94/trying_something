@@ -12,16 +12,31 @@ class Header extends Component{
                     <div className="collapse navbar-collapse" id="navbarColor01">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                <a className="nav-link" href="#">Codebase <span class="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Features</a>
+                                <a className="nav-link" href="#">Array</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Pricing</a>
+                                <a className="nav-link" href="#">Stack</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">About</a>
+                                <a className="nav-link" href="#">Queue</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Linked List</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Trees</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Graphs</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Searching</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Sorting</a>
                             </li>
                         </ul>
                         <form className="form-inline my-2 my-lg-0">
