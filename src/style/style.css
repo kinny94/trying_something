@@ -1,44 +1,55 @@
-.card-custom {
+.card-banner {
+    display: flex;
+    position: relative;
     overflow: hidden;
-    min-height: 450px;
-    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
-}
-
-.card-custom-img {
-    height: 200px;
-    min-height: 200px;
-    background-repeat: no-repeat;
+    background-color: #fff;
     background-size: cover;
-    background-position: center;
-    border-color: inherit;
+    border-radius: 5px;
+}
+.card-banner .card-body {
+    background-size: cover;
+    position: relative;
+    z-index: 10;
 }
 
-/* First border-left-width setting is a fallback */
-.card-custom-img::after {
-    position: absolute;
-    content: '';
-    top: 161px;
+
+/* overlay effects */
+.overlay-cover {
+    top: 0;
     left: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-top-width: 40px;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 545px;
-    border-left-width: calc(575px - 5vw);
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: inherit;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.overlay {
+    background-color: rgba(0,0,0,0.65);
+    z-index: 10;
+    padding: 1.25rem;
+    color: #fff;
+}
+.overlay-grad {
+    position: relative;
 }
 
-.card-custom-avatar img {
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+.overlay-grad::before {
     position: absolute;
-    top: 100px;
-    left: 1.25rem;
-    width: 100px;
-    height: 100px;
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00bc8c;
+    background: -webkit-gradient(linear, left top, right bottom, from(#375a7f), to(#00bc8c));
+    background: linear-gradient(to bottom right, #375a7f, #00bc8c);
+    opacity: .6;
+    transition: .5s;
+}
+.overlay-grad:hover:before{
+    opacity: .9;
+}
+
+.cards-margin{
+    margin-top: 5%;
 }

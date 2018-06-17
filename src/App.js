@@ -16,7 +16,7 @@ import MainGraphs from './components/graph/MainGraph';
 import MainLinkedList from './components/linkedlist/MainLinkedList';
 import MainSearching from './components/searching/MainSearching';
 import MainSorting from './components/sorting/MainSorting';
-
+import MainMiscellaneous from './components/miscellaneous/MainMiscellaneous';
 class App extends Component {
 	
 	render() {
@@ -35,6 +35,7 @@ class App extends Component {
 							<Route path="/graphs" exact component={ MainGraphs } />
 							<Route path="/sorting" exact component={ MainSorting } />
 							<Route path="/searching" exact component={ MainSearching } />
+							<Route path="/miscellaneous" exact component={ MainMiscellaneous } />
 						</div>
 					</div>
 				</BrowserRouter>
