@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 
 import './App.css';
+import './style/style.css';	
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './header/header';
 
@@ -14,7 +15,7 @@ import MainTrees from './components/trees/MainTrees';
 import MainGraphs from './components/graph/MainGraph';
 import MainLinkedList from './components/linkedlist/MainLinkedList';
 import MainSearching from './components/searching/MainSearching';
-import MainSorting from './components/sorting/main';
+import MainSorting from './components/sorting/MainSorting';
 
 class App extends Component {
 	
