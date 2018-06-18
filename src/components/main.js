@@ -7,7 +7,7 @@ class Main extends Component{
 
         const style = {
             "height": "250px", 
-            "backgroundImage": "url('https://cdn.pixabay.com/photo/2016/11/23/14/45/blur-1853305__480.jpg')"
+            "background": "#4b8994"
         }
 
         const bottom = {
@@ -48,8 +48,8 @@ class Main extends Component{
                         <div className="card-banner  overlay-grad" style={ style }>
                             <Link to={ '/queue' }>
                                 <div className="card-body text-white">
-                                    <h5 className="card-title">Queue</h5>
-                                    <p className="card-text">a queue is a particular kind of abstract data type or collection in which the entities in the collection are kept in order and the principal operations on the collection are the addition of entities to the rear terminal position, known as enqueue, and removal of entities from the front terminal position, known as dequeue.</p>
+                                    <h2 className="card-title">Queue</h2>
+                                    <p className="card-text">A queue is an abstract data type or collection in which the entities are kept in order and the principal operations on the collection are the addition of entities to the rear terminal position.</p>
                                 </div>
                             </Link>
                         </div>
