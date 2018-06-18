@@ -5,7 +5,7 @@ class Header extends Component{
     render(){
         return(
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <Link className="navbar-brand nav-link" to={ "/" }>Codebase <span class="sr-only">(current)</span></Link>
+                    <Link className="navbar-brand nav-link" to={ "/" }>Codebase <span className="sr-only">(current)</span></Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom';
 
 class Main extends Component{
 
-    render(){
+    state = {
+        users: []
+    }
+    componentWillMount(){
+        
+    }
 
+    render(){
         const style = {
             "height": "250px", 
             "background": "#4b8994"
@@ -52,7 +58,7 @@ class Main extends Component{
                     </div>    
                 </div>
 
-                <div className="row cards-margin"> 
+                <div className="row margin"> 
                     <div className="col-4">
                         <div className="card-banner  overlay-grad" style={ style }>
                             <Link to={ '/linkedlist' } >
@@ -88,7 +94,7 @@ class Main extends Component{
                     </div>    
                 </div>
 
-                <div className="row cards-margin"> 
+                <div className="row margin"> 
                     <div className="col-4">
                         <Link to={ '/searching'} >
                             <div className="card-banner  overlay-grad" style={ style }>

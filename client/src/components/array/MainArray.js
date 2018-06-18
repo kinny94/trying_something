@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class MainArray extends Component{
+
+    componentDidMount(){
+
+    }
+
     render(){
         return(
             <div className="container margin">
