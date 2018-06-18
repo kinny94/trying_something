@@ -13,7 +13,7 @@ app.get( '/users', ( req, res ) => {
 });
 
 app.get( '*', ( req, res ) => {
-	res.sendFile( path.resolve( __dirname, 'client', 'build', 'index.html' ));
+	res.red( path.resolve( __dirname, 'client', 'build', 'index.html' ));
 });
 
 // catch 404 and forward to error handler
