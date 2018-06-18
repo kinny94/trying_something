@@ -43,11 +43,11 @@
     background: #00bc8c;
     background: -webkit-gradient(linear, left top, right bottom, from(#375a7f), to(#00bc8c));
     background: linear-gradient(to bottom right, #375a7f, #00bc8c);
-    opacity: .6;
+    opacity: 0.5;
     transition: .5s;
 }
 .overlay-grad:hover:before{
-    opacity: .9;
+    opacity: 1;
 }
 
 .cards-margin{
