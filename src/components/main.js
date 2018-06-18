@@ -10,13 +10,9 @@ class Main extends Component{
             "background": "#4b8994"
         }
 
-        const bottom = {
-            "paddingTop": "30%"
-        }
-
         return(
 
-            <div className="cards-margin">
+            <div className="margin">
                 <div className="row"> 
                     <div className="col-4">
                         <Link to={ '/array' } >
