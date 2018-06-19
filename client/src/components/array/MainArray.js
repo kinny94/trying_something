@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class MainArray extends Component{
 
     componentDidMount(){
-
+        fetch( '/array' ).then(( data ) => {
+            console.log( data );
+        });
     }
 
     render(){

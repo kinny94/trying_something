@@ -3,14 +3,35 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var fs = require( 'fs' );
 
 var app = express();
+
+app.set('view engine', 'jade');
 
 app.get( '/users', ( req, res ) => {
 	res.send({
 		"name": "Arjun"
 	});
 });
+
+app.get( '/directory/:current', ( req, res ) => {
+	console.log( req.params );
+	res.send("Hello");
+})
+
+app.get( '/array', ( req, res ) => {
+	
+	console.log( "Hello ")
+	var files = [];
+	fs.readdirSync( './src/', ( err, files ) => {
+		files.forEach( file => {
+			files.push( file );
+			console.log( file );
+		});
+	});
+	res.send( files );
+})
 
 app.get( '*', ( req, res ) => {
 	res.red( path.resolve( __dirname, 'client', 'build', 'index.html' ));

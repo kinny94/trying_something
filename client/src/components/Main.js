@@ -6,8 +6,13 @@ class Main extends Component{
     state = {
         users: []
     }
+
     componentWillMount(){
-        
+        fetch( '/users' ).then(( data ) => {
+            return data.json();
+        }).then(( users ) => {
+            console.log( users );
+        });
     }
 
     render(){
