@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class MainSorting extends Component{
+class MainQueue extends Component{
     render(){
         return(
             <div className="container margin">
@@ -67,4 +67,4 @@ class MainSorting extends Component{
     }
 }
 
-export default MainSorting;
+export default MainQueue;

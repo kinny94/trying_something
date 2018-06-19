@@ -10,7 +10,7 @@ import Header from './header/header';
 import Main from './components/Main';
 import MainArray from './components/array/MainArray';
 import MainStack from './components/stack/MainStack';
-import MainQueue from './components/queue/main';
+import MainQueue from './components/queue/MainQueue';
 import MainTrees from './components/trees/MainTrees';
 import MainGraphs from './components/graph/MainGraph';
 import MainLinkedList from './components/linkedlist/MainLinkedList';
