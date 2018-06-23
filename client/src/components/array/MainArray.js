@@ -24,10 +24,29 @@ class MainArray extends Component{
             this.setState({
                 problems: allProblems
             });
-            
         });
     }
     
+    
+    renderProblems = () => {
+
+        if( this.state.problems.length > 0 ){
+            return this.state.problems.map(( problem ) => {
+                return <li key={ problem } className="list-group-item">{ problem }</li>
+            });
+        }else{
+            return(
+                <div className="center-text">
+                    <h2>Loading Problems...</h2>
+                </div>
+            )
+        }
+    }
+
+    handleClick = ( link ) => {
+
+    }
+
     render(){
         return(
             <div className="container margin">
@@ -93,8 +112,11 @@ class MainArray extends Component{
                 <div className="row margin">
                     <h3>Problems</h3>
                 </div>
+                <div><hr/></div>
                 <div className="row">
-                    
+                    <ul className="w-100 list-group">
+                        { this.renderProblems() }
+                    </ul>
                 </div>
             </div>
         )

@@ -19,12 +19,6 @@ var s3 = new AWS.S3();
 
 app.set('view engine', 'jade');
 
-app.get( '/users', ( req, res ) => {
-	res.send({
-		"name": "Arjun"
-	});
-});
-
 
 app.get( '/file/:folder/:filename', ( req, res ) => {
 	res.send({

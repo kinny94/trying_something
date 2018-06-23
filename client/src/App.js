@@ -6,6 +6,7 @@ import './App.css';
 import './style/style.css';	
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './header/header';
+import Footer from './footer/footer';
 
 import Main from './components/Main';
 import MainArray from './components/array/MainArray';
@@ -37,6 +38,7 @@ class App extends Component {
 							<Route path="/searching" exact component={ MainSearching } />
 							<Route path="/miscellaneous" exact component={ MainMiscellaneous } />
 						</div>
+						<Footer />
 					</div>
 				</BrowserRouter>
 			</div>
