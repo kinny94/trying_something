@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './header/header';
 import Footer from './footer/footer';
 
+import Problem from './components/problem/Problem'; 
 import Main from './components/Main';
 import MainArray from './components/array/MainArray';
 import MainStack from './components/stack/MainStack';
@@ -37,6 +38,7 @@ class App extends Component {
 							<Route path="/sorting" exact component={ MainSorting } />
 							<Route path="/searching" exact component={ MainSearching } />
 							<Route path="/miscellaneous" exact component={ MainMiscellaneous } />
+							<Route path="/problem/:type/:problem" exact component={ Problem } />
 						</div>
 						<Footer />
 					</div>

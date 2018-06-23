@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class MainArray extends Component{
 
@@ -32,7 +33,7 @@ class MainArray extends Component{
 
         if( this.state.problems.length > 0 ){
             return this.state.problems.map(( problem ) => {
-                return <li key={ problem } className="list-group-item">{ problem }</li>
+                return <Link to={ `/problem/array/${ problem }` } ><li key={ problem } className="list-group-item">{ problem }</li></Link>
             });
         }else{
             return(
