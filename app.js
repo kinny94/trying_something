@@ -6,12 +6,13 @@ var logger = require('morgan');
 var fs = require( 'fs' );
 const aws = require( 'aws-sdk' );
 var app = express();
+const keys = require( './config/keys' );
 
 var AWS = require('aws-sdk');
 AWS.config.update(
 	{
-		accessKeyId: "",
-		secretAccessKey: "",
+		accessKeyId: keys.accessKeyId,
+		secretAccessKey: keys.secretAccessKey,
 	}
 );
 var s3 = new AWS.S3();
