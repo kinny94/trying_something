@@ -33,7 +33,7 @@ class MainArray extends Component{
 
         if( this.state.problems.length > 0 ){
             return this.state.problems.map(( problem ) => {
-                return <Link to={ `/problem/array/${ problem }` } ><li key={ problem } className="list-group-item">{ problem }</li></Link>
+                return <Link key={ problem }  to={ `/problem/array/${ problem }` } ><li className="list-group-item">{ problem }</li></Link>
             });
         }else{
             return(

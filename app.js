@@ -21,9 +21,28 @@ app.set('view engine', 'jade');
 
 
 app.get( '/file/:folder/:filename', ( req, res ) => {
-	res.send({
-		path: req.params.folder + "/" + req.params.filename
-	})
+
+	let folderName = req.params.folder + "/";
+	let problemname = req.params.filename;
+
+	console.log( folderName );
+	console.log( problemname );
+	s3.getObject(
+		{ Bucket: "codebase1210", Key: folderName + problemname },
+		function (error, data) {
+			if (error != null) {
+				res.send({
+					msg: error
+				})
+			} else {
+				
+				res.send({
+					msg: data.Body.toString()
+				})
+				// do something with data.Body
+			}
+		}
+	);
 	
 	/*
 	s3.getObject(
