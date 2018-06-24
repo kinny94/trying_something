@@ -34,7 +34,7 @@ class App extends Component {
 							<Route path="/queue" exact  component={ MainQueue } />
 							<Route path="/linkedlist" exact component={ MainLinkedList } />
 							<Route path="/trees" exact component={ MainTrees} />
-							<Route path="/graphs" exact component={ MainGraphs } />
+							<Route path="/graph" exact component={ MainGraphs } />
 							<Route path="/sorting" exact component={ MainSorting } />
 							<Route path="/searching" exact component={ MainSearching } />
 							<Route path="/miscellaneous" exact component={ MainMiscellaneous } />

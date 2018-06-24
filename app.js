@@ -65,7 +65,9 @@ app.get( '/file/:folder/:filename', ( req, res ) => {
 	*/
 });
 
-app.get( '/array', ( req, res ) => {
+app.get( '/:type', ( req, res ) => {
+
+	let folder = req.params.type;
 
 	let files = [];
 	var params = { Bucket: "codebase1210"  };
@@ -75,7 +77,8 @@ app.get( '/array', ( req, res ) => {
 		// data.Contents is the array of objects within the bucket
 		let allContents = data.Contents;
 		for( let i=0; i<allContents.length; i++ ){
-			if( allContents[i]["Key"].toString().includes( 'array' )){
+			console.log( allContents[i]["Key"]);
+			if( allContents[i]["Key"].toString().includes( folder )){
 				let currentFile = allContents[i]["Key"].split("/");
 				if( currentFile[ currentFile.length - 1].length > 1 ){
 					files.push( currentFile[ currentFile.length - 1 ]);

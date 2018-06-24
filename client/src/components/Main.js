@@ -3,19 +3,8 @@ import { Link } from 'react-router-dom';
 
 class Main extends Component{
 
-    state = {
-        users: []
-    }
-
-    componentWillMount(){
-        fetch( '/users' ).then(( data ) => {
-            return data.json();
-        }).then(( users ) => {
-            console.log( users );
-        });
-    }
-
     render(){
+        
         const style = {
             "height": "250px", 
             "background": "#4b8994"
@@ -89,7 +78,7 @@ class Main extends Component{
 
                     <div className="col-4">
                         <div className="card-banner  overlay-grad" style={ style }>
-                            <Link to={ '/graphs' }>
+                            <Link to={ '/graph' }>
                                 <div className="card-body text-white">
                                     <h2 className="card-title">Graphs</h2>
                                     <p className="card-text">A graph is an abstract data type that is meant to implement the undirected graph and directed graph concepts from mathematics, specifically the field of graph theory.</p>

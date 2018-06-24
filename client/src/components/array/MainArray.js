@@ -10,8 +10,7 @@ class MainArray extends Component{
         }
     }
     
-    componentDidMount(){
-        
+    componentDidMount(){  
         fetch( '/array' ).then(( data ) => {
             return data.json()
         }).then(( msg ) => {
@@ -42,10 +41,6 @@ class MainArray extends Component{
                 </div>
             )
         }
-    }
-
-    handleClick = ( link ) => {
-
     }
 
     render(){

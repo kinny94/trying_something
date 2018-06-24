@@ -13,8 +13,9 @@ class Problem extends Component{
     componentWillMount(){
         let problem = this.props.location.pathname.split("/")[ this.props.location.pathname.split("/").length - 1 ];
         let s3Problem = problem.replace(/ /g, "_").toString().concat(".java");
-        
-        fetch( `/file/array/${ s3Problem }`).then(( data ) => {
+        let folderName = this.props.location.pathname.split('/')[2];
+
+        fetch( `/file/${ folderName }/${ s3Problem }`).then(( data ) => {
             return data.json();
         }).then(( msg ) => {
             this.setState({
@@ -26,8 +27,8 @@ class Problem extends Component{
         return(
             <div>
                  <Highlight language="java">
-      { this.state.code }
-    </Highlight>
+                    { this.state.code }
+                </Highlight>
             </div>
         )
     }
