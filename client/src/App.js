@@ -18,6 +18,7 @@ import MainGraphs from './components/graph/MainGraph';
 import MainLinkedList from './components/linkedlist/MainLinkedList';
 import MainSearching from './components/searching/MainSearching';
 import MainSorting from './components/sorting/MainSorting';
+import MainHashTable from './components/hashtable/MainHashTable';
 import MainMiscellaneous from './components/miscellaneous/MainMiscellaneous';
 class App extends Component {
 	
@@ -37,6 +38,7 @@ class App extends Component {
 							<Route path="/graph" exact component={ MainGraphs } />
 							<Route path="/sorting" exact component={ MainSorting } />
 							<Route path="/searching" exact component={ MainSearching } />
+							<Route path="/hashtable" exact component={ MainHashTable } />
 							<Route path="/miscellaneous" exact component={ MainMiscellaneous } />
 							<Route path="/problem/:type/:problem" exact component={ Problem } />
 						</div>

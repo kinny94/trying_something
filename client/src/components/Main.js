@@ -111,17 +111,28 @@ class Main extends Component{
                         </div>
                     </div>
 
-
                     <div className="col-4">
                         <div className="card-banner  overlay-grad" style={ style }>
-                            <Link to={ '/miscellaneous' } >
+                            <Link to={ '/hashtable' } >
                                 <div className="card-body text-white">
-                                    <h2 className="card-title">Miscellaneous</h2>
+                                    <h2 className="card-title">HashTable</h2>
                                     <p className="card-text">Contains a number of miscellaneous questions that are usually asked during an ibnterview. This link may contain quewtions qhich uses more than one data structure or some complex problems.</p>
                                 </div>
                             </Link>
                         </div>
                     </div>    
+                </div>
+                <div className="row margin"> 
+                    <div className="col-4">
+                        <div className="card-banner  overlay-grad" style={ style }>
+                            <Link to={ '/miscellaneous' } >
+                                <div className="card-body text-white">
+                                    <h2 className="card-title">Miscellaneous</h2>
+                                    <p className="card-text">A hash table (hash map) is a data structure that implements an associative array abstract data type, a structure that can map keys to values.</p>
+                                </div>
+                            </Link>
+                        </div>
+                    </div> 
                 </div>
             </div>
         )

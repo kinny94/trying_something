@@ -31,6 +31,9 @@ class Header extends Component{
                                 <Link className="nav-link" to= { '/graphs' }>Graphs</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to= { '/hashtable' }>Hashtable</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to={ '/searching' }>Searching</Link>
                             </li>
                             <li className="nav-item">
