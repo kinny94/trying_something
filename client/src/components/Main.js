@@ -28,9 +28,9 @@ class Main extends Component{
 
                     <div className="col-4">
                         <div className="card-banner  overlay-grad" style={ style }>
-                            <Link to={ '/stacks' }>
+                            <Link to={ '/stack' }>
                                 <div className="card-body text-white">
-                                    <h2 className="card-title">Stacks</h2>
+                                    <h2 className="card-title">Stack</h2>
                                     <p className="card-text">A stack is an abstract data type that serves as a collection of elements, with two principal operations:
                                         push, which adds an element to the collection, and pop, which removes the most recently added element that was not yet remove.
                                     </p>

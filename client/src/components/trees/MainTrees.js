@@ -47,7 +47,7 @@ class MainTrees extends Component{
         return(
             <div className="container margin">
                 <div className="row text-center">
-                    <h2 className="text-center">Array</h2>
+                    <h2 className="text-center">Tree</h2>
                 </div>
                 <div className="row">
                     <p className="text-left">
@@ -93,7 +93,7 @@ class MainTrees extends Component{
                                 <td>O(log(n))</td>
                                 <td>O(log(n))</td>
                             </tr>
-                            <tr className="table-active">
+                            <tr>
                                 <th scope="row">Search ( Average )</th>
                                 <td>O(log(n))</td>
                                 <td>O(log(n))</td>
@@ -113,7 +113,7 @@ class MainTrees extends Component{
                                 <td>O(log(n))</td>
                                 <td>O(log(n))</td>
                             </tr>
-                            <tr className="table-active">
+                            <tr>
                                 <th scope="row">Deletion ( Average )</th>
                                 <td>O(log(n))</td>
                                 <td>O(log(n))</td>
@@ -133,7 +133,7 @@ class MainTrees extends Component{
                                 <td>O(log(n))</td>
                                 <td>O(n)</td>
                             </tr>
-                            <tr className="table-active">
+                            <tr>
                                 <th scope="row">Search ( Worst )</th>
                                 <td>O(n)</td>
                                 <td>O(n)</td>
@@ -153,7 +153,7 @@ class MainTrees extends Component{
                                 <td>O(log(n))</td>
                                 <td>O(n)</td>
                             </tr>
-                            <tr className="table-active">
+                            <tr>
                                 <th scope="row">Deletion ( Worst )</th>
                                 <td>O(n)</td>
                                 <td>O(n)</td>

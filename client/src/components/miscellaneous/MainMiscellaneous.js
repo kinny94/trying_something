@@ -55,6 +55,15 @@ class MainMiscellaneous extends Component {
                         Hackerrank and Leetcode. 
                     </p>
                 </div>
+                <div className="row margin">
+                    <h3>Problems</h3>
+                </div>
+                <div><hr/></div>
+                <div className="row">
+                    <ul className="w-100 list-group">
+                        { this.renderProblems() }
+                    </ul>
+                </div>
             </div>
         );
     }
