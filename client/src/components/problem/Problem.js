@@ -19,16 +19,24 @@ class Problem extends Component{
             return data.json();
         }).then(( msg ) => {
             this.setState({
-                code: msg.msg
+                msg: msg.msg,
+                code: msg.code,
+                desc: msg.desc.substring(1)
             });
         })
     }
     render(){
         return(
             <div>
-                 <Highlight language="java">
-                    { this.state.code }
-                </Highlight>
+                <div className="row">
+                    <div className="col-12">
+                        <h4>{ this.state.desc }</h4>
+                    </div>
+                </div>
+               
+                    <Highlight language="java">
+                        { this.state.code }
+                    </Highlight>
             </div>
         )
     }

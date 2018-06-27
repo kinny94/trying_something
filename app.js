@@ -28,6 +28,7 @@ app.get( '/file/:folder/:filename', ( req, res ) => {
 	s3.getObject(
 		{ Bucket: "codebase1210", Key: folderName + problemname },
 		function (error, data) {
+			
 			if (error != null) {
 				res.send({
 					msg: error
@@ -36,27 +37,18 @@ app.get( '/file/:folder/:filename', ( req, res ) => {
 				
 				let msg = data.Body.toString();
 				let start = false;
-				let desc = "";
 				
-				for( let i=0; i<msg.length-1; i++ ){
-					console.log( msg[i]);
-					if( msg[i] === "/" && msg[i+1] == "*" ){
-						start = true;
-					}
+				let desc = msg.substring(
+					msg.lastIndexOf("/*") + 1, 
+					msg.lastIndexOf("*/")
+				);
 
-					if( msg[i] == "*" && msg[i+1] == "/" ){
-						start = false;
-						break; 
-					}
+				let code = msg.replace( desc, "" ).replace( "/*", "" ).replace( "*/", "" ).replace( "/", "" );
 
-					if( start ){
-						desc = desc + msg[i];
-					}
-				}
- 
 				res.send({
 					msg: data.Body.toString(),
-					desc: desc
+					desc: desc,
+					code: code
 				})
 				// do something with data.Body
 			}
