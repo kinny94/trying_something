@@ -8,6 +8,10 @@ const aws = require( 'aws-sdk' );
 var app = express();
 const keys = require( './config/keys' );
 
+require('isomorphic-fetch'); // or another library of choice.
+var Dropbox = require('dropbox').Dropbox;
+var dbx = new Dropbox({ accessToken: keys.dropboxKey });
+
 var AWS = require('aws-sdk');
 AWS.config.update(
 	{
@@ -19,6 +23,15 @@ var s3 = new AWS.S3();
 
 app.set('view engine', 'jade');
 
+app.get('/dropbox', ( req, res ) => {
+	dbx.filesListFolder({path: '/'})
+	.then(function(response) {
+		res.send( response.json() );
+	})
+	.catch(function(error) {
+		res.send(error);
+	});
+});
 
 app.get( '/file/:folder/:filename', ( req, res ) => {
 
