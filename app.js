@@ -8,10 +8,6 @@ const aws = require( 'aws-sdk' );
 var app = express();
 const keys = require( './config/keys' );
 
-require('isomorphic-fetch'); // or another library of choice.
-var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({ accessToken: keys.dropboxKey });
-
 var AWS = require('aws-sdk');
 AWS.config.update(
 	{
