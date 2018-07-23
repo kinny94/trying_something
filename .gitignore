@@ -67,3 +67,4 @@ typings/
 .serverless
 
 dev.js
+*.class
