@@ -1,8 +1,10 @@
 /*
-The selection sort algorithm sorts an array by repeatedly finding the minimum element from unsorted part and putting it in the beginning. The algorithm maintains two subarrays.
-1.) The subarray which is already sorted 
-2.) The subarray which needs to be sorted.
-In every iterations, the minimum element from the unsorted subarray is picked and moved to the sorted subarray
+    The selection sort algorithm sorts an array by repeatedly finding the minimum element from unsorted part and putting it in the beginning. The algorithm maintains two subarrays.
+    1.) The subarray which is already sorted 
+    2.) The subarray which needs to be sorted.
+    In every iterations, the minimum element from the unsorted subarray is picked and moved to the sorted subarray.
+
+    Time Complexity: O(n2) as there are two nested loops.
 */
 
 class Selection_Sort{
@@ -38,7 +40,7 @@ class Selection_Sort{
     // Driver code to test above
     public static void main(String args[])
     {
-        int arr[] = {64,25,12,22,11};
+        int arr[] = { 64, 34, 25, 12, 22, 11, 90 };
         SelectionSort( arr );
         System.out.println("Sorted array");
         printArray( arr );
