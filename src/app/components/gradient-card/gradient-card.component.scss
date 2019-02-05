@@ -1,0 +1,16 @@
+.card {
+  max-width: 450px;
+  min-width: 300px;
+  z-index: 10;
+  padding: 1.25rem;
+  opacity: 0.9;
+  background: -webkit-gradient(linear, left top, right bottom, from(#375a7f), to(#00bc8c));
+  background: linear-gradient(to bottom right, #375a7f, #00bc8c);
+  color: #fff;
+}
+
+.card:hover{
+  opacity: 1;
+  transition: all .2s ease-in-out;
+  transform: scale(1.01);
+}

@@ -8,11 +8,15 @@ import {FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import {MaterialModule} from './material.module';
 import { HeaderComponent } from './header/header.component';
+import { GradientCardComponent } from './components/gradient-card/gradient-card.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    GradientCardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +25,7 @@ import { HeaderComponent } from './header/header.component';
     MaterialModule,
     FlexLayoutModule,
     RouterModule.forRoot([
-      { path: '', component: AppComponent }
+      { path: '', component: HomeComponent }
     ])
   ],
   providers: [],
