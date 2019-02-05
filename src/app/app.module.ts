@@ -7,7 +7,7 @@ import {FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import {MaterialModule} from './material.module';
-import { HeaderComponent } from './components/header/header/header.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [

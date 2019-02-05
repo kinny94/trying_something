@@ -1,0 +1,41 @@
+<div>
+  <mat-toolbar color="primary">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <span><a routerLink="/">Codebase</a></span>
+
+    <span class="spacer"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <span class="menu" routerLink="/about-us">Array</span>
+      <span class="menu" routerLink="/prices">Stacks</span>
+      <span class="menu" routerLink="/start-page">Queue</span>
+      <span class="menu" routerLink="/offer">LinkedList</span>
+      <span class="menu" routerLink="/contact">Graphs</span>
+      <span class="menu" routerLink="/contact">Trees</span>
+    </div>
+
+  </mat-toolbar>
+  <mat-sidenav-container fxFlexFill class="example-container">
+
+    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
+      <div fxLayout="column">
+        <mat-list role="list">
+          <a routerLink="/"><mat-list-item role="listitem">Array</mat-list-item></a>
+          <a routerLink="/"><mat-list-item role="listitem">Stacks</mat-list-item></a>
+          <a routerLink="/"><mat-list-item role="listitem">Queue</mat-list-item></a>
+          <a routerLink="/"><mat-list-item role="listitem">Linkedlist</mat-list-item></a>
+          <a routerLink="/"><mat-list-item role="listitem">Graphs</mat-list-item></a>
+          <a routerLink="/"><mat-list-item role="listitem">Trees</mat-list-item></a>
+        </mat-list>
+
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
