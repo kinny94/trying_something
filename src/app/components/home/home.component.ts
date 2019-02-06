@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(private mainService: MainComponentService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('assets/text.txt', {responseType: `text`}).subscribe(data => console.log(data));
-    this.data = this.mainService.getAllTopics();
+    // this.http.get('assets/text.txt', {responseType: `text`}).subscribe(data => console.log(data));
+    this.mainService.getAllTopics().subscribe(data => console.log(data));
   }
 
 }

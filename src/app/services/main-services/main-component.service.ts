@@ -9,7 +9,6 @@ export class MainComponentService {
   constructor(private http: HttpClient) {}
 
   getAllTopics() {
-    return this.http.get('assets/problems/').subscribe(data => console.log(data));
+    return this.http.get('/api/files');
   }
-
 }
