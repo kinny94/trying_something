@@ -2,7 +2,7 @@
   "name": "codebase",
   "version": "0.0.0",
   "scripts": {
-    "dev": "ng build && nodemon server.js",
+    "dev": "ng serve && nodemon server.js",
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",

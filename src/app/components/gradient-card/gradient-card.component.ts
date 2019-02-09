@@ -7,12 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GradientCardComponent implements OnInit {
 
-  @Input() content;
-  @Input() description;
+  @Input() topic;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

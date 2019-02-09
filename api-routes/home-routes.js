@@ -15,10 +15,11 @@ router.get('/api/cards', (req, res) => {
     let data = [];
     folders.forEach(element => {
         const ds_obj = new Object();
-        ds_obj[element] = ds_description[element]; 
+        ds_obj["name"] = element;
+        ds_obj["desc"] = ds_description[element]
         data.push(ds_obj);
     });
-    res.send({data: data});
+    res.send(data);
 });
 
 module.exports = router;
