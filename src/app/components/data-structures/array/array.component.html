@@ -10,21 +10,21 @@
       of data structure is a linear array, also called one-dimensional array.
     </p>
   </div>
-  <div fxLayout="row wrap" class="array__data">
+  <div fxLayout="row wrap" class="data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="position">
+      <ng-container matColumnDef="type_avg">
         <th mat-header-cell *matHeaderCellDef> Type </th>
         <td mat-cell *matCellDef="let element"> {{element.type_avg}} </td>
       </ng-container>
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="complexity_avg">
         <th mat-header-cell *matHeaderCellDef> Complexity </th>
         <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
       </ng-container>
-      <ng-container matColumnDef="weight">
+      <ng-container matColumnDef="type_worst">
         <th mat-header-cell *matHeaderCellDef> Type </th>
         <td mat-cell *matCellDef="let element"> {{element.type_worst}} </td>
       </ng-container>
-      <ng-container matColumnDef="symbol">
+      <ng-container matColumnDef="complexity_worst">
         <th mat-header-cell *matHeaderCellDef> Complexity </th>
         <td mat-cell *matCellDef="let element"> {{element.complexity_worst}} </td>
       </ng-container>

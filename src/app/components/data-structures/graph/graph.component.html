@@ -1,3 +1,38 @@
-<p>
-  graph works!
-</p>
+<div fxLayout="row wrap">
+  <div fxLayout="row">
+    <h1>Graph</h1>
+  </div>
+  <div fxLayout="row">
+    <p>
+      A Graph is an abstract data type that is meant to implement the undirected graph and directed 
+      graph concepts from mathematics, specifically the field of graph theory.A graph data structure consists of a finite 
+      (and possibly mutable) set of vertices or nodes or points, together with a set of unordered pairs of these vertices 
+      for an undirected graph or a set of ordered pairs for a directed graph. These pairs are known as edges, arcs, or lines 
+      for an undirected graph and as arrows, directed edges, directed arcs, or directed lines for a directed graph. The 
+      vertices may be part of the graph structure, or may be external entities represented by integer indices or references.
+    </p>
+  </div>
+  <div fxLayout="row wrap" class="data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="type_avg">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_avg">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type_worst">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_worst}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_worst">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_worst}} </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

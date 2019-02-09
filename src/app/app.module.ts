@@ -30,6 +30,7 @@ import { HashTableComponent } from './components/data-structures/hash-table/hash
     QueueComponent,
     GraphComponent,
     TreeComponent,
+    
     HashTableComponent,
   ],
   imports: [

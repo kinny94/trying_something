@@ -1,3 +1,40 @@
-<p>
-  queue works!
-</p>
+<div fxLayout="row wrap">
+  <div fxLayout="row">
+    <h1>Queue</h1>
+  </div>
+  <div fxLayout="row">
+    <p>
+        A queue is a particular kind of abstract data type or collection in which the entities in the 
+        collection are kept in order and the principal (or only) operations on the collection are the
+        addition of entities to the rear terminal position, known as enqueue, and removal of entities from 
+        the front terminal position, known as dequeue. This makes the queue a First-In-First-Out (FIFO) data 
+        structure. In a FIFO data structure, the first element added to the queue will be the first one to be 
+        removed. This is equivalent to the requirement that once a new element is added, all elements that 
+        were added before have to be removed before the new element can be removed. Often a peek or front 
+        operation is also entered, returning the value of the front element without dequeuing it.
+    </p>
+  </div>
+  <div fxLayout="row wrap" class="data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="type_avg">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_avg">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type_worst">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_worst}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_worst">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_worst}} </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

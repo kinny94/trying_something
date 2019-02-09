@@ -20,7 +20,7 @@ const ELEMENT_DATA: Complexities[] = [
 export class ArrayComponent implements OnInit {
 
   _allProblems ?: Observable<Files[]>;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
   constructor(

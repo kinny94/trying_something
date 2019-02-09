@@ -1,3 +1,43 @@
-<p>
-  tree works!
-</p>
+<div fxLayout="row wrap">
+  <div fxLayout="row">
+    <h1>Tree</h1>
+  </div>
+  <div fxLayout="row">
+    <p>
+      A tree is a widely used abstract data type (ADT)—or data structure implementing this ADT—that 
+      simulates a hierarchical tree structure, with a root value and subtrees of children with a parent 
+      node, represented as a set of linked nodes. A tree data structure can be defined recursively 
+      (locally) as a collection of nodes (starting at a root node), where each node is a data structure 
+      consisting of a value, together with a list of references to nodes (the "children"), with the 
+      constraints that no reference is duplicated, and none points to the root.
+      Alternatively, a tree can be defined abstractly as a whole (globally) as an ordered tree, with a 
+      value assigned to each node. Both these perspectives are useful: while a tree can be analyzed 
+      mathematically as a whole, when actually represented as a data structure it is usually represented 
+      and worked with separately by node (rather than as a set of nodes and an adjacency list of edges 
+      between nodes, as one may represent a digraph, for instance).
+    </p>
+  </div>
+  <div fxLayout="row wrap" class="data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="type_avg">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_avg">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type_worst">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_worst}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_worst">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_worst}} </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
