@@ -9,6 +9,6 @@ export class MainComponentService {
   constructor(private http: HttpClient) {}
 
   getAllTopics() {
-    return this.http.get('/api/all-cards');
+    return this.http.get('/api/cards');
   }
 }

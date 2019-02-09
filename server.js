@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs')
 
+const homeRoutes = require('./api-routes/home-routes');
+
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -14,16 +16,10 @@ const getFilesFromFolder = (path) => {
     });
 } 
 
-const getDirectories = (path) => {
-    return fs.readdirSync(path).filter(function (file) {
-      return fs.statSync(path+'/'+file).isDirectory();
-    });
-  }
-
-app.get('/api/all-cards', (req, res) => {
+app.use(homeRoutes);
+app.get('/api/cards', (req, res) => {
     const folders = getDirectories('./src/assets/programming/');
     res.send({data: folders})
-
 })
 
 app.get('/api/files', (req, res) => {
