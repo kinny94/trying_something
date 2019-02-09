@@ -1,8 +1,10 @@
-<a>
+<a routerLink="/array">
   <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>{{ topic.name.charAt(0).toUpperCase() + topic.name.slice(1) }}</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <p>
-        {{ topic.topic }}
         {{ topic.desc }}
       </p>
     </mat-card-content>
