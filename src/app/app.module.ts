@@ -11,6 +11,12 @@ import { HeaderComponent } from './header/header.component';
 import { GradientCardComponent } from './components/gradient-card/gradient-card.component';
 import { HomeComponent } from './components/home/home.component';
 import { ArrayComponent } from './components/data-structures/array/array.component';
+import { LinkedlistComponent } from './components/data-structures//linkedlist/linkedlist.component';
+import { StackComponent } from './components/data-structures//stack/stack.component';
+import { QueueComponent } from './components/data-structures/queue/queue.component';
+import { GraphComponent } from './components/data-structures/graph/graph.component';
+import { TreeComponent } from './/components/data-structures/tree/tree.component';
+import { HashTableComponent } from './components/data-structures/hash-table/hash-table.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,12 @@ import { ArrayComponent } from './components/data-structures/array/array.compone
     GradientCardComponent,
     HomeComponent,
     ArrayComponent,
+    LinkedlistComponent,
+    StackComponent,
+    QueueComponent,
+    GraphComponent,
+    TreeComponent,
+    HashTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +41,12 @@ import { ArrayComponent } from './components/data-structures/array/array.compone
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'array', component: ArrayComponent },
+      { path: 'linkedlist', component: LinkedlistComponent },
+      { path: 'stack', component: StackComponent },
+      { path: 'queue', component: QueueComponent },
+      { path: 'graphs', component: GraphComponent },
+      { path: 'trees', component: TreeComponent },
+      { path: 'hash-table', component: HashTableComponent },
     ])
   ],
   providers: [],
