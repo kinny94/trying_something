@@ -22,8 +22,8 @@ app.get('/api/cards', (req, res) => {
     res.send({data: folders})
 })
 
-app.get('/api/files', (req, res) => {
-    const files = getFilesFromFolder('./src/assets/programming/array/')
+app.get('/api/:topic', (req, res) => {
+    const files = getFilesFromFolder(`./src/assets/programming/${req.params.topic}/`)
     res.send({ data: files});
 });
 

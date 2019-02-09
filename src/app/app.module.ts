@@ -18,7 +18,7 @@ import { ArrayComponent } from './components/data-structures/array/array.compone
     HeaderComponent,
     GradientCardComponent,
     HomeComponent,
-    ArrayComponent
+    ArrayComponent,
   ],
   imports: [
     BrowserModule,
