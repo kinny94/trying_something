@@ -1,0 +1,41 @@
+<div fxLayout="row wrap">
+  <div fxLayout="row">
+    <h1>Sorting</h1>
+  </div>
+  <div fxLayout="row">
+    <p>
+        A sorting algorithm is an algorithm that puts elements of a list in a certain order. The most 
+        frequently used orders are numerical order and lexicographical order. Efficient sorting is important
+        for optimizing the efficiency of other algorithms (such as search and merge algorithms) which 
+        require input data to be in sorted lists. Sorting is also often useful for canonicalizing data and 
+        for producing human-readable output. More formally, the output of any sorting algorithm must satisfy 
+        two conditions:<br/>
+        <strong>*</strong> The output is in nondecreasing order (each element is no smaller than the previous element 
+          according to the desired total order).<br/>
+        <strong>*</strong> The output is a permutation (a reordering, yet retaining all of the original elements) of the input.
+    </p>
+  </div>
+  <div fxLayout="row wrap" class="data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="type_avg">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_avg">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type_worst">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_worst}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_worst">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_worst}} </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

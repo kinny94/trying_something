@@ -1,0 +1,37 @@
+<div fxLayout="row wrap">
+  <div fxLayout="row">
+    <h1>Searching</h1>
+  </div>
+  <div fxLayout="row">
+    <p>
+      A search algorithm is any algorithm which solves the search problem, namely, to retrieve information 
+      stored within some data structure, or calculated in the search space of a problem domain. Examples of
+      such structures include but are not limited to a linked list, an array data structure, or a search 
+      tree. The appropriate search algorithm often depends on the data structure being searched, and may
+      also include prior knowledge about the data.
+    </p>
+  </div>
+  <div fxLayout="row wrap" class="data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="type_avg">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_avg">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type_worst">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_worst}} </td>
+      </ng-container>
+      <ng-container matColumnDef="complexity_worst">
+        <th mat-header-cell *matHeaderCellDef> Complexity </th>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_worst}} </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

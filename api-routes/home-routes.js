@@ -11,7 +11,7 @@ const getDirectories = (path) => {
 }   
 
 router.get('/api/cards', (req, res) => {
-    const folders = getDirectories('./src/assets/programming/').concat(getDirectories("./src/assets/algorithms"));
+    const folders = getDirectories('./src/assets/programming/');
     let data = [];
     folders.forEach(element => {
         const ds_obj = new Object();

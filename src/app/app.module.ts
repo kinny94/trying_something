@@ -17,6 +17,8 @@ import { QueueComponent } from './components/data-structures/queue/queue.compone
 import { GraphComponent } from './components/data-structures/graph/graph.component';
 import { TreeComponent } from './/components/data-structures/tree/tree.component';
 import { HashTableComponent } from './components/data-structures/hash-table/hash-table.component';
+import { SearchingComponent } from './components/algorithms/searching/searching.component';
+import { SortingComponent } from './components/algorithms/sorting/sorting.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +32,9 @@ import { HashTableComponent } from './components/data-structures/hash-table/hash
     QueueComponent,
     GraphComponent,
     TreeComponent,
-    
     HashTableComponent,
+    SearchingComponent,
+    SortingComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,8 @@ import { HashTableComponent } from './components/data-structures/hash-table/hash
       { path: 'graphs', component: GraphComponent },
       { path: 'trees', component: TreeComponent },
       { path: 'hash-table', component: HashTableComponent },
+      { path: 'searching', component: SearchingComponent },
+      { path: 'sorting', component: SortingComponent }
     ])
   ],
   providers: [],
