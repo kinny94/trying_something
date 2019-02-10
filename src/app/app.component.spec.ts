@@ -1,12 +1,65 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { ArrayComponent } from './components/data-structures/array/array.component';
+import { StackComponent } from './components/data-structures/stack/stack.component';
+import { QueueComponent } from './components/data-structures/queue/queue.component';
+import { GraphComponent } from './components/data-structures/graph/graph.component';
+import { LinkedlistComponent } from './components/data-structures/linkedlist/linkedlist.component';
+import { TreeComponent } from './components/data-structures/tree/tree.component';
+import { HashTableComponent } from './components/data-structures/hash-table/hash-table.component';
+import { SearchingComponent } from './components/algorithms/searching/searching.component';
+import { SortingComponent } from './components/algorithms/sorting/sorting.component';
+import { MaterialModule } from './material.module';
+import { RouterModule, Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { GradientCardComponent } from './components/gradient-card/gradient-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HomeComponent } from './components/home/home.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatTableModule } from '@angular/material';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        HeaderComponent,
+        ArrayComponent,
+        StackComponent,
+        QueueComponent,
+        GraphComponent,
+        LinkedlistComponent,
+        TreeComponent,
+        HashTableComponent,
+        SearchingComponent,
+        SortingComponent,
+        GradientCardComponent,
+        HomeComponent,
       ],
+      imports: [
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatTableModule,
+        FlexLayoutModule,
+        RouterModule.forRoot([
+          { path: '', component: HomeComponent },
+          { path: 'array', component: ArrayComponent },
+          { path: 'linkedlist', component: LinkedlistComponent },
+          { path: 'stack', component: StackComponent },
+          { path: 'queue', component: QueueComponent },
+          { path: 'graphs', component: GraphComponent },
+          { path: 'trees', component: TreeComponent },
+          { path: 'hash-table', component: HashTableComponent },
+          { path: 'searching', component: SearchingComponent },
+          { path: 'sorting', component: SortingComponent }
+        ])
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
   }));
 
@@ -20,12 +73,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('codebase');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to codebase!');
   });
 });

@@ -10,6 +10,18 @@ const getDirectories = (path) => {
     });
 }   
 
+const getFilesFromFolder = (path) => {
+    return fs.readdirSync(path, (err, files) => {
+        return files;
+    });
+} 
+
+const getFleContent = (path) => {
+    return fs.readFileSync(path, 'utf8', (err, content) => {
+        return content;
+    });
+}
+
 router.get('/api/cards', (req, res) => {
     const folders = getDirectories('./src/assets/programming/');
     let data = [];
@@ -21,5 +33,18 @@ router.get('/api/cards', (req, res) => {
     });
     res.send(data);
 });
+
+
+router.get('/api/:topic', (req, res) => {
+    const files = getFilesFromFolder(`./problems/${req.params.topic}/`)
+    res.send({ data: files});
+});
+
+router.get('/api/:topic/:problem', (req, res) => {
+    const path = `./problems/${req.params.topic}/${req.params.problem}.java`;
+    const content = getFleContent(path);
+    res.send(content);
+}); 
+
 
 module.exports = router;
