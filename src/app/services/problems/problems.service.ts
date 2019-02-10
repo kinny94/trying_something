@@ -12,4 +12,8 @@ export class ProblemsService {
   getAllProblems(topic: string) {
     return this.http.get<Files[]>(`/api/${topic}`);
   }
+
+  getProblemString(topic: string, problem: string) {
+    return this.http.get<string>(`/api/${topic}/${problem}`);
+  }
 }

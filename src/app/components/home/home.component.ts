@@ -3,6 +3,7 @@ import { MainComponentService } from './../../services/main-services/main-compon
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DsDesctiption } from './../../../models/model';
+import { ProblemsService } from 'src/app/services/problems/problems.service';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,14 @@ export class HomeComponent implements OnInit {
 
   _topics?: Observable<DsDesctiption[]>;
 
-  constructor(private mainService: MainComponentService, private http: HttpClient) { }
+  constructor(
+    private mainService: MainComponentService,
+    private http: HttpClient,
+    private problem: ProblemsService,
+  ) { }
 
   ngOnInit() {
     this._topics = this.mainService.getAllTopics();
+    this.problem.getProblemString('array', 'Hello');
   }
 }

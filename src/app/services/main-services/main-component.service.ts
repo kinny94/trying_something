@@ -11,6 +11,6 @@ export class MainComponentService {
   constructor(private http: HttpClient) {}
 
   getAllTopics(): Observable<DsDesctiption[]> {
-    return this.http.get<DsDesctiption[]>('/api/cards');
+    return this.http.get<DsDesctiption[]>('/api');
   }
 }

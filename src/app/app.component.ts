@@ -14,6 +14,5 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('assets/text.txt', {responseType: `text`}).subscribe(data => this.data = data);
   }
 }

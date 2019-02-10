@@ -4,17 +4,17 @@ const ds_description = require('./ds-description');
 
 const router = express.Router();
 
-const getDirectories = (path) => {
-    return fs.readdirSync(path).filter(function (file) {
-        return fs.statSync(path+'/'+file).isDirectory();
-    });
-}   
-
 const getFilesFromFolder = (path) => {
     return fs.readdirSync(path, (err, files) => {
         return files;
     });
 } 
+
+const getDirectories = (path) => {
+    return fs.readdirSync(path).filter(function (file) {
+        return fs.statSync(path+'/'+file).isDirectory();
+    });
+}   
 
 const getFleContent = (path) => {
     return fs.readFileSync(path, 'utf8', (err, content) => {
@@ -22,8 +22,19 @@ const getFleContent = (path) => {
     });
 }
 
-router.get('/api/cards', (req, res) => {
-    const folders = getDirectories('./src/assets/programming/');
+router.get('/api/:topic', (req, res) => {
+    const files = getFilesFromFolder(`./problems/${req.params.topic}/`)
+    res.send({ data: files});
+});
+
+router.get('/api/:topic/:problem', (req, res) => {
+    const path = `./problems/${req.params.topic}/${req.params.problem}.java`;
+    const content = getFleContent(path);
+    res.send({data: content});
+}); 
+
+router.get('/api', (req, res) => {
+    const folders = getDirectories('./problems/');
     let data = [];
     folders.forEach(element => {
         const ds_obj = new Object();
@@ -34,17 +45,6 @@ router.get('/api/cards', (req, res) => {
     res.send(data);
 });
 
-
-router.get('/api/:topic', (req, res) => {
-    const files = getFilesFromFolder(`./problems/${req.params.topic}/`)
-    res.send({ data: files});
-});
-
-router.get('/api/:topic/:problem', (req, res) => {
-    const path = `./problems/${req.params.topic}/${req.params.problem}.java`;
-    const content = getFleContent(path);
-    res.send(content);
-}); 
 
 
 module.exports = router;
