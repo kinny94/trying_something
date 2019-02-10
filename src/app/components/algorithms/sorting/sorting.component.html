@@ -4,15 +4,15 @@
   </div>
   <div fxLayout="row">
     <p>
-        A sorting algorithm is an algorithm that puts elements of a list in a certain order. The most 
-        frequently used orders are numerical order and lexicographical order. Efficient sorting is important
-        for optimizing the efficiency of other algorithms (such as search and merge algorithms) which 
-        require input data to be in sorted lists. Sorting is also often useful for canonicalizing data and 
-        for producing human-readable output. More formally, the output of any sorting algorithm must satisfy 
-        two conditions:<br/>
-        <strong>*</strong> The output is in nondecreasing order (each element is no smaller than the previous element 
-          according to the desired total order).<br/>
-        <strong>*</strong> The output is a permutation (a reordering, yet retaining all of the original elements) of the input.
+      A sorting algorithm is an algorithm that puts elements of a list in a certain order. The most 
+      frequently used orders are numerical order and lexicographical order. Efficient sorting is important
+      for optimizing the efficiency of other algorithms (such as search and merge algorithms) which 
+      require input data to be in sorted lists. Sorting is also often useful for canonicalizing data and 
+      for producing human-readable output. More formally, the output of any sorting algorithm must satisfy 
+      two conditions:<br/>
+      <strong>*</strong> The output is in nondecreasing order (each element is no smaller than the previous element 
+      according to the desired total order).<br/>
+      <strong>*</strong> The output is a permutation (a reordering, yet retaining all of the original elements) of the input.
     </p>
   </div>
   <div fxLayout="row wrap" class="data">
@@ -37,5 +37,16 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  </div>
+  <div fxLayout="row" class="full__width">
+    <h4>Problems: </h4>
+  </div><br/>
+  <div fxLayout="row">
+    <mat-list>
+      <mat-list-item *ngFor="let problem of _allProblems | async">
+        {{ problem }}
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>

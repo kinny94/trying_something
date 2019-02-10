@@ -24,7 +24,8 @@ const getFleContent = (path) => {
 
 router.get('/api/:topic', (req, res) => {
     const files = getFilesFromFolder(`./problems/${req.params.topic}/`)
-    res.send({ data: files});
+    const problems = files.map(element => element.replace('.java', ''));
+    res.send(problems);
 });
 
 router.get('/api/:topic/:problem', (req, res) => {

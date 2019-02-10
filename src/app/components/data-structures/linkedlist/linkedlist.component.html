@@ -35,4 +35,15 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
+  <div fxLayout="row">
+    <h4>Problems: </h4>
+  </div><br/>
+  <div fxLayout="row">
+    <mat-list>
+      <mat-list-item *ngFor="let problem of _allProblems | async">
+        {{ problem }}
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </div>
 </div>

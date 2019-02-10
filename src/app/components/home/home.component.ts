@@ -22,6 +22,5 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._topics = this.mainService.getAllTopics();
-    this.problem.getProblemString('array', 'Hello');
   }
 }
