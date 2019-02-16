@@ -19,6 +19,7 @@ import { TreeComponent } from './/components/data-structures/tree/tree.component
 import { HashTableComponent } from './components/data-structures/hash-table/hash-table.component';
 import { SearchingComponent } from './components/algorithms/searching/searching.component';
 import { SortingComponent } from './components/algorithms/sorting/sorting.component';
+import { ProblemComponent } from './components/problem/problem.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SortingComponent } from './components/algorithms/sorting/sorting.compon
     HashTableComponent,
     SearchingComponent,
     SortingComponent,
+    ProblemComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,16 +45,17 @@ import { SortingComponent } from './components/algorithms/sorting/sorting.compon
     MaterialModule,
     FlexLayoutModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'array', component: ArrayComponent },
-      { path: 'linkedlist', component: LinkedlistComponent },
-      { path: 'stack', component: StackComponent },
-      { path: 'queue', component: QueueComponent },
-      { path: 'graphs', component: GraphComponent },
-      { path: 'trees', component: TreeComponent },
-      { path: 'hash-table', component: HashTableComponent },
-      { path: 'searching', component: SearchingComponent },
-      { path: 'sorting', component: SortingComponent }
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'array', component: ArrayComponent, pathMatch: 'full' },
+      { path: 'linkedlist', component: LinkedlistComponent, pathMatch: 'full' },
+      { path: 'stack', component: StackComponent, pathMatch: 'full' },
+      { path: 'queue', component: QueueComponent, pathMatch: 'full' },
+      { path: 'graphs', component: GraphComponent, pathMatch: 'full' },
+      { path: 'trees', component: TreeComponent, pathMatch: 'full' },
+      { path: 'hash-table', component: HashTableComponent, pathMatch: 'full' },
+      { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
+      { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
+      { path: ':type/:problem', component: ProblemComponent, pathMatch: 'full' }
     ])
   ],
   providers: [],

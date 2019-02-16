@@ -38,11 +38,13 @@
     <h4>Problems: </h4>
   </div><br/>
   <div fxLayout="row">
-    <mat-list>
-      <mat-list-item *ngFor="let problem of _allProblems | async">
-        {{ problem }}
-        <mat-divider></mat-divider>
-      </mat-list-item>
-    </mat-list>
+    <ng-container *ngFor="let problem of _allProblems | async">
+      <a routerLink="/searching/{{ problem }}">
+        <mat-list-item>
+          {{ problem }}
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </a>
+    </ng-container>
   </div>
 </div>
