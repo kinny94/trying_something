@@ -44,7 +44,7 @@
   <div fxLayout="row" class="list_width">
     <mat-list class="list_width">
       <ng-container *ngFor="let problem of _allProblems | async">
-        <a routerLink="/searching/{{ problem }}">
+        <a routerLink="/sorting/{{ problem }}">
           <mat-list-item class="list_width">
             {{ problem }}
             <mat-divider></mat-divider>
