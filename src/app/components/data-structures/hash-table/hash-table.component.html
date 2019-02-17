@@ -41,13 +41,16 @@
     <div fxLayout="row" class="full__width">
       <h4>Problems: </h4>
     </div><br/>
-    <div fxLayout="row">
-      <mat-list>
-        <mat-list-item *ngFor="let problem of _allProblems | async">
-          {{ problem }}
-          <mat-divider></mat-divider>
-        </mat-list-item>
+    <div fxLayout="row" class="list_width">
+      <mat-list class="list_width">
+        <ng-container *ngFor="let problem of _allProblems | async">
+          <a routerLink="/searching/{{ problem }}">
+            <mat-list-item class="list_width">
+              {{ problem }}
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </a>
+        </ng-container>
       </mat-list>
     </div>
   </div>
-</div>
