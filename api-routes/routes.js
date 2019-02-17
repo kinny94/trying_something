@@ -31,7 +31,6 @@ router.get('/api/:topic', (req, res) => {
 router.get('/api/:topic/:problem', (req, res) => {
     const path = `./problems/${req.params.topic}/${req.params.problem}.java`;
     const content = getFleContent(path);
-    console.log(content);
     res.send({content});
 }); 
 

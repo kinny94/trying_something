@@ -20,6 +20,7 @@ import { HashTableComponent } from './components/data-structures/hash-table/hash
 import { SearchingComponent } from './components/algorithms/searching/searching.component';
 import { SortingComponent } from './components/algorithms/sorting/sorting.component';
 import { ProblemComponent } from './components/problem/problem.component';
+import { HighlightCodeDirective } from './directives/highlight';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ProblemComponent } from './components/problem/problem.component';
     SearchingComponent,
     SortingComponent,
     ProblemComponent,
+    HighlightCodeDirective,
   ],
   imports: [
     BrowserModule,
