@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 
+export interface Content{
+  code: string,
+  title: string,
+}
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
@@ -12,7 +16,7 @@ import { ProblemsService } from 'src/app/services/problems/problems.service';
 export class ProblemComponent implements OnInit {
 
   problem ?: Observable<string>;
-  content ?: Observable<{}>;
+  content ?: Observable<Content>;
 
   constructor(
     private problemService: ProblemsService,
@@ -23,17 +27,17 @@ export class ProblemComponent implements OnInit {
     const topic = this.route.snapshot.url[0].path;
     const problem = this.route.snapshot.url[1].path;
     this.problem = this.problemService.getProblemString(topic, problem);
-    this.problem.subscribe(data => {
-        console.log(this.parseContent(data['content'])
-      )
-    });
+    this.content = this.problem.pipe(
+      map(data => this.parseContent(data['content']))
+    );
   }
 
   parseContent(data: string) {
-    console.log(data);
     let readingTitle = false;
-    let code = '';
-    let title = '';
+    let content:Content = {
+      code: '',
+      title: '',
+    }
 
     for (let i = 0; i < data.length; i++) {
       if (data[i] === '/' && data[i + 1] === '*') {
@@ -47,12 +51,12 @@ export class ProblemComponent implements OnInit {
       }
 
       if (readingTitle) {
-        title = title + data[i];
+        content.title = content.title + data[i];
       } else {
-        code = code + data[i];
+        content.code = content.code + data[i];
       }
     }
-    return {code, title};
+    return content;
   }
 
 }
