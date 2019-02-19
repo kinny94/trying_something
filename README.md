@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/kinny94/codebase.svg?style=svg)](https://circleci.com/gh/kinny94/codebase) [![npm version](https://badge.fury.io/js/%40angular%2Fcore.svg)](https://www.npmjs.com/@angular/core) 
+[![CircleCI](https://circleci.com/gh/kinny94/codebase.svg?style=svg)](https://circleci.com/gh/kinny94/codebase) [![npm version](https://badge.fury.io/js/%40angular%2Fcore.svg)](https://www.npmjs.com/@angular/core) [![codecov.io](https://codecov.io/github/boennemann/badges/coverage.svg?branch=master)](https://codecov.io/github/boennemann/badges?branch=angular-branch)
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
