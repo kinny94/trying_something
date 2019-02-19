@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/kinny94/codebase.svg?style=svg)](https://circleci.com/gh/kinny94/codebase)
+
 # Introduction to Algorithms
 
 **Algorithms** :-  An Algorithms is any well-defined computational procedure that takes some value, or set of values, as input and produces some value, or set of values, as output.
