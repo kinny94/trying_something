@@ -1,17 +1,17 @@
-import { Directive, ElementRef } from "@angular/core";
+import { Directive, ElementRef, AfterViewInit } from '@angular/core';
 
-import hljs from 'highlight.js/lib/highlight';
+import hljs from 'highlight.js';
 import java from 'highlight.js/lib/languages/java';
-import 'highlight.js/styles/github.css';
-hljs.registerLanguage('java', java);
 
 @Directive({
-    selector: 'code[highlight]'
+  selector: 'code[highlight]',
 })
-export class HighlightCodeDirective {
-    constructor(private eltRef: ElementRef) {}
+export class HighlightCodeDirective implements AfterViewInit {
 
-    ngAfterViewInit() {
-        hljs.highlightBlock(this.eltRef.nativeElement);
-    }
+  constructor(private elRef: ElementRef) { }
+
+  ngAfterViewInit() {
+    hljs.highlightBlock(this.elRef.nativeElement);
+    hljs.registerLanguage('java', java);
+  }
 }

@@ -1,13 +1,13 @@
 <div fxLayout="row">
   <div class="full__width">
-    <h2>{{ (content | async)?.title }}</h2>
+    <h3>{{ content?.title }}</h3>
   </div>
 </div>
 <div fxLayout="row" class="full__width">
   <div class="full__width">
     <pre>
       <code highlight class="java">
-        {{ (content | async)?.code }}
+        {{ content.code }}
       </code>
     </pre>
   </div>

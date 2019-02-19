@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 
 export interface Content{
-  code: string,
-  title: string,
+  code: string;
+  title: string;
 }
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss']
 })
-export class ProblemComponent implements OnInit {
+export class ProblemComponent implements OnInit, OnDestroy {
 
   problem ?: Observable<string>;
-  content ?: Observable<Content>;
+  content: Content;
+  subscription: Subscription;
 
   constructor(
     private problemService: ProblemsService,
@@ -27,16 +28,20 @@ export class ProblemComponent implements OnInit {
     const topic = this.route.snapshot.url[0].path;
     const problem = this.route.snapshot.url[1].path;
     this.problem = this.problemService.getProblemString(topic, problem);
-    this.content = this.problem.pipe(
+    this.subscription = this.problem.pipe(
       map(data => this.parseContent(data['content']))
-    );
+    ).subscribe((data: Content) => this.content = data);
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
   parseContent(data: string) {
     let readingTitle = false;
-    let content:Content = {
+    let content: Content = {
       code: '',
-      title: '',
+      title: ''
     }
 
     for (let i = 0; i < data.length; i++) {
