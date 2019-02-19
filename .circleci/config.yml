@@ -10,7 +10,6 @@ jobs:
       - image: circleci/node:8.9.4-browsers
         environment:
                   CHROME_BIN: "/usr/bin/google-chrome"
-                  CODECOV_TOKEN="7e940868-8a5f-49ff-a944-45934ef15449"
 
 
       # Specify service dependencies here if necessary
