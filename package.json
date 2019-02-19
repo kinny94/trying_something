@@ -7,7 +7,7 @@
     "start": "concurrently --kill-others \"npm run server\" \"npm run serve\"",
     "serve": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
