@@ -37,7 +37,7 @@ Angular pipers lets you declare display-value transformation in your template HT
 #### Directives
 Angular tempaltes are dynamic. When angular renders them, it transforms the DOM according to the instructions given by directives. A directive is a class with a ```@Directive()``` decorator.
 
-A component is technically a directive. However, componetnts arte so distinctive and central to angular applciations taht Angular defines the ```@Component``` decorator, which extends the @Directive() decorator with template-oriented features. In addition to components there are two other directives: *structural* and 
+A component is technically a directive. However, componetnts are so distinctive and central to angular applciations taht Angular defines the ```@Component``` decorator, which extends the @Directive() decorator with template-oriented features. In addition to components there are two other directives: *structural* and 
 *attribute*.
 
 ##### Structural Directives
@@ -93,3 +93,178 @@ Component()` metadata.
   providers:  [ HeroService ]
 })
 ```
+
+### Template Syntax
+
+#### Template Statements
+A template statement responds to an event raised by a binding target suchb as an element, component, or directive. A template statement has a side effect. Responding to events is the other side of Angular's unidirectional data flow. You're free to change anything, anywhere, during this turn of the event loop.
+
+#### Statement Context
+As with expressions, statement can refer only to what's in the statement context such as an event handling method of the component instance. The statement context is typically the component instance. The statement context may also refer to properties of the template's own context.
+
+```
+<button (click)="onSave($event)">Save</button>
+<button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{hero.name}}</button>
+<form #heroForm (ngSubmit)="onSubmit(heroForm)"> ... </form>
+```
+
+Tempalte context names take precedence over component context names. Template statements cannot refer to anything in the global namespace.
+
+#### A new Mental model
+With all the power of data binding and the ability to extend HTML vocabulary with custom markup, it is tempting to think of template HTML as HTML plus. Once you start data binding, you're no longer working with HTML attributes. You are not setting attributes, you are setting properties of DOM elements.
+
+#### HTML attribute VS DOM Property
+
+Attributes are defined by HTML. Properties are defined by the DOM.
+* A few HTML attributes have 1:1 mapping to properties. id one example.
+* Some HTML attributes don't have corresponding properties. colspan is an example.
+* Some DOM properties don't have corresponding attributes. textContent is one example.
+* Many HTML attributes appear to map to properties.
+
+*Attribute initialize DOM properties and then they are done. Property values can change; attribute values can't. Tempalte binding works with properties and events, not attributes.*
+
+### User input
+
+#### Get user input from the $event object
+DOM events carry a payload of information that may be useful to the component. When a user presses and releases a key, the keyup event occurs, and Angular provides a corresponding DOM event object in the `$event` variable. The properties of an $event object vary depending on the type of DOM event. All standard DOM event objects have a target property, areference to the element that raised the event.
+
+**Passing $event is a dubious practice**
+Typing the event object reveals a significant objection to passing the entire DOM event into the method: the component has too much awareness of the template details. It can't extract information without knowing more than it should about the HTML implementation. This breaks the separation of concerns between the template and the component.
+
+**Get user input from a template reference varaiable**
+A template reference variable provide direct access to an element from within the template. The template reference variable decalred, refers to the element itself. The code uses the box variable to get the input element's value and display it with interpolation tags. *This won't work until you bind to the event.*
+
+```
+<input #box (keyup)="0">
+```
+
+### Lifecycle hooks
+A component has a lifecyclew managed by angular. Angular creates it, renders it, cerates and renders its children, checks it when its data-bound properties change, and destroy it before removing from the DOM. Angular offers lifecycle hooks that provide visibility into these key life moments and the ability to act when they occur.
+
+Lifecycle hooks.
+
+| Lifecycle               | Description                                                                           |
+| ----------------------- |:-------------------------------------------------------------------------------------:|
+| ngOnChanges()           | Respond when angular (re)sets data-bound input properties.                            |
+| ngOnInit()              | Initilaize the component after Angular first displays the data-bound properties.      |
+| ngDoCheck()             | Detect and act upon changes that Angular can't or won't detect on its own.            |
+| ngAfterContentInit()    | Respond after Angular projects extenal content into component's view.                 |
+| ngAfterContentChecked() | Respond after Angular checks the external content into the component's view.          |
+| ngAfterViewInit()       | Respond after Angular initializes the component's views and child views.              |
+| ngAfterViewChecked()    | Respond after Angular checks the component's views and the child views.               |
+| ngOnDestroy()           | Cleanupust before Angular destroys the directive/component.                           |
+  
+### Component Interaction
+
+#### Pass data from parent to child with input binding
+
+```
+export class HeroChildComponent {
+  @Input() hero: Hero;
+  @Input('master') masterName: string;
+}
+```
+
+#### Intercept input property changes with a setter.
+Use an input property setter to intercept and act upon a value from the parent. The setter of the `name` property in the child trims the whitespace from a name and replaces an empty value with default text.
+
+```
+private _name = '';
+
+@Input()
+set name(name: string) {
+ this._name = (name && name.trim()) || '<no name set>';
+}
+ ```
+
+ #### Intercept input property changes with ngOnChanges()
+ Detect and act upon changes to input rt values with the `ngOnChanges` method. you may prefer this approach to the property setter when watching multiple, interacting input properties. 
+
+```
+@Input() major: number;
+@Input() minor: number;
+changeLog: string[] = [];
+
+ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+  let log: string[] = [];
+  for (let propName in changes) {
+    let changedProp = changes[propName];
+    let to = JSON.stringify(changedProp.currentValue);
+    if (changedProp.isFirstChange()) {
+      log.push(`Initial value of ${propName} set to ${to}`);
+    } else {
+      let from = JSON.stringify(changedProp.previousValue);
+      log.push(`${propName} changed from ${from} to ${to}`);
+    }
+  }
+  this.changeLog.push(log.join(', '));
+  }
+```
+
+#### Parent listens to the child
+The child component exposes an EventEmitter poperty with which it emits events when something happends. The parent binds to that event property and react to those events. The child EventEmitter property is an *Output* property.
+
+```
+@Input()  name: string;
+@Output() voted = new EventEmitter<boolean>();
+didVote = false;
+ 
+vote(agreed: boolean) {
+  this.voted.emit(agreed);
+  this.didVote = true;
+}
+```
+
+#### Parent interactive with local variable
+A Parent component cannot use data binding to read child properties or to invoke child methods. You can do this by creating a template reference variable for that child and then reference that varaible within the parent tempalte.
+
+```
+@Component({
+  selector: 'app-countdown-parent-lv',
+  template: `
+  <h3>Countdown to Liftoff (via local variable)</h3>
+  <button (click)="timer.start()">Start</button>
+  <button (click)="timer.stop()">Stop</button>
+  <div class="seconds">{{timer.seconds}}</div>
+  <app-countdown-timer #timer></app-countdown-timer>
+  `,
+  styleUrls: ['../assets/demo.css']
+})
+export class CountdownLocalVarParentComponent { }
+```
+The parent component cannot data bind to the child's start and stop methods nor to its seconds property. You can place a local variable, `#timer`, on the child componhent tag and that gives you a reference to the child component and the ability to access any of its properties or methods.
+
+#### Parent calls an `@ViewChild()`
+The local variable approach is simple and easy, but its limited because the parent and child wiring must be done within the parent tempalte. The parent component itself has no access to the child. *You can't use the local variable technique if an instance of the parent component class must read or write child component values or must call child component methods*.
+When the parent component class required that kind of access, inject the child component into the parent as a `ViewChild`.
+
+```
+@Component({
+  selector: 'app-countdown-parent-vc',
+  template: `
+  <h3>Countdown to Liftoff (via ViewChild)</h3>
+  <button (click)="start()">Start</button>
+  <button (click)="stop()">Stop</button>
+  <div class="seconds">{{ seconds() }}</div>
+  <app-countdown-timer></app-countdown-timer>
+  `,
+  styleUrls: ['../assets/demo.css']
+})
+```
+
+```
+@ViewChild(CountdownTimerComponent)
+  private timerComponent: CountdownTimerComponent;
+ 
+  seconds() { return 0; }
+ 
+  ngAfterViewInit() {
+    // Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...
+    // but wait a tick first to avoid one-time devMode
+    // unidirectional-data-flow-violation error
+    setTimeout(() => this.seconds = () => this.timerComponent.seconds, 0);
+  }
+ 
+  start() { this.timerComponent.start(); }
+  stop() { this.timerComponent.stop(); }
+  ```
