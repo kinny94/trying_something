@@ -1,8 +1,19 @@
 const express = require('express');
 const fs = require('fs');
 const ds_description = require('./ds-description');
+const firebase = require("firebase");
+const ENV = require('./env.variables');
 
 const router = express.Router();
+const config = {
+    apiKey: ENV.firebase.apiKey,
+    authDomain: ENV.firebase.authDomain,
+    databaseURL: ENV.firebase.databaseURL,
+    storageBucket: ENV.firebase.storageBucket,
+    projectId: ENV.firebase.projectId,
+    messagingSenderId: ENV.firebase.messagingSenderId
+  };
+  firebase.initializeApp(config);
 
 const getFilesFromFolder = (path) => {
     return fs.readdirSync(path, (err, files) => {
@@ -45,7 +56,5 @@ router.get('/api', (req, res) => {
     });
     res.send(data);
 });
-
-
 
 module.exports = router;
