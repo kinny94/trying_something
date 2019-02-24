@@ -11,6 +11,16 @@
   background-color: #375a7f;
 }
 
+
+::ng-deep .mat-menu-panel {
+  background: #375a7f !important;
+  text-color: #fff;
+}
+
+::ng-deep .mat-menu-item {
+  color: white;  
+}
+
 .mat-sidenav-container{
   min-height: 93vh !important;
 }

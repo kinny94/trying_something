@@ -10,12 +10,17 @@
 
     <span class="spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
-      <span class="menu" routerLink="/about-us">Array</span>
-      <span class="menu" routerLink="/prices">Stacks</span>
-      <span class="menu" routerLink="/start-page">Queue</span>
-      <span class="menu" routerLink="/offer">LinkedList</span>
-      <span class="menu" routerLink="/contact">Graphs</span>
-      <span class="menu" routerLink="/contact">Trees</span>
+      <button mat-button routerLink="/array">Array</button>
+      <button mat-button routerLink="/stack">Stack</button>
+      <button mat-button routerLink="/queue">Queue</button>
+      <button mat-button routerLink="/linkedlist">Linkedlist</button>
+      <button mat-button routerLink="/graph">Graph</button>
+      <button mat-button routerLink="/trees">Trees</button>
+      <button mat-button [matMenuTriggerFor]="menu">Algorithms</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/searching">Searching</button>
+        <button mat-menu-item routerLink="/sorting">Sorting</button>
+      </mat-menu>
     </div>
 
   </mat-toolbar>
@@ -24,12 +29,14 @@
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
       <div fxLayout="column">
         <mat-list role="list">
-          <a routerLink="/"><mat-list-item role="listitem">Array</mat-list-item></a>
-          <a routerLink="/"><mat-list-item role="listitem">Stacks</mat-list-item></a>
-          <a routerLink="/"><mat-list-item role="listitem">Queue</mat-list-item></a>
-          <a routerLink="/"><mat-list-item role="listitem">Linkedlist</mat-list-item></a>
-          <a routerLink="/"><mat-list-item role="listitem">Graphs</mat-list-item></a>
-          <a routerLink="/"><mat-list-item role="listitem">Trees</mat-list-item></a>
+          <a routerLink="/array"><mat-list-item role="listitem">Array</mat-list-item></a>
+          <a routerLink="/stack"><mat-list-item role="listitem">Stacks</mat-list-item></a>
+          <a routerLink="/queue"><mat-list-item role="listitem">Queue</mat-list-item></a>
+          <a routerLink="/linkedlist"><mat-list-item role="listitem">Linkedlist</mat-list-item></a>
+          <a routerLink="/graph"><mat-list-item role="listitem">Graphs</mat-list-item></a>
+          <a routerLink="/trees"><mat-list-item role="listitem">Trees</mat-list-item></a>
+          <a routerLink="/searching"><mat-list-item role="listitem">Searching</mat-list-item></a>
+          <a routerLink="/sorting"><mat-list-item role="listitem">Sorting</mat-list-item></a>
         </mat-list>
 
       </div>

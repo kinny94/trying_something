@@ -26,11 +26,13 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const topic = this.route.snapshot.url[0].path;
-    const problem = this.route.snapshot.url[1].path;
-    this.problem = this.problemService.getProblemString(topic, problem);
-    this.subscription = this.problem.pipe(
-      map(data => this.parseContent(data['content']))
-    ).subscribe((data: Content) => this.content = data);
+    const prob = this.route.snapshot.url[1].path;
+    this.problem = this.problemService.getProblemString(topic, prob);
+    if( this.problem ){
+      this.subscription = this.problem.pipe(
+        map(data => this.parseContent(data['content']))
+      ).subscribe((data: Content) => this.content = data);
+    }
   }
 
   ngOnDestroy(){
