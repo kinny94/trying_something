@@ -1,1 +1,0 @@
-jaa na chuttaD

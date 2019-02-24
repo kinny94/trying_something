@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - HelloArray",
+            "request": "launch",
+            "mainClass": "HelloArray",
+            "projectName": "codebase_33c9c8bb"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Searching",
             "request": "launch",
             "mainClass": "problems.searching.Searching"
