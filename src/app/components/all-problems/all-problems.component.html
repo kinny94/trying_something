@@ -1,0 +1,12 @@
+<div fxLayout="row" class="list_width">
+  <mat-list class="list_width">
+    <ng-container *ngFor="let problem of _allProblems | async">
+      <a routerLink="/{{ problem.topic }}/{{ problem.name }}">
+        <mat-list-item class="list_width">
+          {{ changeName(problem.name) }}
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </a>
+    </ng-container>
+  </mat-list>
+</div>

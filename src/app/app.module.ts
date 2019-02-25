@@ -21,6 +21,7 @@ import { SearchingComponent } from './components/algorithms/searching/searching.
 import { SortingComponent } from './components/algorithms/sorting/sorting.component';
 import { ProblemComponent } from './components/problem/problem.component';
 import { HighlightCodeDirective } from './directives/highlight';
+import { AllProblemsComponent } from './components/all-problems/all-problems.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { HighlightCodeDirective } from './directives/highlight';
     SortingComponent,
     ProblemComponent,
     HighlightCodeDirective,
+    AllProblemsComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { HighlightCodeDirective } from './directives/highlight';
     FlexLayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'all', component: AllProblemsComponent, pathMatch: 'full' },
       { path: 'array', component: ArrayComponent, pathMatch: 'full' },
       { path: 'linkedlist', component: LinkedlistComponent, pathMatch: 'full' },
       { path: 'stack', component: StackComponent, pathMatch: 'full' },

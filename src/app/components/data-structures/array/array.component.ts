@@ -32,5 +32,4 @@ export class ArrayComponent implements OnInit {
     const currentTopic = this.router.snapshot.routeConfig.path;
     this._allProblems = this.problem.getAllProblems(currentTopic);
   }
-
 }
