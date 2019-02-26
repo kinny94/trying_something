@@ -4,7 +4,8 @@
   "scripts": {
     "server": "nodemon server.js",
     "ng": "ng",
-    "start": "concurrently --kill-others \"npm run server\" \"npm run serve\"",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run serve\"",
+    "start": "node server.js",
     "serve": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test --watch=false",
@@ -17,8 +18,6 @@
     "@angular/cdk": "^7.3.1",
     "@angular/common": "~7.0.0",
     "@angular/compiler": "~7.0.0",
-    "@angular/cli": "~7.0.3",
-    "@angular/compiler-cli": "^7.2.5",
     "@angular/core": "~7.0.0",
     "@angular/flex-layout": "^7.0.0-beta.23",
     "@angular/forms": "~7.0.0",
@@ -26,8 +25,6 @@
     "@angular/material": "^7.3.1",
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
-    "@angular-devkit/build-angular": "^0.13.0",
-    "@angular/language-service": "~7.0.0",
     "@angular/router": "~7.0.0",
     "concurrently": "^4.1.0",
     "core-js": "^2.5.4",
@@ -38,6 +35,10 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^0.13.0",
+    "@angular/cli": "~7.0.3",
+    "@angular/compiler-cli": "^7.2.5",
+    "@angular/language-service": "~7.0.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
