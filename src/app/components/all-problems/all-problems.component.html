@@ -3,7 +3,7 @@
     <ng-container *ngFor="let problem of _allProblems | async">
       <a routerLink="/{{ problem.topic }}/{{ problem.name }}">
         <mat-list-item class="list_width">
-          {{ changeName(problem.name) }}
+          <span>{{ changeName(problem.name) }}</span>
           <mat-divider></mat-divider>
         </mat-list-item>
       </a>
