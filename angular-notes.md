@@ -268,3 +268,65 @@ When the parent component class required that kind of access, inject the child c
   start() { this.timerComponent.start(); }
   stop() { this.timerComponent.stop(); }
   ```
+
+  ### Component Styles
+  Angular applciations are styled with standard CSS. That means you can apply everything you know about CSS stylesheets, selectors, rules, and media queries directly to Angular applciations. The Styles specified in the `@Component` metadata apply only within the template of that component. They are not inherited by any components nested within the template nor by any content projected into the component. Class names and selectors are local to the component and don't collide with classes and selectors used elsewhere in the applciation.
+
+  #### Special selectors
+  Component styles have a few special selectors from the world of shadow DOM style scoping.
+
+  **:host**: Use thus pseudo-class selector to target styles in the element that hosts in  the component, as opposed to targeting elements inside the component's template. You can't reach the host element from inside the component with other selectors because its not the part of the component's own template. The host element is in a parent component's template. Use the function form to apply host styles conditionally by including another selector inside parenthesis after `:host`.
+
+```
+:host(.active) {
+  border-width: 3px;
+}
+
+```
+**host-context**: Sometimes its useful to apply styles based on some condition outside of a component's view.  for eg, a CSS theme class could be applied to the document `<body>` element, and you want to change how your component looks based on that. Use this pseudo class selector, which works just like the function form of `:host()`.
+
+**::ng-deep**: Use this shadoe-piercing descendant combinator to forc e a style down through the child component tree into all the child component views. The `deep` combinator works to any depth of nested components, and it applies to both the view children and content children of the component. Use `::ng-deep` only with emulated view encapsulation, Emulated is the default and most commonly used view encapsulation.
+
+### Angular Elements
+Angular elements are angular components packaged as custom elements, a web standard for defining new HTML elements in a framework-agnostic way. *Custom Elements* are a web platform feature currently supported by chrome, firefox, opera, and safari and available in other browsers through polyfills. A custom element extends HTML by allowing you to define a tag whose content is created and controlled by Javascript code. The browser maintains a `CustomRegistryElement` of defined custom elements, which maps an instantiable JavaScript class to an HTML tag.
+
+Custom elements bootstraps themselves - they start automatically when they are added to the DOM, and are automatically destroyed when removed from the DOM. Once a custom element is added to the DOM for any page, it looks and behaves like any other HTML element. Transforming a component to a custom element provides an easy path to creating dynamic HTML content in your Angular app. HTML content that you add directly to the DOM in an Angular app is normally displayed without angular processing, unless you define a *dynamic component*, adding you own code to connect the HTML tag to your app data, and participate in change detection.
+
+Use the *createCustomElement()* function to convert a component into a class that can be registered with a browser as a custom element. After you register your configured class with the browser's custom-element registry, you can use the new elememt just like a built-in HTML element in content that you add directly into the DOM. When your custom element is placed on apage, the browser creates an instance of the registered class and adds it to the DOM. The content is provided by the component's template, which uses Angular template syntax, and is rendered using the component and the dOM data. Input properties in the component correspond to input attributes for the element.
+
+#### Transforming components to custom elements.
+Angular provides the `createCustomElement()` function for converting an Angular component, together with its dependencies, to a custom element. The function collects the component's observable properties along with the Angular functionality the browser needs to create and destroy instances, and to detect and respond to changes.
+
+#### Mapping
+A custom element hosts an Angular component, providing a bridge between the data and logic defined in the component and standard DOM APIs. Component properties and logic maps directly into HTML attributes and the browser's event system.
+
+
+### Dynamic Components
+
+#### Dynamic Component Loader
+Component templates are not always fixed. An application may need to load new components at runtime. 
+
+### Attribute Directives
+An attribute directive changes the appearance or behavior of a DOM element.
+
+There are 3 kinds of directives:-
+  1. Components - directives with a template.
+  2. Structural directives - change the DOM layout by adding and removing DOM elements. eg. *NgIf*, *NgFor*
+  3. Attribute directives - change the appearance or behavior of an element, component, or another directive. eg. *NgStyle*
+
+### Pipes
+Every application starts out with what seems like a simpler task: get data, transform them and show them to users. Getting data could be as simple as creating a local variable or as complex as streaming data over a webSocket. Once data arrives, you could push their raw tostring values directly to the view, but that rarely makes a good user experience. Angular pipes are a way to write display-value transformations that you can decalre in your HTML.
+
+```
+The chained hero's birthday is
+{{ birthday | date | uppercase}}
+```
+
+#### Pipes and ChangeDetection
+Angular looks for changes to data-bound values through a change-detection process that runs after every DOM event.
+
+### Forms
+Angular provides two different approaches to handling user input through forms: reactive and template-driven. Reactive and template-driven forms process and manage form differently.
+
+**Reactive Forms**: They are more robust. More Scalable, reusable and testable. 
+**Template Forms**: They are useful for adding a simple form to an app, such as an email list. They are easy to add, but they don't scale as well as reactive forms.
