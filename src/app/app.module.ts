@@ -61,7 +61,7 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
       { path: ':type/:problem', component: ProblemComponent, pathMatch: 'full' }
-    ])
+    ], {useHash: true})
   ],
   providers: [],
   bootstrap: [AppComponent]
