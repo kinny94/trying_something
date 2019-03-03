@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { Observable } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
+
+interface Problem {
+  name: string;
+  topic: string;
+}
 
 @Component({
   selector: 'app-all-problems',
@@ -21,5 +27,8 @@ export class AllProblemsComponent implements OnInit {
 
   changeName(name) {
     return name.replace(/([A-Z])/g, ' $1').trim();
+  }
+
+  filterProblems(value: string) {
   }
 }
