@@ -1,12 +1,21 @@
-<div fxLayout="row" class="list_width">
-  <mat-list class="list_width">
-    <ng-container *ngFor="let problem of _allProblems | async">
-      <a routerLink="/{{ problem.topic }}/{{ problem.name }}">
-        <mat-list-item class="list_width">
-          <span>{{ changeName(problem.name) }}</span>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </a>
-    </ng-container>
-  </mat-list>
+<div fxLayout="column" class="list_width">
+  <div fxLayout="row wrap">
+    <form class="list_width">
+      <mat-form-field class="list_width">
+        <input name="problem-search" [(ngModel)]="searchText" matInput placeholder="Search for problems..." (input)="filterProblems()">
+      </mat-form-field>
+    </form>
+  </div>
+  <div fxLayout="row wrap">
+    <mat-list class="list_width">
+      <ng-container *ngFor="let problem of _filteredProblems | async">
+        <a routerLink="/{{ problem.topic }}/{{ problem.name }}">
+          <mat-list-item class="list_width">
+            <span>{{ changeName(problem.name) }}</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </a>
+      </ng-container>
+    </mat-list>
+  </div>
 </div>
