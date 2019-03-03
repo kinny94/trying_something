@@ -2,13 +2,13 @@
   <div fxLayout="row wrap">
     <form class="list_width">
       <mat-form-field class="list_width">
-        <input matInput placeholder="Search for a problem..." (input)="filterProblems($event.target.value)">
+        <input name="problem-search" [(ngModel)]="searchText" matInput placeholder="Search for problems..." (input)="filterProblems()">
       </mat-form-field>
     </form>
   </div>
   <div fxLayout="row wrap">
     <mat-list class="list_width">
-      <ng-container *ngFor="let problem of _allProblems | async">
+      <ng-container *ngFor="let problem of _filteredProblems | async">
         <a routerLink="/{{ problem.topic }}/{{ problem.name }}">
           <mat-list-item class="list_width">
             <span>{{ changeName(problem.name) }}</span>

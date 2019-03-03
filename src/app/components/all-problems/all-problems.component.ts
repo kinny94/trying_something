@@ -3,7 +3,7 @@ import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-interface Problem {
+export interface Problem {
   name: string;
   topic: string;
 }
@@ -15,7 +15,9 @@ interface Problem {
 })
 export class AllProblemsComponent implements OnInit {
 
+  _filteredProblems?: Observable<{}>;
   _allProblems?: Observable<{}>;
+  searchText = '';
 
   constructor(
     private problemService: ProblemsService
@@ -23,12 +25,22 @@ export class AllProblemsComponent implements OnInit {
 
   ngOnInit() {
     this._allProblems = this.problemService.getEverything();
+    this._filteredProblems = this._allProblems;
   }
 
-  changeName(name) {
+  changeName(name: string) {
     return name.replace(/([A-Z])/g, ' $1').trim();
   }
 
-  filterProblems(value: string) {
+  filterProblems() {
+    if (this.searchText === '') {
+      this._filteredProblems = this._allProblems;
+    }
+
+    this._filteredProblems = this._allProblems.pipe(
+      map((problems: Problem[]) => 
+        problems.filter((problem: Problem) => 
+          this.changeName(problem.name).toLowerCase().includes(this.searchText.toLowerCase())))
+    );
   }
 }
