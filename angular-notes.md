@@ -330,3 +330,100 @@ Angular provides two different approaches to handling user input through forms: 
 
 **Reactive Forms**: They are more robust. More Scalable, reusable and testable. 
 **Template Forms**: They are useful for adding a simple form to an app, such as an email list. They are easy to add, but they don't scale as well as reactive forms.
+
+#### Common foundation
+Both reactive and template-driven forms share underlying building blocks.
+* `FormControl` tracks the value and validation status of an individual form control.
+* `FormGroup` tracks the same values and status for a collection of form controls.
+* `FormArray` tracks the same values and status for an array of form controls.
+* `ControlValueAccessor` creates a bridge between angular `FormControl` instances and native DOM elements.
+
+#### Data flow in reactive forms
+**Steps below outline the data flow from view to model.**
+1. The user types a value into the input element.
+2. The form input element emits an "input" event with then latest value.
+3. The control value accessorr listening for events on the form input element immediately relays the new value to the FormControl instance.
+4. The FormControl instance emits the new value through the `valueChanges` observable.
+5. Any subscribes to the `valueChanges` observable receive the new value.
+
+**Steps below outline the data flow from model to view**
+1. The user calls the `setValue()` method, which updates the `FormControl` value.
+2. The `FormControl` instance emits the new value through the `valueChanges` observable.
+3. Any subscribers to the `valueChanges` observable receive the new value.
+4. The control value accessor on the form input elemenbt updates the element with the new value.
+
+#### Mutability
+The change tracking method plays a role in the efficiency of your application.
+
+**Reactive forms**: It keep the data model pure by providing it as an immutable data structure. Each time a change its triggered on the data model, the `FormControl` instance returns a new data model rather than updating the existing data model . This gives you the ability to track unique changes to the data model through the control's observable. This provides one way for change detection to be more efficient because it only needs to update on unique changes. It also follows reactive patterns that integrate with observable operators to transform data.
+
+**Tempalte driven**: It rely on mutability with two-way binding to update the data model in the component as changes are made in the template. Because there are no unique changes to track on the data model when using two way data binding, change detection is less efficient at determining when updates are required.
+
+#### Scalability
+If forms are a central part of your applciation, scalability is very important. 
+**Reactive forms** provide access to low-level APIs and synchronous access to the form model, making creating large-scale forms easier. 
+**Tempalte-driven** forms focus on simple scenarios, are not as reuable, abstract away the low-level API's and provide asynchronous access to the form-model. The abstraction with tempalte-driven forms also surfaces in testing, where testing reactive forms requires less setup and no dependence on the change detection cycle when updating and validating the form and data models during testing.
+
+### Reactive Forms
+Reactive forms provide a model-driven approach to handling form inputs whose values change over time. Reactive forms ues an explicit and immutable approach to managing the state of a form at a given point in time. Each change to the form state returns a new state, which maintains the integrity of the model between changes. Reactive forms are built around observable streams, where form inputs and values are provided as streams of input values, which can be accessed synchronously. Reactive forms also provide a straightforward path to testing because you are assured that your data is consistent and predicatable when requested. Anu consumers of the streams have access to manipulate the data safely.
+
+#### Grouping form controls
+Just as form control instance gives you control over a sinple input field, a form group instance tracks the form state of a group of form control instances. Each control in a form group instance is tracked by name when creating the form group.
+
+```
+import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+ 
+@Component({
+  selector: 'app-profile-editor',
+  templateUrl: './profile-editor.component.html',
+  styleUrls: ['./profile-editor.component.css']
+})
+export class ProfileEditorComponent {
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+  });
+}
+```
+
+#### Difference between Reactive and Tempalte-driven forms
+* Reactive forms are created in component class (explicit). Tempalte driven forms are created by directives.
+* The data model in reactive forms is more structured where as the template driven are unstrcutured.
+* Reactive forms are Synchronous in nature, where as tempalte-driven forms are asynchronous.
+* Reactive forms provides functions form validations, where as template-driven forms depends on directives for validation.
+* Reactive forms are immutable in nature, whereas tempalte-driven forms are mutable.
+* Reactive forms have low-level api access, whereas tempalte-driven has an abstraction on top of APIs.
+
+#### Reactive forms API
+
+**Classes**
+
+*AbstractControl*: The abstract base class for the concrete from control classes FormControl, FormGroup, and FromArray. It provides their common behaviors and properties.
+*FormControl*: Manages the value and validity status of an individual form control. It corresponds to an HTML form control such as *<input>*.
+*FormGroup*: Manages the value and validity state of group of AbstractControl instances. The group's properties include its child controls. The top-level form in your component is FormGroup.
+*FormArray*: Managed the value and validity state of a numerically indexed array of AbstractControl instances.
+*FormBuilder*: An injectable service that proviedes factory methods for creating control instances.
+
+**Directives**
+
+*FormControlDirective*: Syncs a standalone *FormControl* instance to a form control element.
+*FormControlName*: Syncs *FormControl* in an existing *FormGroup* instance to a form control element by name.
+*FormGroupDirective*: Syncs an existing *FormGroup* instance to a DOM element.
+*FormGroupName*: Syncs a nested *FormGroup* isntance to a DOM element.
+*FormArrayName*: Syncs a nested *FormArrau* instance to a DOM element.
+
+### Dependency Injection
+Dependency Injection, is an important application design pattern. Angular has its own DI freamework, which  is typically sued in the desing of Angular applications to increate their efficiency and modularity. Dependencies are services or object that a class needs to perform its function.DI is a coding pattern in which a clas asks for dependencies from external sources rather than creating them itself. The DI framework lets you supply data to a component from an injectable service class, defined it its own file.
+
+```
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class HeroService {
+  constructor() { }
+}
+```
+The @Injectable() is an essential ingredient in every angular service defination. The rest of the class has been written to expose a method that returns the same mock data as before.
