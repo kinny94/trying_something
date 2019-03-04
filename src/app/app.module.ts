@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -23,6 +25,8 @@ import { SortingComponent } from './components/algorithms/sorting/sorting.compon
 import { ProblemComponent } from './components/problem/problem.component';
 import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
+import { initializeApp } from 'firebase';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,8 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'all', component: AllProblemsComponent, pathMatch: 'full' },
@@ -65,7 +71,9 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
       { path: ':type/:problem', component: ProblemComponent, pathMatch: 'full' }
     ], {useHash: true})
   ],
-  providers: [],
+  providers: [
+    { provide: StorageBucket, useValue: 'codebase-e1c81' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
