@@ -35,8 +35,3 @@ describe('SearchingComponent', () => {
         expect(allProblemComponents.changeName(string)).toEqual('Question Name');
     });
 });
-
-const mockProblems: Problem[] = [
-    { name: 'PoblemName', topic: 'array' },
-    { name: 'FilterThis', topic: 'linkedlist'}
-];

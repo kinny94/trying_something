@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const ref = this.storage.ref('array.txt');
-    ref.getDownloadURL().subscribe(data =>  console.log(data));
-  }
+    ref.getDownloadURL().subscribe(data => {
+        this.http.get(data, { responseType: 'text' as 'json' }).subscribe(text => console.log(text));
+      }
+    );
+  };
 }

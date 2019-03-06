@@ -72,7 +72,7 @@ import { environment } from 'src/environments/environment.prod';
     ], {useHash: true})
   ],
   providers: [
-    { provide: StorageBucket, useValue: 'codebase-e1c81' }
+    { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' }
   ],
   bootstrap: [AppComponent]
 })
