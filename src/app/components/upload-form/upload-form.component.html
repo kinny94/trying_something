@@ -1,0 +1,11 @@
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+  <input matInput placeholder="Name"  formControlName="name">
+  
+  <input matInput placeholder="Topic"  formControlName="topic">
+  
+  <input matInput placeholder="Tags" formControlName="tags">
+  
+  <input matInput placeholder="Description"  formControlName="description">
+  
+  <button type="submit">Submit</button>
+</form>

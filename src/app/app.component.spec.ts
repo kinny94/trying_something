@@ -20,6 +20,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './components/home/home.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatTableModule } from '@angular/material';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment.prod';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -46,6 +49,8 @@ describe('AppComponent', () => {
         MaterialModule,
         MatTableModule,
         FlexLayoutModule,
+        AngularFireStorageModule,
+        AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           { path: '', component: HomeComponent },
           { path: 'array', component: ArrayComponent },

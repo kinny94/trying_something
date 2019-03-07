@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -23,6 +26,9 @@ import { SortingComponent } from './components/algorithms/sorting/sorting.compon
 import { ProblemComponent } from './components/problem/problem.component';
 import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
+import { initializeApp } from 'firebase';
+import { environment } from 'src/environments/environment.prod';
+import { UploadFormComponent } from './components/upload-form/upload-form.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +48,7 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
     ProblemComponent,
     HighlightCodeDirective,
     AllProblemsComponent,
+    UploadFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +57,9 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'all', component: AllProblemsComponent, pathMatch: 'full' },
@@ -62,10 +72,13 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
       { path: 'hash-table', component: HashTableComponent, pathMatch: 'full' },
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
+      { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
       { path: ':type/:problem', component: ProblemComponent, pathMatch: 'full' }
     ], {useHash: true})
   ],
-  providers: [],
+  providers: [
+    { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
