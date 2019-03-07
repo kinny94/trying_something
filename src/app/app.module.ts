@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -27,6 +28,7 @@ import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
 import { initializeApp } from 'firebase';
 import { environment } from 'src/environments/environment.prod';
+import { UploadFormComponent } from './components/upload-form/upload-form.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { environment } from 'src/environments/environment.prod';
     ProblemComponent,
     HighlightCodeDirective,
     AllProblemsComponent,
+    UploadFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { environment } from 'src/environments/environment.prod';
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
@@ -68,6 +72,7 @@ import { environment } from 'src/environments/environment.prod';
       { path: 'hash-table', component: HashTableComponent, pathMatch: 'full' },
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
+      { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
       { path: ':type/:problem', component: ProblemComponent, pathMatch: 'full' }
     ], {useHash: true})
   ],

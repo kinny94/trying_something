@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 
-export interface Content{
+export interface Content {
   code: string;
   title: string;
 }
@@ -28,23 +28,25 @@ export class ProblemComponent implements OnInit, OnDestroy {
     const topic = this.route.snapshot.url[0].path;
     const prob = this.route.snapshot.url[1].path;
     this.problem = this.problemService.getProblemString(topic, prob);
-    if( this.problem ){
+    if ( this.problem ) {
       this.subscription = this.problem.pipe(
         map(data => this.parseContent(data['content']))
       ).subscribe((data: Content) => this.content = data);
     }
   }
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
+  ngOnDestroy() {
+    if (this.problem) {
+      this.subscription.unsubscribe();
+    }
   }
 
   parseContent(data: string) {
     let readingTitle = false;
-    let content: Content = {
+    const content: Content = {
       code: '',
       title: ''
-    }
+    };
 
     for (let i = 0; i < data.length; i++) {
       if (data[i] === '/' && data[i + 1] === '*') {
