@@ -15,10 +15,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const ref = this.storage.ref('array/HelloArray.java');
-    ref.getDownloadURL().subscribe(data => {
-        this.http.get(data, { responseType: 'text' as 'json' }).subscribe(text => console.log(text));
-      }
-    );
+    // const ref = this.storage.ref('array/HelloArray.java');
+    // ref.getDownloadURL().subscribe(data => {
+    //     this.http.get(data, { responseType: 'text' as 'json' }).subscribe(text => console.log(text));
+    //   }
+    // );
   }
 }

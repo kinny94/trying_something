@@ -6,6 +6,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UploadFormComponent } from './upload-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment.prod';
 
 describe('UploadFormComponent', () => {
   let component: UploadFormComponent;
@@ -21,6 +25,9 @@ describe('UploadFormComponent', () => {
           HttpClientModule,
           ReactiveFormsModule,
           BrowserAnimationsModule,
+          AngularFireStorageModule,
+          AngularFireDatabaseModule,
+          AngularFireModule.initializeApp(environment.firebase),
           FormsModule,
           RouterModule.forRoot([
               { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
