@@ -1,5 +1,5 @@
 import { filter, take } from 'rxjs/operators';
-import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject, pipe } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -31,33 +31,31 @@ export class UploadFormComponent implements OnInit {
     complexity: new FormControl('')
   });
 
-  tagSelection ?: Observable<Array<string>>;
+  availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);
+  availableTags$ ?: Observable<Array<string>> = this.availableTagsSubject.asObservable();
   selectedTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
-  selectedTags: Observable<Array<string>> = this.selectedTagsSubject.asObservable();
+  selectedTags$: Observable<Array<string>> = this.selectedTagsSubject.asObservable();
 
   constructor() { }
 
-  ngOnInit() {
-    this.tagSelection = of(TAGS);
-  }
+  ngOnInit() {}
 
-  onTagSelected(value) {
+  onTagSelected(value: string) {
 
-    this.selectedTags.pipe(take(1)).subscribe(tags => {
-      const newArr = [...tags, value];
-      this.selectedTagsSubject.next(newArr);
+    const selectedTagsArray: Array<string> = this.selectedTagsSubject.getValue();
+    const newSelectedArray: Array<string> = [...selectedTagsArray, value];
+    this.selectedTagsSubject.next(newSelectedArray);
+
+    const availableTagsArray: Array<string> = this.availableTagsSubject.getValue();
+    availableTagsArray.forEach((item, index) => {
+      if (item === value) {
+        availableTagsArray.splice(index, 1);
+      }
     });
-
-    this.tagSelection = this.tagSelection.pipe(
-      filter(tag => tag !== value)
-    );
-
-    this.selectedTags.subscribe(data => console.log(data));
+    this.availableTagsSubject.next(availableTagsArray);
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.uploadForm.value);
   }
 
 }

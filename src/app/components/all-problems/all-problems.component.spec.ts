@@ -4,6 +4,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SearchingComponent', () => {
     beforeEach(async(() => {
@@ -15,6 +16,7 @@ describe('SearchingComponent', () => {
                 MaterialModule,
                 HttpClientModule,
                 FormsModule,
+                BrowserAnimationsModule,
                 RouterModule.forRoot([
                     { path: 'all', component: AllProblemsComponent, pathMatch: 'full' },
                   ])

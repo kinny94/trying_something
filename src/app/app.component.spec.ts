@@ -61,7 +61,7 @@ describe('AppComponent', () => {
           { path: 'trees', component: TreeComponent },
           { path: 'hash-table', component: HashTableComponent },
           { path: 'searching', component: SearchingComponent },
-          { path: 'sorting', component: SortingComponent }
+          { path: 'sorting', component: SortingComponent },
         ])
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

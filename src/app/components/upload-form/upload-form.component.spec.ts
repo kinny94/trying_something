@@ -5,6 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadFormComponent } from './upload-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UploadFormComponent', () => {
   let component: UploadFormComponent;
@@ -19,6 +20,7 @@ describe('UploadFormComponent', () => {
           MaterialModule,
           HttpClientModule,
           ReactiveFormsModule,
+          BrowserAnimationsModule,
           FormsModule,
           RouterModule.forRoot([
               { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
