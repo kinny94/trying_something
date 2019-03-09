@@ -9,7 +9,7 @@
   <div>
     <mat-form-field>
       <mat-select placeholder="Topic" formControlName="topic">
-        <mat-option *ngFor="let tag of allTopics$ | async" [value]="tag">
+        <mat-option *ngFor="let tag of allTopics" [value]="tag">
           {{tag}}
         </mat-option>
       </mat-select>
@@ -50,6 +50,7 @@
   </div>
 
   <div class="upload__form-field">
-    <button [disabled]="file === undefined" mat-raised-button color="primary" [disabled]="submitDisabled" value="submit">Submit</button>
+    <button [disabled]="submitDisabled" mat-raised-button color="primary" [disabled]="submitDisabled" value="submit">Submit</button>
   </div>
+  <span *ngIf="dataUploaded">Data uploaded successfully!</span>
 </form>

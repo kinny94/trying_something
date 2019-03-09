@@ -23,7 +23,7 @@ export class UploadFormComponent implements OnInit {
 
   // Convert array constants into observable
   allComplexities$ = of(COMPLEXITIES);
-  allTopics$ = of(TAGS);
+  allTopics = [...TAGS];
 
   // Subject observable in order to remove from the available tags array
   availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);
@@ -32,9 +32,12 @@ export class UploadFormComponent implements OnInit {
   // Subject observable in order to add to the selected tags array
   selectedTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
   selectedTags$: Observable<Array<string>> = this.selectedTagsSubject.asObservable();
-  
+
+  // Data upload variables
   uploadData: UploadData;
   file: File;
+  submitDisabled = true;
+  dataUploaded = false;
 
   constructor(private uploadService: UploadService) { }
 
@@ -56,15 +59,18 @@ export class UploadFormComponent implements OnInit {
 
   upload(event) {
     this.file = event.target.files[0];
+    this.submitDisabled = false;
   }
 
   onSubmit() {
-
+    this.submitDisabled = true;
     if (this.uploadForm.valid) {
       const name = this.uploadForm.controls.name.value;
       const topic = this.uploadForm.controls.topic.value;
       const filePath = `${topic.toLowerCase()}/${name}`;
-      this.uploadService.uploadFile(this.file, filePath);
+      this.uploadService.uploadFile(this.file, filePath, () => {
+        this.submitDisabled = false;
+      });
 
       const tags = this.selectedTagsSubject.getValue();
       this.uploadData = {
@@ -76,9 +82,15 @@ export class UploadFormComponent implements OnInit {
         tags: tags,
         complexity: this.uploadForm.controls.complexity.value,
         storageUrl: filePath
-      }
-      console.log(this.uploadData);
-      this.uploadService.uploadData(this.uploadData);
+      };
+
+      this.uploadService.uploadData(this.uploadData, () => {
+        this.submitDisabled = false;
+        this.dataUploaded = true;
+        setInterval(() => {
+          this.dataUploaded = false;
+        }, 1000);
+      });
     }
   }
 }

@@ -26,12 +26,14 @@ export class UploadService {
     private db: AngularFireDatabase
   ) {}
 
-  uploadFile (file: File, filePath:string) {
+  uploadFile (file: File, filePath:string, callback) {
     this.ref = this.storage.ref(filePath);
     this.task = this.ref.put(file);
+    callback();
   }
 
-  uploadData(data: UploadData) {
+  uploadData(data: UploadData, callback) {
     this.db.list(`/problems/${data.topic}`).push(data);
+    callback();
   }
 }
