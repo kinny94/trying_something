@@ -1,21 +1,10 @@
-import { filter, take } from 'rxjs/operators';
-import { Observable, of, Subject, BehaviorSubject, pipe } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-const TAGS = [
-  'Array',
-  'LinkedList',
-  'Stack',
-  'Queue',
-  'Graph',
-  'Tree',
-  'Algorithms',
-  'Searching',
-  'Sorting',
-  'Dynamic Programming',
-  'Hash-Table'
-];
+import { UploadService, UploadData } from 'src/app/services/upload-services/upload.service';
+import { COMPLEXITIES, TAGS } from './../../model';
+
 @Component({
   selector: 'app-upload-form',
   templateUrl: './upload-form.component.html',
@@ -24,24 +13,37 @@ const TAGS = [
 export class UploadFormComponent implements OnInit {
 
   uploadForm = new FormGroup({
-    name: new FormControl(''),
-    topic: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
+    topic: new FormControl('', [Validators.required]),
     tags: new FormControl(''),
-    description: new FormControl(''),
-    complexity: new FormControl('')
+    description: new FormControl('', [Validators.required]),
+    complexity: new FormControl('', [Validators.required]),
+    file: new FormControl('')
   });
 
+  // Convert array constants into observable
+  allComplexities$ = of(COMPLEXITIES);
+  allTopics = [...TAGS];
+
+  // Subject observable in order to remove from the available tags array
   availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);
   availableTags$ ?: Observable<Array<string>> = this.availableTagsSubject.asObservable();
+
+  // Subject observable in order to add to the selected tags array
   selectedTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
   selectedTags$: Observable<Array<string>> = this.selectedTagsSubject.asObservable();
 
-  constructor() { }
+  // Data upload variables
+  uploadData: UploadData;
+  file: File;
+  submitDisabled = true;
+  dataUploaded = false;
+
+  constructor(private uploadService: UploadService) { }
 
   ngOnInit() {}
 
-  onTagSelected(value: string) {
-
+  onTagSelected (value: string) {
     const selectedTagsArray: Array<string> = this.selectedTagsSubject.getValue();
     const newSelectedArray: Array<string> = [...selectedTagsArray, value];
     this.selectedTagsSubject.next(newSelectedArray);
@@ -55,7 +57,40 @@ export class UploadFormComponent implements OnInit {
     this.availableTagsSubject.next(availableTagsArray);
   }
 
-  onSubmit() {
+  upload(event) {
+    this.file = event.target.files[0];
+    this.submitDisabled = false;
   }
 
+  onSubmit() {
+    this.submitDisabled = true;
+    if (this.uploadForm.valid) {
+      const name = this.uploadForm.controls.name.value;
+      const topic = this.uploadForm.controls.topic.value;
+      const filePath = `${topic.toLowerCase()}/${name}`;
+      this.uploadService.uploadFile(this.file, filePath, () => {
+        this.submitDisabled = false;
+      });
+
+      const tags = this.selectedTagsSubject.getValue();
+      this.uploadData = {
+        name: name,
+        stars: 0,
+        topic: topic.toLowerCase(),
+        likes: 0,
+        description: this.uploadForm.controls.description.value,
+        tags: tags,
+        complexity: this.uploadForm.controls.complexity.value,
+        storageUrl: filePath
+      };
+
+      this.uploadService.uploadData(this.uploadData, () => {
+        this.submitDisabled = false;
+        this.dataUploaded = true;
+        setInterval(() => {
+          this.dataUploaded = false;
+        }, 1000);
+      });
+    }
+  }
 }

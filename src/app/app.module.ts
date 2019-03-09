@@ -27,8 +27,10 @@ import { ProblemComponent } from './components/problem/problem.component';
 import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
 import { initializeApp } from 'firebase';
+import {FileUploadModule} from 'ng2-file-upload';
 import { environment } from 'src/environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -57,8 +59,10 @@ import { UploadFormComponent } from './components/upload-form/upload-form.compon
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    FileUploadModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
+    AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

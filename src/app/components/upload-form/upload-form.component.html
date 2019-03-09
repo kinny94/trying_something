@@ -1,29 +1,56 @@
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="form-container">
-  <mat-form-field>
-    <input matInput placeholder="Name">
-  </mat-form-field>
   
-  <mat-form-field>
-    <input matInput placeholder="Description">
-  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+  </div>
   
-  <mat-form-field>
-    <mat-select placeholder="Tags">
-      <mat-option *ngFor="let tag of availableTags$ | async" [value]="tag" (click)="onTagSelected(tag)">
-        {{tag}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Topic" formControlName="topic">
+        <mat-option *ngFor="let tag of allTopics" [value]="tag">
+          {{tag}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="description">
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Tags">
+        <mat-option *ngFor="let tag of availableTags$ | async" [value]="tag" (click)="onTagSelected(tag)">
+          {{tag}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <span *ngIf="(selectedTags$ | async)?.length > 0">
-    <button class="tags" mat-raised-button color="warn" *ngFor="let tag of selectedTags$ | async">{{ tag }}</button>
+    <button class="upload__tags" mat-raised-button color="warn" *ngFor="let tag of selectedTags$ | async">{{ tag }}</button>
   </span>
   
-  <mat-form-field>
-    <input matInput placeholder="Complexity">
-  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Complexity" formControlName="complexity">
+        <mat-option *ngFor="let complexity of allComplexities$ | async" [value]="complexity">
+          {{complexity}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   
-  <mat-form-field>
-    <input matInput placeholder="Difficulty">
-  </mat-form-field>
-  
+  <div class="upload__form-field">
+    <input mattInput type="file" (change)="upload($event)" accept=".java" />
+  </div>
+
+  <div class="upload__form-field">
+    <button [disabled]="submitDisabled" mat-raised-button color="primary" [disabled]="submitDisabled" value="submit">Submit</button>
+  </div>
+  <span *ngIf="dataUploaded">Data uploaded successfully!</span>
 </form>
