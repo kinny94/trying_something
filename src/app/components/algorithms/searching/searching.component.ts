@@ -3,6 +3,7 @@ import { Complexities, Files } from 'src/models/model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
+import { UploadData } from 'src/app/services/upload-services/upload.service';
 
 const ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Linear Search (Average)', complexity_avg: 'O(n)', type_worst: 'Linear Search (Worst)', complexity_worst: 'O(n)'},
@@ -16,7 +17,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class SearchingComponent implements OnInit {
 
-  _allProblems ?: Observable<Files[]>;
+  _allProblems ?: Observable<UploadData[]>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
@@ -26,8 +27,11 @@ export class SearchingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const currentTopic = this.router.snapshot.routeConfig.path;
-    this._allProblems = this.problem.getAllProblems(currentTopic);
+    const currentTopic = `/algorithms/${this.router.snapshot.routeConfig.path}`;
+    this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
   }
 
+  changeName(name: string) {
+    return name.replace(/\s/g, '').trim();
+  }
 }

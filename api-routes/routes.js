@@ -34,6 +34,4 @@ router.get('/api', (req, res) => {
     res.send(data);
 });
 
-
-
 module.exports = router;

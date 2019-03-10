@@ -71,7 +71,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
       { path: 'linkedlist', component: LinkedlistComponent, pathMatch: 'full' },
       { path: 'stack', component: StackComponent, pathMatch: 'full' },
       { path: 'queue', component: QueueComponent, pathMatch: 'full' },
-      { path: 'graphs', component: GraphComponent, pathMatch: 'full' },
+      { path: 'graph', component: GraphComponent, pathMatch: 'full' },
       { path: 'trees', component: TreeComponent, pathMatch: 'full' },
       { path: 'hash-table', component: HashTableComponent, pathMatch: 'full' },
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },

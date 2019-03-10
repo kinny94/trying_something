@@ -3,20 +3,21 @@ import { HttpClient } from '@angular/common/http';
 
 import { problems } from 'problems/problems';
 import { of, Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { UploadData } from '../upload-services/upload.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProblemsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private db: AngularFireDatabase
+  ) { }
 
-  getAllProblems(topic: string) {
-    const problemNames = [];
-    problems[topic].forEach((problem) => {
-      problemNames.push(problem.name)
-    });
-    return of(problemNames);
+  getAllProblems(topic: string) : AngularFireList<UploadData> {
+    return this.db.list(`/problems/${topic}`);
   }
 
   getProblemString(topic: string, problem: string) {

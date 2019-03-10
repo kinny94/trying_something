@@ -13,4 +13,8 @@ export class GradientCardComponent implements OnInit {
 
   ngOnInit() {}
 
+  urlName(topic: string){
+    return topic.toLowerCase().replace(/ /g, '');
+  }
+
 }

@@ -9,7 +9,7 @@
 
     "trees": "A tree is a data structure, with a root value and subtrees of children with a parent node, represented as a set of linked nodes.It can be defined recursively as a collection of nodes, where each node is a data structure consisting of a value, together with a list of references to nodes, with the constraints that no reference is duplicated, and none points to the root.",
 
-    "graphs": "A graph is a data type that is meant to implement the undirected graph and directed graph, specifically the field of graph theory.Graph consists of a finite set of vertices or nodes or points, together with a set of unordered pairs of these vertices for an undirected graph or a set of ordered pairs for a directed graph",
+    "graph": "A graph is a data type that is meant to implement the undirected graph and directed graph, specifically the field of graph theory.Graph consists of a finite set of vertices or nodes or points, together with a set of unordered pairs of these vertices for an undirected graph or a set of ordered pairs for a directed graph",
 
     "searching": "A search algorithm is any algorithm which solves the search problem, namely, to retrieve information stored within some data structure, or calculated in the search space of a problem domain. The appropriate search algorithm often depends on the data structure being searched, and may also include prior knowledge about the data",
 

@@ -57,7 +57,7 @@ describe('AppComponent', () => {
           { path: 'linkedlist', component: LinkedlistComponent },
           { path: 'stack', component: StackComponent },
           { path: 'queue', component: QueueComponent },
-          { path: 'graphs', component: GraphComponent },
+          { path: 'graph', component: GraphComponent },
           { path: 'trees', component: TreeComponent },
           { path: 'hash-table', component: HashTableComponent },
           { path: 'searching', component: SearchingComponent },

@@ -1,6 +1,6 @@
 export interface DsDesctiption {
     topic: string;
-    description: string;
+    desc: string;
 }
 
 export interface Files {

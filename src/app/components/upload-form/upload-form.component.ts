@@ -66,7 +66,10 @@ export class UploadFormComponent implements OnInit {
     this.submitDisabled = true;
     if (this.uploadForm.valid) {
       const name = this.uploadForm.controls.name.value;
-      const topic = this.uploadForm.controls.topic.value;
+      let topic = this.uploadForm.controls.topic.value;
+      if (topic.toLowerCase() === 'searching' || topic.toLowerCase() === 'sorting') {
+        topic = `algorithms/${topic}`;
+      }
       const filePath = `${topic.toLowerCase()}/${name}`;
       this.uploadService.uploadFile(this.file, filePath, () => {
         this.submitDisabled = false;
@@ -87,6 +90,8 @@ export class UploadFormComponent implements OnInit {
       this.uploadService.uploadData(this.uploadData, () => {
         this.submitDisabled = false;
         this.dataUploaded = true;
+        this.uploadForm.reset();
+        this.uploadForm.markAsPristine();
         setInterval(() => {
           this.dataUploaded = false;
         }, 1000);

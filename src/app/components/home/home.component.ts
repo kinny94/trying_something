@@ -13,6 +13,7 @@ import { ProblemsService } from 'src/app/services/problems/problems.service';
 export class HomeComponent implements OnInit {
 
   _topics?: Observable<DsDesctiption[]>;
+  _testTopics?: Observable<DsDesctiption[]>;
 
   constructor(
     private mainService: MainComponentService,
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._topics = this.mainService.getAllTopics();
+    //this._topics = this.mainService.getAllTopics();
+    this._testTopics = this.mainService.getAllTopicAndDescription();
   }
 }
