@@ -57,8 +57,12 @@ export const DESCRIPTION: DsDesctiption[] = [
     topic: 'Searching',
     desc: 'A search algorithm is any algorithm which solves the search problem, namely, to retrieve information stored within some data structure, or calculated in the search space of a problem domain. The appropriate search algorithm often depends on the data structure being searched, and may also include prior knowledge about the data.'
   },
+  { 
+    topic: 'Sorting',
+    desc: 'A sorting algorithm is an algorithm that puts elements of a list in a certain order. The most frequently used orders are numerical order and lexicographical order. Efficient sorting is important for optimizing the efficiency of other algorithms which require input data to be in sorted list.'
+  },
   {
-    topic: 'Hash Table',
+    topic: 'Hash-Table',
     desc: 'A hash table (hash map) is a data structure that implements an associative array abstract data type, a structure that can map keys to values. The hash function will assign each key to a unique bucket, but most hash table designs employ an imperfect hash function, which might cause hash collisions where it generates the same index for more than one key.'
   }
 ];

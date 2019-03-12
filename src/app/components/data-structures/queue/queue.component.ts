@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Complexities, Files } from 'src/models/model';
+import { Complexities, TopicProblems } from 'src/models/model';
 import { Observable } from 'rxjs';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { ActivatedRoute } from '@angular/router';
-import { UploadData } from 'src/app/services/upload-services/upload.service';
+
 
 const ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'Θ(1)', type_worst: 'Access (Worst)', complexity_worst: 'Θ(1)'},
@@ -20,7 +20,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class QueueComponent implements OnInit {
 
-  _allProblems ?: Observable<UploadData[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 

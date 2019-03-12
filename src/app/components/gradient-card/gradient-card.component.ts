@@ -16,5 +16,4 @@ export class GradientCardComponent implements OnInit {
   urlName(topic: string){
     return topic.toLowerCase().replace(/ /g, '');
   }
-
 }

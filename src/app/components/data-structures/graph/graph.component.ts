@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Files, Complexities } from 'src/models/model';
+import { Files, Complexities, TopicProblems } from 'src/models/model';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,7 +21,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class GraphComponent implements OnInit {
 
-  _allProblems ?: Observable<Files[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 

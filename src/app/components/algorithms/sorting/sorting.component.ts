@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Files, Complexities } from 'src/models/model';
+import { Complexities, TopicProblems } from 'src/models/model';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
-import { UploadData } from 'src/app/services/upload-services/upload.service';
 
 const ELEMENT_DATA: Complexities[] = [
   {
@@ -44,7 +43,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class SortingComponent implements OnInit {
 
-  _allProblems ?: Observable<UploadData[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 

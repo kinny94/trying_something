@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; 
 
 import { problems } from 'problems/problems';
-import { of, Observable } from 'rxjs';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { UploadData } from '../upload-services/upload.service';
+import { of } from 'rxjs';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { TopicProblems } from 'src/models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,14 @@ export class ProblemsService {
     private db: AngularFireDatabase
   ) { }
 
-  getAllProblems(topic: string) : AngularFireList<UploadData> {
-    return this.db.list(`/problems/${topic}`);
+  getAllProblems(topic: string): AngularFireObject<TopicProblems> {
+    return this.db.object(`/problems/${topic}`);
   }
 
   getProblemString(topic: string, problem: string) {
     return this.http.get<string>(`/api/${topic}/${problem}`);
   }
-  
+
   getEverything(){
     const allProblems = [];
     for (const key in problems) {

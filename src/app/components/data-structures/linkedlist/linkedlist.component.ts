@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Complexities, Files } from 'src/models/model';
+import { Complexities, Files, TopicProblems } from 'src/models/model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
@@ -47,7 +47,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class LinkedlistComponent implements OnInit {
 
-  _allProblems ?: Observable<UploadData[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 

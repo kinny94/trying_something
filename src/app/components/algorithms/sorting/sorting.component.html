@@ -43,10 +43,10 @@
   </div><br/>
   <div fxLayout="row" class="list_width">
     <mat-list class="list_width">
-      <ng-container *ngFor="let problem of _allProblems | async">
-        <a routerLink="/sorting/{{ changeName(problem.name) }}">
+      <ng-container *ngFor="let item of (_allProblems | async) | keyvalue ">
+        <a routerLink="/sorting/{{ changeName(item.value.name) }}">
           <mat-list-item class="list_width">
-            {{ problem.name }}
+            {{ item.value.name }}
             <mat-divider></mat-divider>
           </mat-list-item>
         </a>

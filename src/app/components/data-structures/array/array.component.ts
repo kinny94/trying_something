@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
-import { Files, Complexities } from 'src/models/model';
+import { Complexities, TopicProblems } from 'src/models/model';
 import { Observable } from 'rxjs';
-import { AngularFireList } from '@angular/fire/database';
-import { UploadData } from 'src/app/services/upload-services/upload.service';
 
 const ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'Θ(1)', type_worst: 'Access (Worst)', complexity_worst: 'Θ(1)'},
@@ -21,7 +19,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class ArrayComponent implements OnInit {
 
-  _allProblems ?: Observable<UploadData[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
@@ -29,6 +27,8 @@ export class ArrayComponent implements OnInit {
     private router: ActivatedRoute,
     private problem: ProblemsService
   ) { }
+
+  objectKeys = Object.keys;
 
   ngOnInit() {
     const currentTopic = this.router.snapshot.routeConfig.path;
