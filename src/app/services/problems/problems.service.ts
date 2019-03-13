@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; 
 
 import { problems } from 'problems/problems';
-import { of } from 'rxjs';
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { of, BehaviorSubject, Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
 import { TopicProblems } from 'src/models/model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class ProblemsService {
     private db: AngularFireDatabase
   ) { }
 
+  _everyProblemsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([]);
+  _everyProblem$: Observable<Array<string>> = this._everyProblemsSubject.asObservable();
+
   getAllProblems(topic: string): AngularFireObject<TopicProblems> {
     return this.db.object(`/problems/${topic}`);
   }
@@ -24,15 +28,7 @@ export class ProblemsService {
     return this.http.get<string>(`/api/${topic}/${problem}`);
   }
 
-  getEverything(){
-    const allProblems = [];
-    for (const key in problems) {
-      if (key) {
-        problems[key].forEach(problem => {
-          allProblems.push({'name': problem.name, 'topic': problem.topic})
-        });
-      }
-    }
-    return of(allProblems);
+  getEverything(): AngularFireList<TopicProblems> {
+    return this.db.list('/problems');
   }
 }

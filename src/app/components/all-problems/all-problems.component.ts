@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { AngularFireList } from '@angular/fire/database';
+import { TopicProblems } from 'src/models/model';
 
 export interface Problem {
   name: string;
@@ -15,8 +17,10 @@ export interface Problem {
 })
 export class AllProblemsComponent implements OnInit {
 
-  _filteredProblems?: Observable<{}>;
-  _allProblems?: Observable<{}>;
+  _filteredProblems?: Observable<Array<string>>;
+
+  _everyProblemsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([]);
+  _everyProblem$: Observable<Array<string>> = this._everyProblemsSubject.asObservable();
   searchText = '';
 
   constructor(
@@ -24,13 +28,21 @@ export class AllProblemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._allProblems = this.problemService.getEverything();
-    this._filteredProblems = this._allProblems;
+    this.problemService.getEverything().valueChanges().pipe(
+      map(element => {
+        element.forEach(elem => {
+          this.printValues(elem);
+        });
+      }),
+    ).subscribe();
+    this._filteredProblems = this._everyProblem$;
   }
 
   changeName(name: string) {
     return name.replace(/([A-Z])/g, ' $1').trim();
   }
+
+
 
   filterProblems() {
     if (this.searchText === '') {
@@ -42,5 +54,19 @@ export class AllProblemsComponent implements OnInit {
         problems.filter((problem: Problem) => 
           this.changeName(problem.name).toLowerCase().includes(this.searchText.toLowerCase())))
     );
+  }
+
+  printValues(obj: Object) {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        this.printValues(obj[key]);
+      } else {
+        if (key === 'name') {
+          const currentProblems: Array<string> = this._everyProblemsSubject.getValue();
+          const newProblems: Array<string> = [...currentProblems, obj[key]];
+          this._everyProblemsSubject.next(newProblems);
+        }
+      }
+    }
   }
 }
