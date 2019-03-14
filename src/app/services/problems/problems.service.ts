@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; 
+import { HttpClient } from '@angular/common/http';
 
 import { problems } from 'problems/problems';
 import { of, BehaviorSubject, Observable } from 'rxjs';
@@ -24,8 +24,8 @@ export class ProblemsService {
     return this.db.object(`/problems/${topic}`);
   }
 
-  getProblemString(topic: string, problem: string) {
-    return this.http.get<string>(`/api/${topic}/${problem}`);
+  getProblem(topic: string, id: string) {
+    return this.db.list(`/problems/${topic}/${id}`);
   }
 
   getEverything(): AngularFireList<TopicProblems> {
