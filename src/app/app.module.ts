@@ -26,8 +26,6 @@ import { SortingComponent } from './components/algorithms/sorting/sorting.compon
 import { ProblemComponent } from './components/problem/problem.component';
 import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
-import { initializeApp } from 'firebase';
-import {FileUploadModule} from 'ng2-file-upload';
 import { environment } from 'src/environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -59,7 +57,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    FileUploadModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
@@ -77,8 +74,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
       { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
-      { path: ':type/:problem', component: ProblemComponent, pathMatch: 'full' }
-    ], {useHash: true})
+      { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' }
+    ])
   ],
   providers: [
     { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' }

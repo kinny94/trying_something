@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
 import { TopicProblems } from 'src/models/model';
 
@@ -28,20 +28,15 @@ export class AllProblemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.problemService.getEverything().valueChanges().pipe(
-      map(element => {
-        element.forEach((ele: Object) => {
-          const old: Array<Object> = this._everyProblemsSubject.getValue();
-          const newa: Array<Object> = [...old, ele];
-          this._everyProblemsSubject.next(newa);
-        });
-      }),
-    ).subscribe();
-    //this._filteredProblems = this._everyProblem$;
+    this._everyProblem$ = this.problemService.getEverything().valueChanges().pipe(
+      map(element => element),
+      tap(data => this._everyProblemsSubject.next(data)),
+    );
+    // this._filteredProblems = this._everyProblem$;
   }
 
   changeName(name: string) {
-    return name.replace(/([A-Z])/g, ' $1').trim();
+    return name.toLowerCase().replace(/ /g, '-').trim();
   }
 
 
@@ -52,11 +47,11 @@ export class AllProblemsComponent implements OnInit {
   //   }
 
   //   this._filteredProblems = this._allProblems.pipe(
-  //     map((problems: Problem[]) => 
-  //       problems.filter((problem: Problem) => 
+  //     map((problems: Problem[]) =>
+  //       problems.filter((problem: Problem) =>
   //         this.changeName(problem.name).toLowerCase().includes(this.searchText.toLowerCase())))
   //   );
   // }
 
-  
+
 }
