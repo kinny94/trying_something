@@ -53,7 +53,7 @@ export class SortingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const currentTopic = `/algorithms/${this.router.snapshot.routeConfig.path}`;
+    const currentTopic = `${this.router.snapshot.routeConfig.path}`;
     this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
   }
 

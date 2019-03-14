@@ -35,5 +35,4 @@ export class StackComponent implements OnInit {
   changeName(name: string) {
     return name.replace(/\s/g, '').trim();
   }
-
 }

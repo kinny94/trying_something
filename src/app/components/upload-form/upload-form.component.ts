@@ -66,10 +66,7 @@ export class UploadFormComponent implements OnInit {
     this.submitDisabled = true;
     if (this.uploadForm.valid) {
       const name = this.uploadForm.controls.name.value;
-      let topic = this.uploadForm.controls.topic.value;
-      if (topic.toLowerCase() === 'searching' || topic.toLowerCase() === 'sorting') {
-        topic = `algorithms/${topic}`;
-      }
+      const topic = this.uploadForm.controls.topic.value;
       const filePath = `${topic.toLowerCase()}/${name}`;
       this.uploadService.uploadFile(this.file, filePath, () => {
         this.submitDisabled = false;

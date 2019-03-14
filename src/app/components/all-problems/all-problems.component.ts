@@ -19,8 +19,8 @@ export class AllProblemsComponent implements OnInit {
 
   _filteredProblems?: Observable<Array<string>>;
 
-  _everyProblemsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([]);
-  _everyProblem$: Observable<Array<string>> = this._everyProblemsSubject.asObservable();
+  _everyProblemsSubject: BehaviorSubject<Array<Object>> = new BehaviorSubject<Array<Object>>([]);
+  _everyProblem$: Observable<Array<Object>> = this._everyProblemsSubject.asObservable();
   searchText = '';
 
   constructor(
@@ -30,12 +30,14 @@ export class AllProblemsComponent implements OnInit {
   ngOnInit() {
     this.problemService.getEverything().valueChanges().pipe(
       map(element => {
-        element.forEach(elem => {
-          this.printValues(elem);
+        element.forEach((ele: Object) => {
+          const old: Array<Object> = this._everyProblemsSubject.getValue();
+          const newa: Array<Object> = [...old, ele];
+          this._everyProblemsSubject.next(newa);
         });
       }),
     ).subscribe();
-    this._filteredProblems = this._everyProblem$;
+    //this._filteredProblems = this._everyProblem$;
   }
 
   changeName(name: string) {
@@ -44,29 +46,17 @@ export class AllProblemsComponent implements OnInit {
 
 
 
-  filterProblems() {
-    if (this.searchText === '') {
-      this._filteredProblems = this._allProblems;
-    }
+  // filterProblems() {
+  //   if (this.searchText === '') {
+  //     this._filteredProblems = this._allProblems;
+  //   }
 
-    this._filteredProblems = this._allProblems.pipe(
-      map((problems: Problem[]) => 
-        problems.filter((problem: Problem) => 
-          this.changeName(problem.name).toLowerCase().includes(this.searchText.toLowerCase())))
-    );
-  }
+  //   this._filteredProblems = this._allProblems.pipe(
+  //     map((problems: Problem[]) => 
+  //       problems.filter((problem: Problem) => 
+  //         this.changeName(problem.name).toLowerCase().includes(this.searchText.toLowerCase())))
+  //   );
+  // }
 
-  printValues(obj: Object) {
-    for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        this.printValues(obj[key]);
-      } else {
-        if (key === 'name') {
-          const currentProblems: Array<string> = this._everyProblemsSubject.getValue();
-          const newProblems: Array<string> = [...currentProblems, obj[key]];
-          this._everyProblemsSubject.next(newProblems);
-        }
-      }
-    }
-  }
+  
 }
