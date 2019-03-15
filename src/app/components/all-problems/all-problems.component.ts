@@ -17,11 +17,11 @@ export interface Problem {
 })
 export class AllProblemsComponent implements OnInit {
 
-  _filteredProblems?: Observable<Array<string>>;
-
+  _filteredProblems$?: Observable<Array<Object>>;
   _everyProblemsSubject: BehaviorSubject<Array<Object>> = new BehaviorSubject<Array<Object>>([]);
   _everyProblem$: Observable<Array<Object>> = this._everyProblemsSubject.asObservable();
   searchText = '';
+  _searchText$: BehaviorSubject<string> = new BehaviorSubject<string>(this.searchText);
 
   constructor(
     private problemService: ProblemsService
@@ -32,26 +32,26 @@ export class AllProblemsComponent implements OnInit {
       map(element => element),
       tap(data => this._everyProblemsSubject.next(data)),
     );
-    // this._filteredProblems = this._everyProblem$;
+    this._filteredProblems$ = this._everyProblem$;
   }
 
   changeName(name: string) {
     return name.toLowerCase().replace(/ /g, '-').trim();
   }
 
+  filterProblems() {
+    if (this.searchText === '') {
+      this._filteredProblems$ = this._everyProblem$;
+    }
 
+    this._filteredProblems$ = this._everyProblem$.pipe(
+      map((data) =>
+      data.filter((item) =>
+        (!this.searchText || !Object.values(item)[0].name.toLowerCase().includes(this.searchText))
+      ),
+    ));
 
-  // filterProblems() {
-  //   if (this.searchText === '') {
-  //     this._filteredProblems = this._allProblems;
-  //   }
-
-  //   this._filteredProblems = this._allProblems.pipe(
-  //     map((problems: Problem[]) =>
-  //       problems.filter((problem: Problem) =>
-  //         this.changeName(problem.name).toLowerCase().includes(this.searchText.toLowerCase())))
-  //   );
-  // }
-
+    this._filteredProblems$.subscribe(data => console.log(data));
+  }
 
 }
