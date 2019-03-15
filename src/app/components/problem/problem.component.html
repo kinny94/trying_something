@@ -3,7 +3,7 @@
     <h3>Problem: {{ (problem$ | async)?.name }}</h3>
   </div>
   <div fxLayout="row">
-    <h5>{{ (problem$ | async)?.description }}</h5>
+    <h4>{{ (problem$ | async)?.description }}</h4>
   </div>
   <div fxLayout="row">
     <h4>Complexity: {{ (problem$ | async)?.complexity }}</h4>
@@ -13,11 +13,11 @@
       <span><button mat-raised-button color="accent">{{ tag }}</button></span>
     </ng-container>
   </div>
-  <div fxLayout="row" class="code__width">
-    <div class="code__width">
-      <pre>
+  <div fxLayout="row">
+    <div fxFlex> 
+      <pre *ngIf="content$ | async as content">
         <code highlight class="hljs java">
-          {{ content.code }}
+          {{ content.toString() }}
         </code>
       </pre>
     </div>
