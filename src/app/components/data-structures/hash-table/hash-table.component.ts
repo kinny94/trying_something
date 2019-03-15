@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Files, Complexities } from 'src/models/model';
+import { Files, Complexities, TopicProblems } from 'src/models/model';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { ActivatedRoute } from '@angular/router';
+import { UploadData } from 'src/app/services/upload-services/upload.service';
 
 const ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'N/A', type_worst: 'Access (Worst)', complexity_worst: 'N/A'},
@@ -18,7 +19,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class HashTableComponent implements OnInit {
 
-  _allProblems ?: Observable<Files[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
@@ -29,8 +30,10 @@ export class HashTableComponent implements OnInit {
 
   ngOnInit() {
     const currentTopic = this.router.snapshot.routeConfig.path;
-    this._allProblems = this.problem.getAllProblems(currentTopic);
+    this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
   }
 
-
+  changeName(name: string) {
+    return name.replace(/\s/g, '').trim();
+  }
 }

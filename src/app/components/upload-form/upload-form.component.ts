@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UploadService, UploadData } from 'src/app/services/upload-services/upload.service';
 import { COMPLEXITIES, TAGS } from './../../model';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-upload-form',
@@ -67,7 +68,8 @@ export class UploadFormComponent implements OnInit {
     if (this.uploadForm.valid) {
       const name = this.uploadForm.controls.name.value;
       const topic = this.uploadForm.controls.topic.value;
-      const filePath = `${topic.toLowerCase()}/${name}`;
+      const uuid = UUID.UUID();
+      const filePath = `${topic.toLowerCase()}/${uuid}.java`;
       this.uploadService.uploadFile(this.file, filePath, () => {
         this.submitDisabled = false;
       });
@@ -81,12 +83,14 @@ export class UploadFormComponent implements OnInit {
         description: this.uploadForm.controls.description.value,
         tags: tags,
         complexity: this.uploadForm.controls.complexity.value,
-        storageUrl: filePath
+        storageUrl: uuid
       };
 
       this.uploadService.uploadData(this.uploadData, () => {
         this.submitDisabled = false;
         this.dataUploaded = true;
+        this.uploadForm.reset();
+        this.uploadForm.markAsPristine();
         setInterval(() => {
           this.dataUploaded = false;
         }, 1000);

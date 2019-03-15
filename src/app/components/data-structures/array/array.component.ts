@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
-import { Files, Complexities } from 'src/models/model';
+import { Complexities, TopicProblems } from 'src/models/model';
 import { Observable } from 'rxjs';
 
 const ELEMENT_DATA: Complexities[] = [
@@ -19,7 +19,7 @@ const ELEMENT_DATA: Complexities[] = [
 })
 export class ArrayComponent implements OnInit {
 
-  _allProblems ?: Observable<Files[]>;
+  _allProblems ?: Observable<TopicProblems>;
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
@@ -28,8 +28,14 @@ export class ArrayComponent implements OnInit {
     private problem: ProblemsService
   ) { }
 
+  objectKeys = Object.keys;
+
   ngOnInit() {
     const currentTopic = this.router.snapshot.routeConfig.path;
-    this._allProblems = this.problem.getAllProblems(currentTopic);
+    this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
+  }
+
+  changeName(name: string) {
+    return name.replace(/\s/g, '').trim();
   }
 }

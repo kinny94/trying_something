@@ -34,11 +34,11 @@ export const problems  = {
             'tags': ['hash-table']
         }
     ],
-    'graphs': [
+    'graph': [
         {
-            'name': 'HelloGraphs',
-            'topic': 'graphs',
-            'tags': ['graphs']
+            'name': 'HelloGraph',
+            'topic': 'graph',
+            'tags': ['graph']
         }
     ],
     'trees': [

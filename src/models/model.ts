@@ -1,15 +1,30 @@
 export interface DsDesctiption {
-    topic: string;
-    description: string;
+  topic: string;
+  desc: string;
 }
 
 export interface Files {
-    name: string;
+  name: string;
 }
 
 export interface Complexities {
-    complexity_avg: string;
-    type_avg: string;
-    type_worst: string;
-    complexity_worst: string;
+  complexity_avg: string;
+  type_avg: string;
+  type_worst: string;
+  complexity_worst: string;
+}
+
+export interface ProblemData {
+  complexity: string;
+  description: string;
+  likes: number;
+  name: string;
+  stars: number;
+  storageUrl: string;
+  tags: Array<string>;
+  topic: string;
+}
+
+export interface TopicProblems {
+  [key: string]: ProblemData;
 }
