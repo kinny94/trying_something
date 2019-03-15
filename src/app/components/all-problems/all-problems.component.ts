@@ -21,7 +21,6 @@ export class AllProblemsComponent implements OnInit {
   _everyProblemsSubject: BehaviorSubject<Array<Object>> = new BehaviorSubject<Array<Object>>([]);
   _everyProblem$: Observable<Array<Object>> = this._everyProblemsSubject.asObservable();
   searchText = '';
-  _searchText$: BehaviorSubject<string> = new BehaviorSubject<string>(this.searchText);
 
   constructor(
     private problemService: ProblemsService
@@ -45,13 +44,17 @@ export class AllProblemsComponent implements OnInit {
     }
 
     this._filteredProblems$ = this._everyProblem$.pipe(
-      map((data) =>
-      data.filter((item) =>
-        (!this.searchText || !Object.values(item)[0].name.toLowerCase().includes(this.searchText))
-      ),
-    ));
-
-    this._filteredProblems$.subscribe(data => console.log(data));
+      map((data) => {
+        return data.filter((item) =>
+          Object.values(item).some((prob) => {
+              if (prob.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+                return prob;
+              }
+            }
+          )
+        );
+      }),
+    );
   }
 
 }
