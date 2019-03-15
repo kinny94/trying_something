@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { problems } from 'problems/problems';
 import { of, BehaviorSubject, Observable } from 'rxjs';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
-import { TopicProblems } from 'src/models/model';
+import { TopicProblems, ProblemData } from 'src/models/model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -24,8 +24,8 @@ export class ProblemsService {
     return this.db.object(`/problems/${topic}`);
   }
 
-  getProblem(topic: string, id: string) {
-    return this.db.list(`/problems/${topic}/${id}`);
+  getProblem(topic: string, id: string): AngularFireObject<ProblemData> {
+    return this.db.object(`/problems/${topic}/${id}`);
   }
 
   getEverything(): AngularFireList<TopicProblems> {
