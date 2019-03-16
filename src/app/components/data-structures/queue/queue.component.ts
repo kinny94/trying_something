@@ -4,14 +4,12 @@ import { Observable } from 'rxjs';
 import { ProblemsService } from './../../../services/problems/problems.service';
 import { ActivatedRoute } from '@angular/router';
 
-
 const ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'Θ(1)', type_worst: 'Access (Worst)', complexity_worst: 'Θ(1)'},
   {type_avg: 'Search (Average)', complexity_avg: 'Θ(n)', type_worst: 'Search (Worst)', complexity_worst: 'Θ(n)'},
   {type_avg: 'Insertion (Average)', complexity_avg: 'Θ(n)', type_worst: 'Insertion (Worst)', complexity_worst: 'Θ(n)'},
   {type_avg: 'Deletion (Average)', complexity_avg: 'Θ(n)', type_worst: 'Deletion (Worst)', complexity_worst: 'Θ(n)'},
 ];
-
 
 @Component({
   selector: 'app-queue',
