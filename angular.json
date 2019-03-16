@@ -75,24 +75,6 @@
             "browserTarget": "codebase:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "codeCoverage": true,
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -146,14 +128,6 @@
           "options": {
             "tsConfig": "projects/codebase-lib/tsconfig.lib.json",
             "project": "projects/codebase-lib/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/codebase-lib/src/test.ts",
-            "tsConfig": "projects/codebase-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/codebase-lib/karma.conf.js"
           }
         },
         "lint": {
