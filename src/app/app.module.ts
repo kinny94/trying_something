@@ -20,14 +20,14 @@ import { LinkedlistComponent } from './components/data-structures//linkedlist/li
 import { StackComponent } from './components/data-structures//stack/stack.component';
 import { QueueComponent } from './components/data-structures/queue/queue.component';
 import { GraphComponent } from './components/data-structures/graph/graph.component';
-import { TreeComponent } from './/components/data-structures/tree/tree.component';
+import { TreeComponent } from './components/data-structures/tree/tree.component';
 import { HashTableComponent } from './components/data-structures/hash-table/hash-table.component';
 import { SearchingComponent } from './components/algorithms/searching/searching.component';
 import { SortingComponent } from './components/algorithms/sorting/sorting.component';
 import { ProblemComponent } from './components/problem/problem.component';
 import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from './../environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 
 @NgModule({

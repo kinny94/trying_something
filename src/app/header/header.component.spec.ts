@@ -1,0 +1,36 @@
+import { HeaderComponent } from './header.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { MaterialModule } from '../material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_BASE_HREF } from '@angular/common';
+
+describe('HeaderComponent', () => {
+  let comp: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        HeaderComponent,
+        AppComponent
+      ],
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot([
+          {path: '', component: AppComponent, pathMatch: 'full'}
+        ])
+      ],
+      providers: [{provide: APP_BASE_HREF, useValue : '/' }]
+    });
+
+    fixture = TestBed.createComponent(HeaderComponent);
+    comp = fixture.componentInstance;
+  });
+
+  it('should create the header component', () => {
+    expect(comp).toBeTruthy();
+  });
+});

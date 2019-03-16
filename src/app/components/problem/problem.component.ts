@@ -5,7 +5,7 @@ import { ProblemData } from './../../../models/model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProblemsService } from 'src/app/services/problems/problems.service';
+import { ProblemsService } from './../../services/problems/problems.service';
 
 export interface Content {
   code: string;

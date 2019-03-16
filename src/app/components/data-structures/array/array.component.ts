@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProblemsService } from 'src/app/services/problems/problems.service';
-import { Complexities, TopicProblems } from 'src/models/model';
+
+import { ProblemsService } from './../../../services/problems/problems.service';
+import { Complexities, TopicProblems } from './../../../../models/model';
 import { Observable } from 'rxjs';
 
 const ELEMENT_DATA: Complexities[] = [

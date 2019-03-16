@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Files, Complexities, TopicProblems } from 'src/models/model';
-import { ProblemsService } from 'src/app/services/problems/problems.service';
+import { Complexities, TopicProblems } from './../../../../models/model';
+import { ProblemsService } from './../../../services/problems/problems.service';
 import { ActivatedRoute } from '@angular/router';
-import { UploadData } from 'src/app/services/upload-services/upload.service';
 
 const ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'N/A', type_worst: 'Access (Worst)', complexity_worst: 'N/A'},

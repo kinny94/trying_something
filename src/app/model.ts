@@ -1,4 +1,4 @@
-import { DsDesctiption } from "src/models/model";
+import { DsDesctiption } from "./../models/model";
 
 
 export const COMPLEXITIES = [

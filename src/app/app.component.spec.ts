@@ -36,9 +36,14 @@ describe('AppComponent', () => {
 
     fixture = TestBed.createComponent(AppComponent);
     comp = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app component', () => {
     expect(comp).toBeTruthy();
+  });
+
+  it('should set the title as codebase', () => {
+    expect(comp.title).toEqual('codebase');
   });
 });

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
 
-import { TopicProblems, ProblemData } from 'src/models/model';
+import { TopicProblems, ProblemData } from './../../../models/model';
 
 
 @Injectable({

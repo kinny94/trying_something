@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProblemsService } from 'src/app/services/problems/problems.service';
+import { ProblemsService } from './../../services/problems/problems.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { AngularFireList } from '@angular/fire/database';
-import { TopicProblems } from 'src/models/model';
+import { map, tap } from 'rxjs/operators';
 
 export interface Problem {
   name: string;

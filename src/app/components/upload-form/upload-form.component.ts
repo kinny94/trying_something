@@ -2,7 +2,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { UploadService, UploadData } from 'src/app/services/upload-services/upload.service';
+import { UploadService, UploadData } from './../../services/upload-services/upload.service';
 import { COMPLEXITIES, TAGS } from './../../model';
 import { UUID } from 'angular2-uuid';
 
@@ -90,10 +90,6 @@ export class UploadFormComponent implements OnInit {
         this.submitDisabled = false;
         this.dataUploaded = true;
         this.uploadForm.reset();
-        this.uploadForm.markAsPristine();
-        setInterval(() => {
-          this.dataUploaded = false;
-        }, 1000);
       });
     }
   }
