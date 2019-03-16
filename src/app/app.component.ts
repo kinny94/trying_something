@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +9,9 @@ export class AppComponent implements OnInit {
   title = 'codebase';
   data = '';
 
-  constructor(private http: HttpClient, private storage: AngularFireStorage) {
+  constructor() {
   }
 
   ngOnInit() {
-    // const ref = this.storage.ref('array/HelloArray.java');
-    // ref.getDownloadURL().subscribe(data => {
-    //     this.http.get(data, { responseType: 'text' as 'json' }).subscribe(text => console.log(text));
-    //   }
-    // );
   }
 }

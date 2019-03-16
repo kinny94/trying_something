@@ -46,7 +46,7 @@
   <div fxLayout="row" class="list_width">
     <mat-list class="list_width">
       <ng-container *ngFor="let item of (_allProblems | async) | keyvalue ">
-        <a routerLink="/tree/{{ changeName(item.value.name) }}">
+        <a routerLink="/{{ item.key }}/{{ item.value.topic }}/{{ changeName(item.value.name) }}">
           <mat-list-item class="list_width">
             {{ item.value.name }}
             <mat-divider></mat-divider>

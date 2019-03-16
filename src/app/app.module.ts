@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -28,7 +29,6 @@ import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
 import { environment } from 'src/environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [

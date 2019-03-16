@@ -16,6 +16,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
-  }
+    ],
+    "paths": {
+      "codebase-lib": [
+        "dist/codebase-lib"
+      ],
+      "codebase-lib/*": [
+        "dist/codebase-lib/*"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ]
 }
