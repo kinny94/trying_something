@@ -1,5 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/theming';
+@import './themes/default-theme.scss';
+@import './themes/amber-theme.scss';
+@import './themes/blue-theme.scss';
+@import './themes/dark-theme.scss';
+@import './themes/amber-theme.scss';
+@import './themes/green-theme.scss';
+@import './themes/purple-theme.scss';
+@import './themes/red-theme.scss';
+@import './themes/yellow-theme.scss';
+@import './themes/card-theme.scss';
+
+@include mat-core();  
+
+.default-theme {
+  @include angular-material-theme($default-theme);
+  @include card-theme($default-theme);
+}
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+  @include card-theme($dark-theme);
+}
+
+.red-theme {
+  @include angular-material-theme($red-theme);
+  @include card-theme($red-theme);
+}
+
+.amber-theme {
+  @include angular-material-theme($amber-theme);
+  @include card-theme($amber-theme);
+}
+
+.green-theme {
+  @include angular-material-theme($green-theme);
+  @include card-theme($green-theme);
+}
+
+.blue-theme {
+  @include angular-material-theme($blue-theme);
+  @include card-theme($blue-theme);
+}
+
+.purple-theme {
+  @include angular-material-theme($purple-theme);
+  @include card-theme($purple-theme);
+}
+
+.yellow-theme {
+  @include angular-material-theme($yellow-theme);
+  @include card-theme($yellow-theme);
+}
+
+
+@mixin theme-color-grabber($theme) {
+  // Parse the theme and create variables for each color in the pallete
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  // Create theme specfic styles
+}
 
 body, html{
   margin: 0px;

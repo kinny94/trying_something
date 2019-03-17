@@ -1,18 +1,20 @@
-<div fxLayout="column" fxFlex>
-  <div fxLayout="row">
+<div fxLayout="column">
+  <div>
     <h3>Problem: {{ (problem$ | async)?.name }}</h3>
   </div>
-  <div fxLayout="row">
+  <div>
     <h4>{{ (problem$ | async)?.description }}</h4>
   </div>
-  <div fxLayout="row">
+  <div>
     <h4>Complexity: {{ (problem$ | async)?.complexity }}</h4>
   </div>
-  <div fxLayout="row">
+  <div>
     <ng-container *ngFor="let tag of (problem$ | async)?.tags">
       <span><button mat-raised-button color="accent">{{ tag }}</button></span>
     </ng-container>
   </div>
+</div>
+<div>
   <div fxLayout="row">
     <div fxFlex> 
       <pre *ngIf="content$ | async as content">
