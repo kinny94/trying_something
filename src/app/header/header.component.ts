@@ -9,7 +9,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class HeaderComponent implements OnInit {
 
-  theme = 'light-theme';
+  theme = 'default-theme';
 
   constructor(
     private router: Router,
