@@ -1,0 +1,34 @@
+@import '~@angular/material/theming';
+
+@mixin card-theme($theme) { 
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent );
+  $warn: map-get($theme, warn);
+
+  .card {
+    max-width: 400px;
+    min-width: 230px;
+    min-height: 250px;
+    z-index: 10;
+    padding: 1.25rem;
+    opacity: 0.9;
+    background: -webkit-gradient(linear, left top, right bottom, from(mat-color($primary)), to(mat-color($accent)));
+    background: linear-gradient(to bottom right, mat-color($primary), mat-color($accent));
+    color: #fff;
+    margin: 5%;
+    position: relative;
+  }
+  
+  .card:hover{
+    opacity: 1;
+    transition: all .2s ease-in-out;
+    transform: scale(1.05);
+  }
+  
+  .mat-raised-button {
+    width: 93%;
+    bottom: 10px;
+    position: absolute;
+  }
+}

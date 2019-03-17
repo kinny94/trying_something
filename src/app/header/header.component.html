@@ -1,4 +1,4 @@
-<div>
+<div [class]="theme">
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
       <button mat-icon-button (click)="sidenav.toggle()">
@@ -18,7 +18,7 @@
       <button mat-button routerLink="/graph">Graph</button>
       <button mat-button routerLink="/tree">Tree</button>
       <button mat-button [matMenuTriggerFor]="menu">Algorithms</button>
-      <mat-menu #menu="matMenu">
+      <mat-menu #menu="matMenu" color="primary">
         <button mat-menu-item routerLink="/searching">Searching</button>
         <button mat-menu-item routerLink="/sorting">Sorting</button>
       </mat-menu>
@@ -26,7 +26,7 @@
     </div>
 
   </mat-toolbar>
-  <mat-sidenav-container fxFlexFill class="example-container">
+  <mat-sidenav-container fxFlexFill>
 
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
       <div fxLayout="column">
