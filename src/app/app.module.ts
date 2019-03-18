@@ -29,6 +29,7 @@ import { HighlightCodeDirective } from './directives/highlight';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
 import { environment } from './../environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { UploadFormComponent } from './components/upload-form/upload-form.compon
     HighlightCodeDirective,
     AllProblemsComponent,
     UploadFormComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +76,7 @@ import { UploadFormComponent } from './components/upload-form/upload-form.compon
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
       { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
+      { path: 'signup', component: SignupComponent, pathMatch: 'full' },
       { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' }
     ])
   ],
