@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
+  submitDisabled = true;
   signupForm = new FormGroup({
     firstname: new FormControl('', [ Validators.required ]),
     lastname: new FormControl('', [ Validators.required ]),
@@ -25,6 +26,9 @@ export class SignupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.signupForm.valid) {
+      this.submitDisabled = false;
+    }
   }
 
 }
