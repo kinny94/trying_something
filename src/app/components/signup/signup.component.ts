@@ -1,5 +1,17 @@
 import { Component, OnInit  } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
+import { checkPasswords } from './varlidators';
+import { ErrorStateMatcher } from '@angular/material';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
+  }
+}
 
 @Component({
   selector: 'app-signup',
@@ -8,27 +20,25 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  submitDisabled = true;
-  signupForm = new FormGroup({
-    firstname: new FormControl('', [ Validators.required ]),
-    lastname: new FormControl('', [ Validators.required ]),
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.pattern('^(?=[a-z_\d]*[a-z])[a-z_\d]{6,}$')
-    ]),
-    occupation: new FormControl(''),
-    email: new FormControl('', Validators.email),
-    password: new FormControl('', Validators.minLength(8)),
-    confirmPassword: new FormControl('', Validators.minLength(7))
-  });
+  signupForm: FormGroup;
+  matcher = new MyErrorStateMatcher();
 
-  constructor() { }
-
-  ngOnInit() {
-    if (this.signupForm.valid) {
-      this.submitDisabled = false;
-    }
+  constructor(private formBuilder: FormBuilder) {
+    this.signupForm = this.formBuilder.group({
+      firstname: ['', [ Validators.required ]],
+      lastname: [''],
+      username: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.pattern('^(?=[a-z_\d]*[a-z])[a-z_\d]{6,}$')
+      ]],
+      occupation: [''],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.minLength(8), Validators.required]],
+      confirmPassword: ['', [Validators.required]]
+    }, {validator: checkPasswords });
   }
+
+  ngOnInit() {}
 
 }
