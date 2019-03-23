@@ -32,6 +32,7 @@ import { UploadFormComponent } from './components/upload-form/upload-form.compon
 import { SignupComponent } from './components/signup/signup.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ])
   ],
   providers: [
-    { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' }
+    { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' },
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
