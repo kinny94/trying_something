@@ -2,6 +2,9 @@ import { Component, OnInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { checkPasswords } from './varlidators';
 import { ErrorStateMatcher } from '@angular/material';
+import { UserData } from './../../../models/model';
+import { UserService } from './../../services/user-service/user.service';
+import { Router } from '@angular/router';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -23,7 +26,11 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.signupForm = this.formBuilder.group({
       firstname: ['', [ Validators.required ]],
       lastname: [''],
@@ -37,6 +44,21 @@ export class SignupComponent implements OnInit {
       password: ['', [Validators.minLength(8), Validators.required]],
       confirmPassword: ['', [Validators.required]]
     }, {validator: checkPasswords });
+  }
+
+  onSubmit() {
+    if (this.signupForm.valid) {
+      const userData: UserData = {
+        firstname: this.signupForm.controls.firstname.value,
+        lastname: this.signupForm.controls.lastname.value,
+        username: this.signupForm.controls.username.value,
+        email: this.signupForm.controls.email.value,
+        password: this.signupForm.controls.password.value
+      };
+      this.userService.addUserOnSignUp(userData, () => {
+        this.router.navigate(['/user/123']);
+      });
+    }
   }
 
   ngOnInit() {}

@@ -30,6 +30,8 @@ import { AllProblemsComponent } from './components/all-problems/all-problems.com
 import { environment } from './../environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { UserComponent } from './components/user/user.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { SignupComponent } from './components/signup/signup.component';
     AllProblemsComponent,
     UploadFormComponent,
     SignupComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { SignupComponent } from './components/signup/signup.component';
     ReactiveFormsModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -77,7 +81,8 @@ import { SignupComponent } from './components/signup/signup.component';
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
       { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
       { path: 'signup', component: SignupComponent, pathMatch: 'full' },
-      { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' }
+      { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },
+      { path: 'user/:id', component: UserComponent, pathMatch: 'full' }
     ])
   ],
   providers: [

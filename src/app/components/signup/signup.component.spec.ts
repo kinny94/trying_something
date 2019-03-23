@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
+import { UserService } from './../../services/user-service/user.service';
+import { environment } from './../../../../src/environments/environment.prod';
 
 describe('SignUpcomponent', () => {
 
@@ -22,7 +24,7 @@ describe('SignUpcomponent', () => {
       ],
       imports: [
         MaterialModule,
-        AngularFireModule,
+        AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         AngularFireStorageModule,
         BrowserAnimationsModule,
@@ -32,7 +34,10 @@ describe('SignUpcomponent', () => {
           { path: 'signup', component: SignupComponent, pathMatch: 'full'}
         ])
       ],
-      providers: [{provide: APP_BASE_HREF, useValue : '/' }]
+      providers: [
+        UserService,
+        {provide: APP_BASE_HREF, useValue : '/' }
+      ]
     });
 
     fixture = TestBed.createComponent(SignupComponent);
