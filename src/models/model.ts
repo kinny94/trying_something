@@ -28,3 +28,12 @@ export interface ProblemData {
 export interface TopicProblems {
   [key: string]: ProblemData;
 }
+
+export interface UserData {
+  firstname: string;
+  lastname: string;
+  username: string;
+  occupation?: string;
+  password: string;
+  email: string;
+}
