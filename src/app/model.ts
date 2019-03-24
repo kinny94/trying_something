@@ -28,6 +28,17 @@ export const TAGS = [
   'Hash-Table'
 ];
 
+export const THEMES = new Map<string, string>([
+  ['Dark', 'dark-theme'],
+  ['Default', 'default-theme'],
+  ['Amber', 'amber-theme'],
+  ['Blue', 'blue-theme'],
+  ['Red', 'red-theme'],
+  ['Green', 'green-theme'],
+  ['Purple', 'purple-theme'],
+  ['Yellow', 'yellow-theme']
+]);
+
 export const DESCRIPTION: DsDesctiption[] = [
   {
     topic: 'Array',

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { AuthService } from '../services/auth/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { THEMES } from './../model';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,10 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  theme = 'default-theme';
+  activeTheme = 'default-theme';
+  availableThemes = THEMES;
+  theme: BehaviorSubject<string> = new BehaviorSubject('default-theme');
+
   user$: Observable<firebase.User>;
 
   constructor(
@@ -21,18 +25,23 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.overlayContainer.getContainerElement().classList.add(this.theme);
+    this.overlayContainer.getContainerElement().classList.add(this.activeTheme);
     this.user$ = this.authService.user$;
+    if (localStorage.getItem('codebase-theme') !== null) {
+      this.activeTheme = localStorage.getItem('codebase-theme');
+    }
   }
 
-  onThemeChange(theme: string) {
-    this.theme = theme;
+  changeTheme(theme: string) {
     const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
     const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => item.includes('-theme'));
     if (themeClassesToRemove.length) {
       overlayContainerClasses.remove(...themeClassesToRemove);
    }
-   overlayContainerClasses.add(theme);
+   this.theme.next(this.availableThemes.get(theme));
+    this.activeTheme = this.theme.getValue();
+    overlayContainerClasses.add(this.activeTheme);
+    localStorage.setItem('codebase-theme', this.activeTheme);
   }
 
   logout() {
