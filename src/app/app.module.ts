@@ -33,6 +33,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth/auth.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -83,12 +84,13 @@ import { AuthService } from './services/auth/auth.service';
       { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
       { path: 'signup', component: SignupComponent, pathMatch: 'full' },
       { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },
-      { path: 'user/:id', component: UserComponent, pathMatch: 'full' }
+      { path: 'user/:id', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuardService] }
     ])
   ],
   providers: [
     { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' },
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
