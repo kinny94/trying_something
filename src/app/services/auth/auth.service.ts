@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { UserData } from 'src/models/model';
+import { UserData } from './../../../models/model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,29 +10,25 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private user: Observable<firebase.User>;
+  user$: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
   constructor(
     public  afAuth:  AngularFireAuth,
     public  router:  Router
   ) {
-    this.user = afAuth.authState;
-    this.user.subscribe(
-      (user) => {
-        if (user) {
-          this.userDetails = user;
-          console.log(this.userDetails);
-        } else {
-          this.userDetails = null;
-        }
-      }
-    );
+    this.user$ = afAuth.authState;
   }
 
   signUp(userdata: UserData) {
-    this.afAuth.auth.createUserWithEmailAndPassword(userdata.email, userdata.password);
-    this.loginWithEmailAndPassword(userdata.email, userdata.password);
+    return this.afAuth.auth.createUserWithEmailAndPassword(userdata.email, userdata.password).then(() => {
+      this.loginWithEmailAndPassword(userdata.email, userdata.password);
+    }, (err) => {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+    });
   }
 
   loginWithEmailAndPassword(email:  string, password:  string) {

@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { GradientCardComponent } from './components/gradient-card/gradient-card.component';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from './../environments/environment.prod';
 
 describe('AppComponent', () => {
   let comp: AppComponent;
@@ -27,6 +29,8 @@ describe('AppComponent', () => {
         AngularFireDatabaseModule,
         AngularFireStorageModule,
         BrowserAnimationsModule,
+        AngularFireAuthModule,
+        AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           { path: '', component: AppComponent, pathMatch: 'full'}
         ])
