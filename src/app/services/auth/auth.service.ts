@@ -20,12 +20,11 @@ export class AuthService {
     this.user$ = afAuth.authState;
   }
 
-  signUp(userdata: UserData) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(userdata.email, userdata.password).then(() => {
-      this.loginWithEmailAndPassword(userdata.email, userdata.password);
+  signUp(userdata: UserData, password: string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(userdata.email, password).then(() => {
+      this.loginWithEmailAndPassword(userdata.email, password);
     }, (err) => {
       if (err) {
-        console.log(err);
         return err;
       }
     });

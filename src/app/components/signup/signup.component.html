@@ -21,20 +21,20 @@
         <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form">
           <div>
             <mat-form-field>
-              <input matInput placeholder="First name" formControlName="firstname" autocomplete="off" required>
+              <input matInput="text" placeholder="First name" formControlName="firstname" autocomplete="off" required>
               <mat-error *ngIf="signupForm.hasError('required', 'firstname')">Field is required</mat-error>
             </mat-form-field>
           </div>
           
           <div>
             <mat-form-field>
-              <input matInput placeholder="Last name" formControlName="lastname" autocomplete="off">
+              <input matInput="text" placeholder="Last name" formControlName="lastname" autocomplete="off">
             </mat-form-field>
           </div>
           
           <div>
             <mat-form-field>
-              <input matInput placeholder="Username" formControlName="username" autocomplete="off" required>
+              <input matInput="text" placeholder="Username" formControlName="username" autocomplete="off" required>
               <mat-error *ngIf="signupForm.hasError('required', 'username')">Field is required</mat-error>
               <mat-error *ngIf="signupForm.hasError('pattern', 'username')">Invalid username</mat-error>
             </mat-form-field>
@@ -42,7 +42,7 @@
           
           <div>
             <mat-form-field>
-              <input matInput placeholder="Email" formControlName="email" autocomplete="off">
+              <input matInput="email" placeholder="Email" formControlName="email" autocomplete="off">
               <mat-error *ngIf="signupForm.hasError('required', 'email')">Field is required</mat-error>
               <mat-error *ngIf="signupForm.hasError('email', 'email')">Invalid email</mat-error>
             </mat-form-field>
@@ -50,8 +50,9 @@
           
           <div>
             <mat-form-field>
-              <input matInput placeholder="Password" formControlName="password" autocomplete="off" type="
-              password">
+              <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" 
+              autocomplete="off" >
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               <mat-error *ngIf="signupForm.hasError('required', 'password')">Field is required!</mat-error>
               <mat-error *ngIf="signupForm.hasError('minlength', 'password')">Atleast 8 characters required!</mat-error>
             </mat-form-field>
@@ -59,8 +60,9 @@
           
           <div>
             <mat-form-field>
-              <input matInput placeholder="Confirm password" formControlName="confirmPassword" autocomplete="off" type="
-              password" [errorStateMatcher]="matcher">
+              <input matInput placeholder="Confirm password" formControlName="confirmPassword" autocomplete="off"
+              [type]="hideConfirmPassword ? 'password' : 'text'" [errorStateMatcher]="matcher">
+              <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               <mat-error *ngIf="signupForm.hasError('required', 'password')">Field is required!</mat-error>
               <mat-error *ngIf="signupForm.hasError('notSame')">Passwords do not match</mat-error>  
             </mat-form-field>

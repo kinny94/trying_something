@@ -16,8 +16,6 @@ export class AppComponent implements OnInit {
       this.auth.user$.subscribe(user => {
         if (!user) {
           return;
-        } else {
-          console.log(user);
         }
       });
   }

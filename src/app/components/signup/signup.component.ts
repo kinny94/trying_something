@@ -32,6 +32,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   loginError = '';
   user$: Observable<firebase.User>;
 
+  hidePassword = true;
+  hideConfirmPassword = true;
+
   usernameExists = false;
   accountExists = false;
 
@@ -95,10 +98,11 @@ export class SignupComponent implements OnInit, OnDestroy {
       const userData: UserData = {
         firstname: this.signupForm.controls.firstname.value,
         lastname: this.signupForm.controls.lastname.value,
-        username: this.signupForm.controls.username.value,
-        email: this.signupForm.controls.email.value,
-        password: this.signupForm.controls.password.value
+        username: this.signupForm.controls.username.value.toLowerCase(),
+        email: this.signupForm.controls.email.value.toLowerCase(), 
       };
+
+      const passowrd: string = this.signupForm.controls.password.value;
 
       this.accountExistSubscription = this.userExists(userData.email)
       .subscribe( accountExists => {
@@ -109,11 +113,10 @@ export class SignupComponent implements OnInit, OnDestroy {
           .subscribe(userExists => {
             this.usernameExists = userExists;
             if (!this.usernameExists) {
-              this.authService.signUp(userData).then(() => {
+              this.authService.signUp(userData, passowrd).then(() => {
                 this.userService.saveUser(userData);
                 this.userService.saveUsername(userData);
               }, (err) => {
-                console.log(err);
                 return err;
               }).then(() => {
                 this.router.navigate(['/user/234']);
