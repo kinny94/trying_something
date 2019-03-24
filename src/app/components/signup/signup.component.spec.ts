@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
 import { UserService } from './../../services/user-service/user.service';
 import { environment } from './../../../../src/environments/environment.prod';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 describe('SignUpcomponent', () => {
 
@@ -24,12 +25,13 @@ describe('SignUpcomponent', () => {
       ],
       imports: [
         MaterialModule,
-        AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        AngularFireAuthModule,
         AngularFireStorageModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
         ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           { path: 'signup', component: SignupComponent, pathMatch: 'full'}
         ])

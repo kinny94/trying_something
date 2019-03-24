@@ -33,7 +33,9 @@ export interface UserData {
   firstname: string;
   lastname: string;
   username: string;
-  occupation?: string;
-  password: string;
+  email: string;
+}
+
+export interface Username {
   email: string;
 }

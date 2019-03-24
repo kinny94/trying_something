@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,15 @@ export class AppComponent implements OnInit {
   title = 'codebase';
   data = '';
 
-  constructor() {
+  constructor(
+    private auth: AuthService
+    ) {
+      this.auth.user$.subscribe(user => {
+        if (!user) {
+          return;
+        }
+      });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
