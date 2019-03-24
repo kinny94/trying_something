@@ -15,13 +15,9 @@
   </div>
 </div>
 <div>
-  <div fxLayout="row">
-    <div fxFlex> 
-      <pre *ngIf="content$ | async as content">
-        <code highlight class="hljs java">
-          {{ content.toString() }}
-        </code>
-      </pre>
-    </div>
-  </div>  
+  <pre *ngIf="content$ | async as content">
+    <code highlight class="hljs java">
+      {{ content.toString() }}
+    </code>
+  </pre> 
 </div>
