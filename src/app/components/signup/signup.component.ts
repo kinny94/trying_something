@@ -236,11 +236,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
-  twitterLogin() {
-    this.isSavingSubject.next(true);
-    this.authService.logInWithTwitter();
-  }
-
   githubLogin() {
     this.isSavingSubject.next(true);
     this.authService.logInWithGithub().then((data) => {

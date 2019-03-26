@@ -48,12 +48,6 @@ export class AuthService {
     });
   }
 
-  logInWithTwitter() {
-    return this.afAuth.auth.signInWithPopup(
-      new firebase.auth.TwitterAuthProvider()
-    );
-  }
-
   logInWithFacebook() {
     return this.afAuth.auth.signInWithPopup(
       new firebase.auth.FacebookAuthProvider()
