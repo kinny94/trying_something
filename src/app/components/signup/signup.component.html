@@ -1,109 +1,114 @@
-<div fxLayout="row wrap">
-  <div fxFlex="1 1 0" fxFlexAlign="stretch">
-    <div fxFlex="1 1 0" fxFlexAlign="center" class="icons">
-      <div fxFlex="1 1 25%">
-        <img src="https://img.icons8.com/color/96/000000/facebook.png">
-      </div>
-      <div fxFlex="1 1 25%">
-        <img src="https://img.icons8.com/color/96/000000/google-logo.png">
-      </div>
-      <div fxFlex="1 1 25%">
-        <img src="https://img.icons8.com/windows/96/000000/github.png">
-      </div>
-      <div fxFlex="1 1 25%">
-        <img src="https://img.icons8.com/color/96/000000/twitter.png">
+<div *ngIf="isSaving | async; else signupPage" fxLayout="column" fxLayoutAlign="center center" fxFlexAlign="center">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #signupPage>
+  <div fxLayout="row wrap">
+    <div fxFlex="1 1 0" fxFlexAlign="stretch">
+      <div fxFlex="1 1 0" fxFlexAlign="center" class="icons">
+        <div fxFlex="1 1 25%">
+          <a><img (click)="facebookLogin()" src="https://img.icons8.com/color/96/000000/facebook.png"></a>
+        </div>
+        <div fxFlex="1 1 25%">
+          <a><img (click)="googleLogin()" src="https://img.icons8.com/color/96/000000/google-logo.png"></a>
+        </div>
+        <div fxFlex="1 1 25%">
+          <a><img (click)="githubLogin()" src="https://img.icons8.com/windows/96/000000/github.png"></a>
+        </div>
+        <div fxFlex="1 1 25%">
+          <a><img (click)="twitterLogin()" src="https://img.icons8.com/color/96/000000/twitter.png"></a>
+        </div>
       </div>
     </div>
+    <div fxFlex fxFlexAlign="stretch">
+      <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
+        <mat-tab label="Sign Up">
+          <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form">
+            <div>
+              <mat-form-field>
+                <input matInput="text" placeholder="First name" formControlName="firstname" autocomplete="off" required>
+                <mat-error *ngIf="signupForm.hasError('required', ['firstname'])">Field is required</mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div>
+              <mat-form-field>
+                <input matInput="text" placeholder="Last name" formControlName="lastname" autocomplete="off">
+              </mat-form-field>
+            </div>
+            
+            <div>
+              <mat-form-field>
+                <input matInput="text" placeholder="Username" formControlName="username" autocomplete="off" required>
+                <mat-error *ngIf="signupForm.hasError('required', ['username'])">Field is required</mat-error>
+                <mat-error *ngIf="signupForm.hasError('pattern', ['username'])">Invalid username</mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div>
+              <mat-form-field>
+                <input matInput="email" placeholder="Email" formControlName="email" autocomplete="off">
+                <mat-error *ngIf="signupForm.hasError('required', ['email'])">Field is required</mat-error>
+                <mat-error *ngIf="signupForm.hasError('email', ['email'])">Invalid email</mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" 
+                autocomplete="off" >
+                <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
+                <mat-error *ngIf="signupForm.hasError('minlength', ['password'])">Atleast 8 characters required!</mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Confirm password" formControlName="confirmPassword" autocomplete="off"
+                [type]="hideConfirmPassword ? 'password' : 'text'" [errorStateMatcher]="matcher">
+                <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
+                <mat-error *ngIf="signupForm.hasError('notSame')">Passwords do not match</mat-error>  
+              </mat-form-field>
+            </div>
+            
+            <div class="submit-button" fxLayoutAlign="center">
+              <button [disabled]="!signupForm.valid"  mat-raised-button color="primary" [disabled]="submitDisabled" value="submit">Submit</button>
+            </div>
+          </form>
+          <span fxFlexAlign="center" fxLayoutAlign="center"> 
+            <mat-error *ngIf="usernameExists" color="warn">Username is already taken!</mat-error>
+            <mat-error *ngIf="accountExists">Account aready exists!</mat-error>
+          </span>
+        </mat-tab>
+        <mat-tab label="Login">
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email" autocomplete="off">
+                <mat-error *ngIf="signupForm.hasError('required', ['email'])">Field is required</mat-error>
+                <mat-error *ngIf="signupForm.hasError('email', ['email'])">Invalid email</mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Password" formControlName="password" autocomplete="off" type="
+                password">
+                <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
+                <mat-error *ngIf="signupForm.hasError('minlength', ['password'])">Atleast 8 characters required!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="submit-button" fxLayoutAlign="center">
+              <button [disabled]="!loginForm.valid"  mat-raised-button color="accent" [disabled]="submitDisabled" value="submit">Submit</button>
+            </div>
+  
+            <div fxLayoutAlign="center">
+              <p><mat-error>{{ loginError }}</mat-error></p>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
-  <div fxFlex fxFlexAlign="stretch">
-    <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
-      <mat-tab label="Sign Up">
-        <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form">
-          <div>
-            <mat-form-field>
-              <input matInput="text" placeholder="First name" formControlName="firstname" autocomplete="off" required>
-              <mat-error *ngIf="signupForm.hasError('required', ['firstname'])">Field is required</mat-error>
-            </mat-form-field>
-          </div>
-          
-          <div>
-            <mat-form-field>
-              <input matInput="text" placeholder="Last name" formControlName="lastname" autocomplete="off">
-            </mat-form-field>
-          </div>
-          
-          <div>
-            <mat-form-field>
-              <input matInput="text" placeholder="Username" formControlName="username" autocomplete="off" required>
-              <mat-error *ngIf="signupForm.hasError('required', ['username'])">Field is required</mat-error>
-              <mat-error *ngIf="signupForm.hasError('pattern', ['username'])">Invalid username</mat-error>
-            </mat-form-field>
-          </div>
-          
-          <div>
-            <mat-form-field>
-              <input matInput="email" placeholder="Email" formControlName="email" autocomplete="off">
-              <mat-error *ngIf="signupForm.hasError('required', ['email'])">Field is required</mat-error>
-              <mat-error *ngIf="signupForm.hasError('email', ['email'])">Invalid email</mat-error>
-            </mat-form-field>
-          </div>
-          
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" 
-              autocomplete="off" >
-              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
-              <mat-error *ngIf="signupForm.hasError('minlength', ['password'])">Atleast 8 characters required!</mat-error>
-            </mat-form-field>
-          </div>
-          
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Confirm password" formControlName="confirmPassword" autocomplete="off"
-              [type]="hideConfirmPassword ? 'password' : 'text'" [errorStateMatcher]="matcher">
-              <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
-              <mat-error *ngIf="signupForm.hasError('notSame')">Passwords do not match</mat-error>  
-            </mat-form-field>
-          </div>
-          
-          <div class="submit-button" fxLayoutAlign="center">
-            <button [disabled]="!signupForm.valid"  mat-raised-button color="primary" [disabled]="submitDisabled" value="submit">Submit</button>
-          </div>
-        </form>
-        <span fxFlexAlign="center" fxLayoutAlign="center"> 
-          <mat-error *ngIf="usernameExists" color="warn">Username is already taken!</mat-error>
-          <mat-error *ngIf="accountExists">Account aready exists!</mat-error>
-        </span>
-      </mat-tab>
-      <mat-tab label="Login">
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Email" formControlName="email" autocomplete="off">
-              <mat-error *ngIf="signupForm.hasError('required', ['email'])">Field is required</mat-error>
-              <mat-error *ngIf="signupForm.hasError('email', ['email'])">Invalid email</mat-error>
-            </mat-form-field>
-          </div>
-          
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Password" formControlName="password" autocomplete="off" type="
-              password">
-              <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
-              <mat-error *ngIf="signupForm.hasError('minlength', ['password'])">Atleast 8 characters required!</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="submit-button" fxLayoutAlign="center">
-            <button [disabled]="!loginForm.valid"  mat-raised-button color="accent" [disabled]="submitDisabled" value="submit">Submit</button>
-          </div>
-
-          <div fxLayoutAlign="center">
-            <p><mat-error>{{ loginError }}</mat-error></p>
-          </div>
-        </form>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-</div>
+</ng-template>

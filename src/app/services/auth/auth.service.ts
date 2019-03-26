@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    if (this.userDetails == null ) {
+    if (this.user$ == null ) {
       return false;
     } else {
       return true;
