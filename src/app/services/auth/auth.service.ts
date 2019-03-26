@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   user$: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
 
   constructor(
     public  afAuth:  AngularFireAuth,
@@ -31,7 +30,6 @@ export class AuthService {
   }
 
   loginWithEmailAndPassword(email:  string, password:  string) {
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -41,11 +39,13 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    if (this.user$ == null ) {
-      return false;
-    } else {
-      return true;
-    }
+    this.user$.subscribe(user => {
+      if (user === null) {
+        return false;
+      } else {
+        return true;
+      }
+    });
   }
 
   logInWithTwitter() {

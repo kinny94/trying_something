@@ -187,13 +187,27 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   facebookLogin() {
+    this.isSavingSubject.next(true);
     this.authService.logInWithFacebook().then((data) => {
-      console.log(data);
-      this.router.navigate(['/user/123']);
+      const randomName: string = uniqueNamesGenerator();
+      const newUser: UserData = {
+        firstname: data.additionalUserInfo.profile['given_name'],
+        lastname: data.additionalUserInfo.profile['family_name'],
+        email: data.additionalUserInfo.profile['email'],
+        username: randomName
+      };
+      this.userService.saveUser(newUser).then(() => {
+        this.userService.saveUsername(newUser).then(() => {
+          this.isSavingSubject.next(false);
+        });
+      });
     }, (err) => {
       alert(err);
-      console.log(err);
       return;
+    }).then(() => {
+      this.navigate(['/user/123']);
+    }, (err) => {
+      alert(err);
     });
   }
 
