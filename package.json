@@ -37,6 +37,7 @@
     "firebase": "^5.8.5",
     "highlight.js": "^9.14.2",
     "rxjs": "~6.3.3",
+    "unique-names-generator": "^2.0.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

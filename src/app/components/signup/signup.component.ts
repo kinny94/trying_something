@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone  } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { checkPasswords } from './varlidators';
 import { ErrorStateMatcher } from '@angular/material';
@@ -6,8 +6,9 @@ import { UserData, Username } from './../../../models/model';
 import { UserService } from './../../services/user-service/user.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from './../../services/auth/auth.service';
+import { uniqueNamesGenerator } from 'unique-names-generator';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,6 +33,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   loginError = '';
   user$: Observable<firebase.User>;
 
+  isSavingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isSaving: Observable<boolean> = this.isSavingSubject.asObservable();
+
   hidePassword = true;
   hideConfirmPassword = true;
 
@@ -45,7 +49,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private ngZone: NgZone
   ) {
     this.signupForm = this.formBuilder.group({
       firstname: ['', [ Validators.required ]],
@@ -53,7 +58,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       username: ['', [
         Validators.required,
         Validators.minLength(5),
-        Validators.pattern('^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$')
+        Validators.pattern(/^[a-z0-9]+$/i)
       ]],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.minLength(8), Validators.required]],
@@ -94,12 +99,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSignup() {
+    this.isSavingSubject.next(true);
     if (this.signupForm.valid) {
       const userData: UserData = {
         firstname: this.signupForm.controls.firstname.value,
         lastname: this.signupForm.controls.lastname.value,
         username: this.signupForm.controls.username.value.toLowerCase(),
-        email: this.signupForm.controls.email.value.toLowerCase(), 
+        email: this.signupForm.controls.email.value.toLowerCase(),
       };
 
       const passowrd: string = this.signupForm.controls.password.value;
@@ -114,36 +120,49 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.usernameExists = userExists;
             if (!this.usernameExists) {
               this.authService.signUp(userData, passowrd).then(() => {
-                this.userService.saveUser(userData);
-                this.userService.saveUsername(userData);
+                this.userService.saveUser(userData).then(() => {
+                  this.userService.saveUsername(userData).then(() => {
+                    this.isSavingSubject.next(false);
+                    this.router.navigate(['/user/234']);
+                    return;
+                  });
+                }, (err) => {
+                  this.isSavingSubject.next(false);
+                  return err;
+                });
               }, (err) => {
+                this.isSavingSubject.next(false);
                 return err;
-              }).then(() => {
-                this.router.navigate(['/user/234']);
-                return;
               });
             } else {
               this.usernameExists = true;
+              this.isSavingSubject.next(false);
               return;
             }
           });
         } else {
           this.accountExists = true;
+          this.isSavingSubject.next(false);
           return;
         }
       });
+    } else {
+      this.isSavingSubject.next(false);
     }
   }
 
   onLogin() {
+    this.isSavingSubject.next(true);
     if (this.loginForm.valid) {
       const email = this.loginForm.controls.email.value;
       const password = this.loginForm.controls.password.value;
       this.authService.loginWithEmailAndPassword(email, password).then(() => {
         this.loginError = '';
+        this.isSavingSubject.next(false);
         this.router.navigate(['/user/123']);
       }, (err) => {
         this.loginError = err.message;
+        this.isSavingSubject.next(false);
         return;
       });
     }
@@ -161,5 +180,84 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (this.accountExistSubscription) {
       this.accountExistSubscription.unsubscribe();
     }
+  }
+
+  public navigate(commands: any[]): void {
+    this.ngZone.run(() => this.router.navigate(commands)).then();
+  }
+
+  facebookLogin() {
+    this.isSavingSubject.next(true);
+    this.authService.logInWithFacebook().then((data) => {
+      const randomName: string = uniqueNamesGenerator();
+      const newUser: UserData = {
+        firstname: data.additionalUserInfo.profile['given_name'],
+        lastname: data.additionalUserInfo.profile['family_name'],
+        email: data.additionalUserInfo.profile['email'],
+        username: randomName
+      };
+      this.userService.saveUser(newUser).then(() => {
+        this.userService.saveUsername(newUser).then(() => {
+          this.isSavingSubject.next(false);
+        });
+      });
+    }, (err) => {
+      alert(err);
+      return;
+    }).then(() => {
+      this.navigate(['/user/123']);
+    }, (err) => {
+      alert(err);
+    });
+  }
+
+  googleLogin() {
+    this.isSavingSubject.next(true);
+    this.authService.logInWithGoogle().then((data) => {
+      const randomName: string = uniqueNamesGenerator();
+      const newUser: UserData = {
+        firstname: data.additionalUserInfo.profile['given_name'],
+        lastname: data.additionalUserInfo.profile['family_name'],
+        email: data.additionalUserInfo.profile['email'],
+        username: randomName
+      };
+      this.userService.saveUser(newUser).then(() => {
+        this.userService.saveUsername(newUser).then(() => {
+          this.isSavingSubject.next(false);
+        });
+      });
+    }, (err) => {
+      alert(err);
+      return;
+    }).then(() => {
+      this.navigate(['/user/123']);
+    }, (err) => {
+      alert(err);
+    });
+  }
+
+  githubLogin() {
+    this.isSavingSubject.next(true);
+    this.authService.logInWithGithub().then((data) => {
+      const randomName: string = uniqueNamesGenerator();
+      const newUser: UserData = {
+        firstname: data.additionalUserInfo.profile['given_name'],
+        lastname: data.additionalUserInfo.profile['family_name'],
+        email: data.additionalUserInfo.profile['email'],
+        username: randomName
+      };
+      this.userService.saveUser(newUser).then(() => {
+        this.userService.saveUsername(newUser).then(() => {
+          this.isSavingSubject.next(false);
+        });
+      });
+    }, (err) => {
+      alert(err);
+      return;
+    }).then(() => {
+      this.navigate(['/user/123']);
+    }, (err) => {
+      alert(err);
+    });
   }
 }

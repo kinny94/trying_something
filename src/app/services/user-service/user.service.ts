@@ -12,11 +12,11 @@ export class UserService {
   constructor(private db: AngularFireDatabase) { }
 
   saveUser(userData: UserData) {
-    this.db.object(`/users/${userData.username}`).update(userData);
+    return this.db.object(`/users/${userData.username}`).update(userData);
   }
 
   saveUsername(userData: UserData) {
-    this.db.object(`/usernames/${userData.username}`).update({'email': userData.email });
+    return this.db.object(`/usernames/${userData.username}`).update({'email': userData.email });
   }
 
   updateData(data: UserData) {
