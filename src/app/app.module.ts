@@ -34,6 +34,7 @@ import { UserComponent } from './components/user/user.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuardService } from './services/auth/auth-guard.service';
+import { StarComponent } from './components/star/star.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
     UploadFormComponent,
     SignupComponent,
     UserComponent,
+    StarComponent,
   ],
   imports: [
     BrowserModule,
