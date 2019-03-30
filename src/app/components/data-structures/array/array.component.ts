@@ -24,6 +24,10 @@ export class ArrayComponent implements OnInit {
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
+  rating = 3;
+  starCount = 5;
+  starColor = 'accent';
+
   constructor(
     private router: ActivatedRoute,
     private problem: ProblemsService
