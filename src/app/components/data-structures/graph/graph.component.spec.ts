@@ -8,6 +8,8 @@ import { MaterialModule } from './../../../material.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
+import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
+import { StarComponent } from '../../star/star.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Add Vertex (Average)', complexity_avg: 'O(1)', type_worst: 'Add Vertex (Worst)', complexity_worst: 'O(1)'},
@@ -27,6 +29,8 @@ describe('GraphComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         GraphComponent,
+        TopicProblemsComponent,
+        StarComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -48,11 +52,6 @@ describe('GraphComponent', () => {
 
   it('should create the graph component', () => {
     expect(comp).toBeTruthy();
-  });
-
-  it('should change the name of the problem', () => {
-    const name = 'Hello Graph';
-    expect(comp.changeName(name)).toEqual('HelloGraph');
   });
 
   it('should have four elements in the display column', () => {

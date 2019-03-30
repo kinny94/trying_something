@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../environments/environment.prod';
+import { StarComponent } from '../star/star.component';
 
 describe('AllProblemsComponent', () => {
   let comp: AllProblemsComponent;
@@ -17,7 +18,8 @@ describe('AllProblemsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AllProblemsComponent
+        AllProblemsComponent,
+        StarComponent
       ],
       imports: [
         MaterialModule,

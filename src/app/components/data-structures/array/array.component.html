@@ -18,7 +18,7 @@
       </ng-container>
       <ng-container matColumnDef="complexity_avg">
         <th mat-header-cell *matHeaderCellDef> Complexity </th>
-        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.complexity_avg}} </td> 
       </ng-container>
       <ng-container matColumnDef="type_worst">
         <th mat-header-cell *matHeaderCellDef> Type </th>
@@ -38,12 +38,10 @@
   <div fxLayout="row" class="list_width">
     <mat-list class="list_width">
       <ng-container *ngFor="let item of (_allProblems | async) | keyvalue ">
-        <a routerLink="/{{ item.key }}/{{ item.value.topic }}/{{ changeName(item.value.name) }}">
-          <mat-list-item class="list_width">
-            {{ item.value.name }}
-            <mat-divider></mat-divider>
+          <mat-list-item class="list_width" fxFlex>
+            <app-topic-problems fxFlex  [item]="item"></app-topic-problems>
+           <mat-divider></mat-divider>
           </mat-list-item>
-        </a>
       </ng-container>
     </mat-list>
   </div>

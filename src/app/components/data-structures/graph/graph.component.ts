@@ -34,8 +34,4 @@ export class GraphComponent implements OnInit {
     const currentTopic = this.router.snapshot.routeConfig.path;
     this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
   }
-
-  changeName(name: string) {
-    return name.replace(/\s/g, '').trim();
-  }
 }

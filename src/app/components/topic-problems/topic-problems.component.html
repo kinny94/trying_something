@@ -1,0 +1,20 @@
+<div class="row wrap" fxLayoutAlign="space-between" fxFlex fxFlexAlign="center"> 
+  <div fxFlex="50" fxFlexAlign="center">
+    <a routerLink="/{{ item.key }}/{{ item.value.topic }}/{{ changeName(item.value.name) }}">
+      <span>{{ item.value.name }}</span>
+    </a>
+  </div>
+  <div fxFlex="50">
+    <div fxFlex="70" fxLayoutGap="40px" fxLayoutAlign="start" fxFlexAlign="center">
+      <app-star-rating 
+      [rating]="rating" 
+      [starCount]="starCount" 
+      [color]="starColor" 
+      (ratingUpdated)="onRatingChanged($event)"
+      ></app-star-rating>
+    </div>
+    <div fxFlex="30" fxFlexAlign="center" fxLayoutAlign="end">
+      <mat-icon>thumb_up</mat-icon>
+    </div>
+  </div> 
+</div>

@@ -24,6 +24,10 @@ export class ArrayComponent implements OnInit {
   displayedColumns: string[] = ['type_avg', 'complexity_avg', 'type_worst', 'complexity_worst'];
   dataSource = ELEMENT_DATA;
 
+  rating = 3;
+  starCount = 5;
+  starColor = 'accent';
+
   constructor(
     private router: ActivatedRoute,
     private problem: ProblemsService
@@ -34,9 +38,5 @@ export class ArrayComponent implements OnInit {
   ngOnInit() {
     const currentTopic = this.router.snapshot.routeConfig.path;
     this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
-  }
-
-  changeName(name: string) {
-    return name.replace(/\s/g, '').trim();
   }
 }

@@ -20,6 +20,15 @@ export class AllProblemsComponent implements OnInit {
   _everyProblem$: Observable<Array<Object>> = this._everyProblemsSubject.asObservable();
   searchText = '';
 
+  rating = 3;
+  starCount = 5;
+  starColor = 'accent';
+
+  onRatingChanged(rating){
+    console.log(rating);
+    this.rating = rating;
+  }
+
   constructor(
     private problemService: ProblemsService
   ) { }
