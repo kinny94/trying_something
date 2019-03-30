@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
 export class StarComponent implements OnInit {
 
   @Input()
-  private rating = 3;
+  private rating: number;
   @Input()
   private starCount = 5;
   @Input()
@@ -26,13 +26,11 @@ export class StarComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log('a ' + this.starCount)
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
   onClick(rating: number) {
-    console.log(rating);
     this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
       duration: this.snackBarDuration
     });

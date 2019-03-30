@@ -8,6 +8,8 @@ import { MaterialModule } from './../../../material.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
+import { StarComponent } from '../../star/star.component';
+import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'Θ(1)', type_worst: 'Access (Worst)', complexity_worst: 'Θ(1)'},
@@ -19,11 +21,13 @@ const MOCK_ELEMENT_DATA: Complexities[] = [
 describe('QueueComponent', () => {
   let comp: QueueComponent;
   let fixture: ComponentFixture<QueueComponent>;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         QueueComponent,
+        TopicProblemsComponent,
+        StarComponent,
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -45,11 +49,6 @@ describe('QueueComponent', () => {
 
   it('should create the queue component', () => {
     expect(comp).toBeTruthy();
-  });
-
-  it('should change the name of the problem', () => {
-    const name = 'Hello Queue';
-    expect(comp.changeName(name)).toEqual('HelloQueue');
   });
 
   it('should have four elements in the display column', () => {

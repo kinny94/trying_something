@@ -35,6 +35,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { StarComponent } from './components/star/star.component';
+import { TopicProblemsComponent } from './components/topic-problems/topic-problems.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { StarComponent } from './components/star/star.component';
     SignupComponent,
     UserComponent,
     StarComponent,
+    TopicProblemsComponent,
   ],
   imports: [
     BrowserModule,

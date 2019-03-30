@@ -8,6 +8,8 @@ import { MaterialModule } from './../../../material.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
+import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
+import { StarComponent } from '../../star/star.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'O(n)', type_worst: 'Access (Worst)', complexity_worst: 'O(n)'},
@@ -24,6 +26,8 @@ describe('StackComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         StackComponent,
+        TopicProblemsComponent,
+        StarComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -45,11 +49,6 @@ describe('StackComponent', () => {
 
   it('should create the stack component', () => {
     expect(comp).toBeTruthy();
-  });
-
-  it('should change the name of the problem', () => {
-    const name = 'Hello Stack';
-    expect(comp.changeName(name)).toEqual('HelloStack');
   });
 
   it('should have four elements in the display column', () => {

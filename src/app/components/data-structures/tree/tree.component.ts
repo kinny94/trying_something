@@ -61,8 +61,4 @@ export class TreeComponent implements OnInit {
     this._allProblems = this.problem.getAllProblems(currentTopic).valueChanges();
   }
 
-  changeName(name: string) {
-    return name.replace(/\s/g, '').trim();
-  }
-
 }

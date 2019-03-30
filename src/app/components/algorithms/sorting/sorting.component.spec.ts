@@ -8,6 +8,8 @@ import { MaterialModule } from './../../../material.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
+import { StarComponent } from '../../star/star.component';
+import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {
@@ -49,6 +51,8 @@ describe('SortingComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SortingComponent,
+        TopicProblemsComponent,
+        StarComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -71,12 +75,7 @@ describe('SortingComponent', () => {
   it('should create the Sorting component', () => {
     expect(comp).toBeTruthy();
   });
-
-  it('should change the name of the problem', () => {
-    const name = 'Hello Sorting';
-    expect(comp.changeName(name)).toEqual('HelloSorting');
-  });
-
+  
   it('should have four elements in the display column', () => {
     expect(comp.displayedColumns.length).toEqual(4);
   });

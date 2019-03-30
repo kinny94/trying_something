@@ -8,6 +8,8 @@ import { MaterialModule } from './../../../material.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
+import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
+import { StarComponent } from '../../star/star.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
     {
@@ -52,6 +54,8 @@ describe('LinkedlistComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         LinkedlistComponent,
+        StarComponent,
+        TopicProblemsComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -73,11 +77,6 @@ describe('LinkedlistComponent', () => {
 
   it('should create the linkedlist component', () => {
     expect(comp).toBeTruthy();
-  });
-
-  it('should change the name of the problem', () => {
-    const name = 'Hello Linkedlist';
-    expect(comp.changeName(name)).toEqual('HelloLinkedlist');
   });
 
   it('should have four elements in the display column', () => {

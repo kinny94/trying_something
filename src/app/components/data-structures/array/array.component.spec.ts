@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
 import { StarComponent } from '../../star/star.component';
+import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'Θ(1)', type_worst: 'Access (Worst)', complexity_worst: 'Θ(1)'},
@@ -25,7 +26,8 @@ describe('ArrayComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ArrayComponent,
-        StarComponent
+        StarComponent,
+        TopicProblemsComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -47,11 +49,6 @@ describe('ArrayComponent', () => {
 
   it('should create the Array component', () => {
     expect(comp).toBeTruthy();
-  });
-
-  it('should change the name of the problem', () => {
-    const name = 'Hello Array';
-    expect(comp.changeName(name)).toEqual('HelloArray');
   });
 
   it('should have four elements in the display column', () => {
