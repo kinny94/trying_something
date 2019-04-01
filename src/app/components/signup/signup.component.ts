@@ -106,6 +106,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         lastname: this.signupForm.controls.lastname.value,
         username: this.signupForm.controls.username.value.toLowerCase(),
         email: this.signupForm.controls.email.value.toLowerCase(),
+        likedProblems: [],
+        ratedProblems: []
       };
 
       const passowrd: string = this.signupForm.controls.password.value;
@@ -194,7 +196,9 @@ export class SignupComponent implements OnInit, OnDestroy {
         firstname: data.additionalUserInfo.profile['given_name'],
         lastname: data.additionalUserInfo.profile['family_name'],
         email: data.additionalUserInfo.profile['email'],
-        username: randomName
+        username: randomName,
+        likedProblems: [],
+        ratedProblems: []
       };
       this.userService.saveUser(newUser).then(() => {
         this.userService.saveUsername(newUser).then(() => {
@@ -219,7 +223,9 @@ export class SignupComponent implements OnInit, OnDestroy {
         firstname: data.additionalUserInfo.profile['given_name'],
         lastname: data.additionalUserInfo.profile['family_name'],
         email: data.additionalUserInfo.profile['email'],
-        username: randomName
+        username: randomName,
+        likedProblems: [],
+        ratedProblems: []
       };
       this.userService.saveUser(newUser).then(() => {
         this.userService.saveUsername(newUser).then(() => {
@@ -244,7 +250,9 @@ export class SignupComponent implements OnInit, OnDestroy {
         firstname: data.additionalUserInfo.profile['given_name'],
         lastname: data.additionalUserInfo.profile['family_name'],
         email: data.additionalUserInfo.profile['email'],
-        username: randomName
+        username: randomName,
+        likedProblems: [],
+        ratedProblems: []
       };
       this.userService.saveUser(newUser).then(() => {
         this.userService.saveUsername(newUser).then(() => {
