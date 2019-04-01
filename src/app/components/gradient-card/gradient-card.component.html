@@ -1,5 +1,5 @@
 <a routerLink="/{{ urlName(topic.topic) }}">
-  <mat-card class="card">
+  <mat-card appAnimation [eleAnimation]="'flip_in'" class="card">
     <mat-card-header>
       <mat-card-title>{{ topic.topic }}</mat-card-title>
     </mat-card-header>

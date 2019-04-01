@@ -25,7 +25,7 @@ import { HashTableComponent } from './components/data-structures/hash-table/hash
 import { SearchingComponent } from './components/algorithms/searching/searching.component';
 import { SortingComponent } from './components/algorithms/sorting/sorting.component';
 import { ProblemComponent } from './components/problem/problem.component';
-import { HighlightCodeDirective } from './directives/highlight';
+import { HighlightCodeDirective } from './directives/highlight-directive';
 import { AllProblemsComponent } from './components/all-problems/all-problems.component';
 import { environment } from './../environments/environment.prod';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
@@ -36,6 +36,7 @@ import { AuthService } from './services/auth/auth.service';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { StarComponent } from './components/star/star.component';
 import { TopicProblemsComponent } from './components/topic-problems/topic-problems.component';
+import { CbAnimationDirective } from './directives/animation-directive';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { TopicProblemsComponent } from './components/topic-problems/topic-proble
     SortingComponent,
     ProblemComponent,
     HighlightCodeDirective,
+    CbAnimationDirective,
     AllProblemsComponent,
     UploadFormComponent,
     SignupComponent,

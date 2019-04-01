@@ -6,6 +6,8 @@ import { ProblemsService } from './../../services/problems/problems.service';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from '../home/home.component';
+import { CbAnimationDirective } from './../../directives/animation-directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('GradientCardComponent', () => {
   let comp: GradientCardComponent;
@@ -15,11 +17,13 @@ describe('GradientCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         GradientCardComponent,
-        HomeComponent
+        HomeComponent,
+        CbAnimationDirective
       ],
       imports: [
         MaterialModule,
         HttpClientModule,
+        BrowserAnimationsModule,
         RouterModule.forRoot([
           { path: '', component: HomeComponent, pathMatch: 'full' },
         ])
