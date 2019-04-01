@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from './../environments/environment.prod';
+import { CbAnimationDirective } from './directives/animation-directive';
 
 describe('AppComponent', () => {
   let comp: AppComponent;
@@ -21,7 +22,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         HeaderComponent,
-        GradientCardComponent
+        GradientCardComponent,
+        CbAnimationDirective
       ],
       imports: [
         MaterialModule,
