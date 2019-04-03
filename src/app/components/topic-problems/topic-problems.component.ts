@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TopicProblems } from './../../../models/model';
 
 @Component({
   selector: 'app-topic-problems',
@@ -11,7 +10,6 @@ export class TopicProblemsComponent implements OnInit {
   @Input()
   item: any;
 
-  rating = 3;
   starCount = 5;
   starColor = 'accent';
 

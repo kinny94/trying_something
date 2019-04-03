@@ -24,21 +24,23 @@ export class StarComponent implements OnInit {
   constructor(private snackBar: MatSnackBar) {
   }
 
-
   ngOnInit() {
+    console.log(this.rating);
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
+
   onClick(rating: number) {
     this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
       duration: this.snackBarDuration
     });
     this.ratingUpdated.emit(rating);
+    this.rating = rating;
     return false;
   }
 
-  showIcon(index:number) {
+  showIcon(index: number) {
     if (this.rating >= index + 1) {
       return 'star';
     } else {
