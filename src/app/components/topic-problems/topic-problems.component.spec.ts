@@ -1,7 +1,6 @@
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { APP_BASE_HREF } from '@angular/common';
 import { MaterialModule } from './../../material.module';
-import { AngularFireModule } from '@angular/fire';
 import { StarComponent } from './../star/star.component';
 import { TopicProblemsComponent } from './topic-problems.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';

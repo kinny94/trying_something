@@ -7,6 +7,7 @@
   <div fxFlex="50">
     <div fxFlex="70" fxLayoutGap="40px" fxLayoutAlign="start" fxFlexAlign="center">
       <app-star-rating 
+      [problem]="item"
       [rating]="item.value.star" 
       [starCount]="starCount" 
       [color]="starColor" 

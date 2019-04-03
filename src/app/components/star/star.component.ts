@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { ProblemData } from 'src/models/model';
 
 @Component({
   selector: 'app-star-rating',
@@ -15,6 +16,9 @@ export class StarComponent implements OnInit {
   private starCount = 5;
   @Input()
   private color = 'accent';
+  @Input()
+  problem: ProblemData;
+
   @Output()
   private ratingUpdated = new EventEmitter();
 
@@ -25,7 +29,7 @@ export class StarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.rating);
+    console.log(this.problem);
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
