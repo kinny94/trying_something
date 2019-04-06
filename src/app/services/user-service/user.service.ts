@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { UserData, Username } from './../../../models/model';
+import { UserData, Username, ProblemKeyValue } from './../../../models/model';
+
 import { User } from 'firebase';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +36,11 @@ export class UserService {
     return this.db.object(`/usernames/${username}`).valueChanges();
   }
 
+  isRatedProblem(currentUser:string, problem: ProblemKeyValue) {
+    return this.db.list(`/users/${currentUser}/ratedProblems/${problem.key}`).valueChanges();
+  }
+
+  addRatedProblems(currentUser: string, problem: ProblemKeyValue, rating: number) {
+    return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, rating);
+  }
 }

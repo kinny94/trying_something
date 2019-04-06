@@ -4,6 +4,8 @@ import { ProblemKeyValue } from './../../../models/model';
 import { ProblemsService } from './../../services/problems/problems.service';
 import { User } from 'firebase';
 import { Globals } from './../../global';
+import { UserService } from 'src/app/services/user-service/user.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-star-rating',
@@ -29,7 +31,8 @@ export class StarComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private problemService: ProblemsService,
-    private globals: Globals
+    private globals: Globals,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -39,8 +42,9 @@ export class StarComponent implements OnInit {
   }
 
   onClick(rating: number) {
+    let previousRating = this.rating;
     if (this.globals.user) {
-      this.problemService.upadteProblem(this.problem, rating);
+      console.log(this.globals.userData);
       this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
         duration: this.snackBarDuration
       });

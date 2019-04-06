@@ -20,7 +20,7 @@ export interface ProblemData {
   likes: number;
   name: string;
   stars: number;
-  totalratings: number;
+  raters: number;
   storageUrl: string;
   tags: Array<string>;
   topic: string;
