@@ -42,9 +42,10 @@ export class StarComponent implements OnInit {
   }
 
   onClick(rating: number) {
-    let previousRating = this.rating;
+    const previousRating = this.rating;
     if (this.globals.user) {
-      console.log(this.globals.userData);
+      const currentUser = this.globals.userData['username'];
+      this.userService.addRating(currentUser, this.problem, rating);
       this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
         duration: this.snackBarDuration
       });
