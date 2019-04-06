@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
 
-import { TopicProblems, ProblemData } from './../../../models/model';
+import { TopicProblems, ProblemData, ProblemKeyValue } from './../../../models/model';
 
 
 @Injectable({
@@ -23,5 +23,9 @@ export class ProblemsService {
 
   getEverything(): AngularFireList<TopicProblems> {
     return this.db.list('/problems');
+  }
+
+  upadteProblem(problem: ProblemKeyValue, rating: Number, ) {
+    this.db.list(`/problems/${problem.value.topic}/${problem.key}`).set('stars', rating);
   }
 }

@@ -47,5 +47,12 @@ export interface Username {
 export interface RatedProblems {
   [problemId: string]: {
     rating: number;
-  }
+  };
+}
+
+export interface ProblemKeyValue {
+  key: string;
+  value: {
+    [problem: string]: ProblemData;
+  };
 }
