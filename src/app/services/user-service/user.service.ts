@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { UserData, Username } from './../../../models/model';
-import { map } from 'rxjs/operators';
 import { User } from 'firebase';
 
 @Injectable({

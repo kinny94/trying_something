@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { ProblemData, ProblemKeyValue } from './../../../models/model';
-import { ProblemsService } from 'src/app/services/problems/problems.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ProblemKeyValue } from './../../../models/model';
+import { ProblemsService } from './../../services/problems/problems.service';
+import { User } from 'firebase';
+import { Globals } from './../../global';
 
 @Component({
   selector: 'app-star-rating',
@@ -25,36 +24,33 @@ export class StarComponent implements OnInit {
 
   private snackBarDuration = 2000;
   private ratingArr = [];
-  user$: Observable<firebase.User>;
+  user: User;
 
   constructor(
     private snackBar: MatSnackBar,
     private problemService: ProblemsService,
-    private authService: AuthService
-  ) {
-  }
+    private globals: Globals
+  ) { }
 
   ngOnInit() {
-    this.user$ = this.authService.user$;
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
 
   onClick(rating: number) {
-
-    this.problemService.upadteProblem(this.problem, rating);
-    this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
-      duration: this.snackBarDuration
-    });
-    this.rating = rating;
-    return false;
-  }
-
-  loginFirst() {
-    this.snackBar.open('Login to rate the problems', '', {
-      duration: this.snackBarDuration
-    });
+    if (this.globals.user) {
+      this.problemService.upadteProblem(this.problem, rating);
+      this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
+        duration: this.snackBarDuration
+      });
+      this.rating = rating;
+      return false;
+    } else {
+      this.snackBar.open('Login to rate the problems', '', {
+        duration: this.snackBarDuration
+      });
+    }
   }
 
   showIcon(index: number) {
@@ -64,7 +60,6 @@ export class StarComponent implements OnInit {
       return 'star_border';
     }
   }
-
 }
 export enum StarRatingColor {
   primary = 'primary',

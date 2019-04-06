@@ -37,6 +37,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { StarComponent } from './components/star/star.component';
 import { TopicProblemsComponent } from './components/topic-problems/topic-problems.component';
 import { CbAnimationDirective } from './directives/animation-directive';
+import { Globals } from './global';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { CbAnimationDirective } from './directives/animation-directive';
   providers: [
     { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' },
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    Globals
   ],
   bootstrap: [AppComponent]
 })
