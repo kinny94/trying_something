@@ -45,6 +45,17 @@ export class StarComponent implements OnInit {
     const previousRating = this.rating;
     if (this.globals.user) {
       const currentUser = this.globals.userData['username'];
+
+      if ( this.globals.userData['ratedProblem'] && this.globals.userData['ratedProblem'][this.problem.key]) {
+        // already rated, update the problem
+      } else {
+        this.problemService.setNewRatings(this.problem, rating).pipe(
+          map(newRatings => {
+            this.problemService.addNewRatings(this.problem, newRatings);
+          })
+        ).subscribe();
+      }
+
       this.userService.addRating(currentUser, this.problem, rating);
       this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
         duration: this.snackBarDuration

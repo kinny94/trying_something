@@ -43,8 +43,4 @@ export class UserService {
   addRating(currentUser: string, problem: ProblemKeyValue, rating: number) {
     return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, rating);
   }
-
-  updateRating(currentUser: string, problem: ProblemKeyValue, newRating: number, previousRating: number) {
-    console.log('should update rating')
-  }
 }
