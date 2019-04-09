@@ -4,8 +4,8 @@ import { ProblemKeyValue } from './../../../models/model';
 import { ProblemsService } from './../../services/problems/problems.service';
 import { User } from 'firebase';
 import { Globals } from './../../global';
-import { UserService } from 'src/app/services/user-service/user.service';
-import { map } from 'rxjs/operators';
+import { UserService } from './../../services/user-service/user.service';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-star-rating',
@@ -44,19 +44,31 @@ export class StarComponent implements OnInit {
   onClick(rating: number) {
     const previousRating = this.rating;
     if (this.globals.user) {
-      const currentUser = this.globals.userData['username'];
-
-      if ( this.globals.userData['ratedProblem'] && this.globals.userData['ratedProblem'][this.problem.key]) {
-        // already rated, update the problem
+      const currentUser = this.globals.userData.username;
+      if (this.globals.userData.ratedProblems && this.globals.userData.ratedProblems[this.problem.key]) {
+        this.problemService.changeRatings(this.problem, rating, previousRating).pipe(
+          map(newRatings => {
+            this.problemService.addNewRatings(this.problem, newRatings);
+          }),
+          take(1),
+          map(() => {
+            this.userService.addRating(currentUser, this.problem, rating);
+          }),
+          take(1),
+        ).subscribe();
       } else {
         this.problemService.setNewRatings(this.problem, rating).pipe(
           map(newRatings => {
             this.problemService.addNewRatings(this.problem, newRatings);
-          })
+          }),
+          take(1),
+          map(() => {
+            this.userService.addRating(currentUser, this.problem, rating);
+          }),
+          take(1),
         ).subscribe();
       }
 
-      this.userService.addRating(currentUser, this.problem, rating);
       this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
         duration: this.snackBarDuration
       });

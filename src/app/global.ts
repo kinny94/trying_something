@@ -4,13 +4,14 @@ import { User } from 'firebase';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { UserData } from './../models/model';
 
 @Injectable()
 export class Globals implements OnDestroy {
 
   user: User = undefined;
   currentUser: string = undefined;
-  userData: Object = undefined;
+  userData: UserData = undefined;
   authSubscription: Subscription;
   snapshotSubscription: Subscription;
   userDataSubscription: Subscription;
@@ -27,7 +28,8 @@ export class Globals implements OnDestroy {
             dataSnapshot.forEach(userDataPayload => {
               if (userDataPayload.payload.val()['email'] === this.user.email) {
                 this.currentUser = userDataPayload.key;
-                this.userDataSubscription = this.db.object(`/users/${userDataPayload.key}/`).valueChanges().subscribe((userData) => {
+                this.userDataSubscription = this.db.object(`/users/${userDataPayload.key}/`).valueChanges()
+                .subscribe((userData: UserData) => {
                   this.userData = userData;
                 });
                 return;

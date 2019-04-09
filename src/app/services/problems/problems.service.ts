@@ -40,8 +40,17 @@ export class ProblemsService {
     );
   }
 
+  changeRatings(problem: ProblemKeyValue, newRating: number, previousRating: number) {
+    return this.db.object(`/problems/${problem.value.topic}/${problem.key}/`).valueChanges().pipe(
+      map((currentProblem: ProblemData) => {
+        const newStars = currentProblem.stars + newRating - previousRating;
+        const newRaters = currentProblem.raters;
+        return {stars: newStars, raters: newRaters};
+      }),
+    );
+  }
+
   addNewRatings(problem: ProblemKeyValue, newRatings: Object) {
-    console.log(problem)
-    //this.db.object(`/problems/${problem.value.topic}/${problem.key}/`).update(newRatings);
+    this.db.object(`/problems/${problem.value.topic}/${problem.key}/`).update(newRatings);
   }
 }
