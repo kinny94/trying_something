@@ -20,7 +20,7 @@ export interface ProblemData {
   likes: number;
   name: string;
   stars: number;
-  totalratings: number;
+  raters: number;
   storageUrl: string;
   tags: Array<string>;
   topic: string;
@@ -47,5 +47,12 @@ export interface Username {
 export interface RatedProblems {
   [problemId: string]: {
     rating: number;
-  }
+  };
+}
+
+export interface ProblemKeyValue {
+  key: string;
+  value: {
+    [problem: string]: ProblemData;
+  };
 }

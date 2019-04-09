@@ -1,13 +1,16 @@
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { APP_BASE_HREF } from '@angular/common';
 import { MaterialModule } from './../../material.module';
-import { AngularFireModule } from '@angular/fire';
 import { StarComponent } from './../star/star.component';
 import { TopicProblemsComponent } from './topic-problems.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { ProblemComponent } from '../problem/problem.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from './../../../environments/environment.prod';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { Globals } from './../../global';
 
 describe('TopicProblemsComponent', () => {
   let comp: TopicProblemsComponent;
@@ -22,14 +25,17 @@ describe('TopicProblemsComponent', () => {
       ],
       imports: [
         AngularFireDatabaseModule,
+        AngularFireAuthModule,
         MaterialModule,
         FlexLayoutModule,
+        AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },
         ])
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
+        Globals
       ]
     });
 

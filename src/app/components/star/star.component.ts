@@ -1,5 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { ProblemKeyValue } from './../../../models/model';
+import { ProblemsService } from './../../services/problems/problems.service';
+import { User } from 'firebase';
+import { Globals } from './../../global';
+import { UserService } from './../../services/user-service/user.service';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-star-rating',
@@ -15,29 +21,64 @@ export class StarComponent implements OnInit {
   private starCount = 5;
   @Input()
   private color = 'accent';
-  @Output()
-  private ratingUpdated = new EventEmitter();
+  @Input()
+  problem: ProblemKeyValue;
 
   private snackBarDuration = 2000;
   private ratingArr = [];
+  user: User;
 
-  constructor(private snackBar: MatSnackBar) {
-  }
+  constructor(
+    private snackBar: MatSnackBar,
+    private problemService: ProblemsService,
+    private globals: Globals,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
-    console.log(this.rating);
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
 
   onClick(rating: number) {
-    this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
-      duration: this.snackBarDuration
-    });
-    this.ratingUpdated.emit(rating);
-    this.rating = rating;
-    return false;
+    const previousRating = this.rating;
+    if (this.globals.user) {
+      const currentUser = this.globals.userData.username;
+      if (this.globals.userData.ratedProblems && this.globals.userData.ratedProblems[this.problem.key]) {
+        this.problemService.changeRatings(this.problem, rating, previousRating).pipe(
+          map(newRatings => {
+            this.problemService.addNewRatings(this.problem, newRatings);
+          }),
+          take(1),
+          map(() => {
+            this.userService.addRating(currentUser, this.problem, rating);
+          }),
+          take(1),
+        ).subscribe();
+      } else {
+        this.problemService.setNewRatings(this.problem, rating).pipe(
+          map(newRatings => {
+            this.problemService.addNewRatings(this.problem, newRatings);
+          }),
+          take(1),
+          map(() => {
+            this.userService.addRating(currentUser, this.problem, rating);
+          }),
+          take(1),
+        ).subscribe();
+      }
+
+      this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
+        duration: this.snackBarDuration
+      });
+      this.rating = rating;
+      return false;
+    } else {
+      this.snackBar.open('Login to rate the problems', '', {
+        duration: this.snackBarDuration
+      });
+    }
   }
 
   showIcon(index: number) {
@@ -47,7 +88,6 @@ export class StarComponent implements OnInit {
       return 'star_border';
     }
   }
-
 }
 export enum StarRatingColor {
   primary = 'primary',

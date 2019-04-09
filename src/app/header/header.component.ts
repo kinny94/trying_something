@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { AuthService } from '../services/auth/auth.service';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { THEMES } from './../model';
 
 @Component({
@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
   user$: Observable<firebase.User>;
 
   constructor(
-    private router: Router,
     private overlayContainer: OverlayContainer,
     private authService: AuthService
   ) { }

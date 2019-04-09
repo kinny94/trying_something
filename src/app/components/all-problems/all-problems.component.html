@@ -20,10 +20,10 @@
               <div fxFlex="50">
                 <div fxFlex="70" fxLayoutGap="40px" fxLayoutAlign="start" fxFlexAlign="center">
                     <app-star-rating 
+                    [problem]="object"
                     [rating]="object.value.stars" 
                     [starCount]="5" 
-                    [color]="starColor" 
-                    (ratingUpdated)="onRatingChanged($event)"
+                    [color]="starColor"
                   ></app-star-rating>
                 </div>
                 <div fxFlex="30" fxFlexAlign="center" fxLayoutAlign="end">
