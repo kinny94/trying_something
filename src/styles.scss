@@ -22,36 +22,43 @@
 .dark-theme {
   @include angular-material-theme($dark-theme);
   @include card-theme($dark-theme);
+  $heart: #c62828;
 }
 
 .red-theme {
   @include angular-material-theme($red-theme);
   @include card-theme($red-theme);
+  $heart: #c62828;
 }
 
 .amber-theme {
   @include angular-material-theme($amber-theme);
   @include card-theme($amber-theme);
+  $heart: #c62828;
 }
 
 .green-theme {
   @include angular-material-theme($green-theme);
   @include card-theme($green-theme);
+  $heart: #c62828;
 }
 
 .blue-theme {
   @include angular-material-theme($blue-theme);
   @include card-theme($blue-theme);
+  $heart: #c62828;
 }
 
 .purple-theme {
   @include angular-material-theme($purple-theme);
   @include card-theme($purple-theme);
+  $heart: #c62828;
 }
 
 .yellow-theme {
   @include angular-material-theme($yellow-theme);
   @include card-theme($yellow-theme);
+  $heart: #c62828;
 }
 
 
