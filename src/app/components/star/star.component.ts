@@ -11,7 +11,6 @@ import { map, take } from 'rxjs/operators';
   selector: 'app-star-rating',
   templateUrl: './star.component.html',
   styleUrls: ['./star.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
 })
 export class StarComponent implements OnInit {
 
