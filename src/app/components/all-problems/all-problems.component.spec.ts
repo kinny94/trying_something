@@ -10,6 +10,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../environments/environment.prod';
 import { StarComponent } from '../star/star.component';
+import { LikeComponent } from '../like/like.component';
+import { Globals } from './../../global';
 
 describe('AllProblemsComponent', () => {
   let comp: AllProblemsComponent;
@@ -19,7 +21,8 @@ describe('AllProblemsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AllProblemsComponent,
-        StarComponent
+        StarComponent,
+        LikeComponent
       ],
       imports: [
         MaterialModule,
@@ -34,6 +37,7 @@ describe('AllProblemsComponent', () => {
       ],
       providers: [
         ProblemsService,
+        Globals,
         { provide: APP_BASE_HREF, useValue : '/' }
       ]
     });

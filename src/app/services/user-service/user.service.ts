@@ -43,4 +43,16 @@ export class UserService {
   addRating(currentUser: string, problem: ProblemKeyValue, rating: number) {
     return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, rating);
   }
+
+  likeProblem(currentUser: string, problem: ProblemKeyValue) {
+    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, true);
+  }
+
+  unlikeProblem(currentUser: string, problem: ProblemKeyValue) {
+    return this.db.list(`/users/${currentUser}/likedProblems/`).remove(problem.key);
+  }
+
+  checkProblemLiked(currentUser: string, problem: ProblemKeyValue) {
+    return this.db.list(`/users/${currentUser}/likedProblems/${problem.key}`);
+  }
 }

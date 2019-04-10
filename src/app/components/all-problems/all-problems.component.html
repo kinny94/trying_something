@@ -21,13 +21,13 @@
                 <div fxFlex="70" fxLayoutGap="40px" fxLayoutAlign="start" fxFlexAlign="center">
                     <app-star-rating 
                     [problem]="object"
-                    [rating]="object.value.stars" 
+                    [rating]="(object.value.stars/object.value.raters) | number:'1.0-0'" 
                     [starCount]="5" 
                     [color]="starColor"
                   ></app-star-rating>
                 </div>
                 <div fxFlex="30" fxFlexAlign="center" fxLayoutAlign="end">
-                  <mat-icon>thumb_up</mat-icon>
+                  <app-like [problem]="object"></app-like>
                 </div>
               </div>    
             </div>
