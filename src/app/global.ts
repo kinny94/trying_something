@@ -42,8 +42,16 @@ export class Globals implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authSubscription.unsubscribe();
-    this.snapshotSubscription.unsubscribe();
-    this.userDataSubscription.unsubscribe();
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+
+    if (this.snapshotSubscription) {
+      this.snapshotSubscription.unsubscribe();
+    }
+
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { ProblemKeyValue } from './../../../models/model';
 import { ProblemsService } from './../../services/problems/problems.service';
@@ -6,13 +6,14 @@ import { User } from 'firebase';
 import { Globals } from './../../global';
 import { UserService } from './../../services/user-service/user.service';
 import { map, take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-star-rating',
   templateUrl: './star.component.html',
   styleUrls: ['./star.component.scss'],
 })
-export class StarComponent implements OnInit {
+export class StarComponent implements OnInit, OnDestroy {
 
   @Input()
   private rating: number;
@@ -26,6 +27,8 @@ export class StarComponent implements OnInit {
   private snackBarDuration = 2000;
   private ratingArr = [];
   user: User;
+
+  problemSubscription: Subscription;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -45,7 +48,7 @@ export class StarComponent implements OnInit {
     if (this.globals.user) {
       const currentUser = this.globals.userData.username;
       if (this.globals.userData.ratedProblems && this.globals.userData.ratedProblems[this.problem.key]) {
-        this.problemService.changeRatings(this.problem, rating, previousRating).pipe(
+        this.problemSubscription = this.problemService.changeRatings(this.problem, rating, previousRating).pipe(
           map(newRatings => {
             this.problemService.addNewRatings(this.problem, newRatings);
           }),
@@ -56,7 +59,7 @@ export class StarComponent implements OnInit {
           take(1),
         ).subscribe();
       } else {
-        this.problemService.setNewRatings(this.problem, rating).pipe(
+        this.problemSubscription = this.problemService.setNewRatings(this.problem, rating).pipe(
           map(newRatings => {
             this.problemService.addNewRatings(this.problem, newRatings);
           }),
@@ -85,6 +88,12 @@ export class StarComponent implements OnInit {
       return 'star';
     } else {
       return 'star_border';
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.problemSubscription) {
+      this.problemSubscription.unsubscribe();
     }
   }
 }

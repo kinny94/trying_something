@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { UserData } from './../../../models/model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
 
   user$: Observable<firebase.User>;
+  authSubscription: Subscription;
 
   constructor(
     public  afAuth:  AngularFireAuth,
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    this.user$.subscribe(user => {
+    this.authSubscription = this.user$.subscribe(user => {
       if (user === null) {
         return false;
       } else {
@@ -64,6 +65,12 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()
     );
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 }
 
