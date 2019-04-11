@@ -11,6 +11,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../environments/environment.prod';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { Globals } from './../../global';
+import { LikeComponent } from '../like/like.component';
 
 describe('TopicProblemsComponent', () => {
   let comp: TopicProblemsComponent;
@@ -21,7 +22,8 @@ describe('TopicProblemsComponent', () => {
       declarations: [
         TopicProblemsComponent,
         StarComponent,
-        ProblemComponent
+        ProblemComponent,
+        LikeComponent
       ],
       imports: [
         AngularFireDatabaseModule,

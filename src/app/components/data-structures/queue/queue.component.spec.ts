@@ -10,6 +10,7 @@ import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
 import { StarComponent } from '../../star/star.component';
 import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
+import { LikeComponent } from '../../like/like.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Access (Average)', complexity_avg: 'Θ(1)', type_worst: 'Access (Worst)', complexity_worst: 'Θ(1)'},
@@ -28,6 +29,7 @@ describe('QueueComponent', () => {
         QueueComponent,
         TopicProblemsComponent,
         StarComponent,
+        LikeComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),

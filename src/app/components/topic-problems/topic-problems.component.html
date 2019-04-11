@@ -1,4 +1,4 @@
-<div class="row wrap" fxLayoutAlign="space-between" fxFlex fxFlexAlign="center"> 
+<div class="row" fxLayoutAlign="space-between" fxFlex fxFlexAlign="center">
   <div fxFlex="50" fxFlexAlign="center">
     <a routerLink="/{{ item.key }}/{{ item.value.topic }}/{{ changeName(item.value.name) }}">
       <span>{{ item.value.name }}</span>
@@ -6,16 +6,15 @@
   </div>
   <div fxFlex="50">
     <div fxFlex="70" fxLayoutGap="40px" fxLayoutAlign="start" fxFlexAlign="center">
-      <app-star-rating 
-      [problem]="item"
-      [rating]="item.value.star" 
-      [starCount]="starCount" 
-      [color]="starColor" 
-      (ratingUpdated)="onRatingChanged($event)"
+        <app-star-rating 
+        [problem]="item"
+        [rating]="(item.value.stars/item.value.raters) | number:'1.0-0'" 
+        [starCount]="5" 
+        [color]="starColor"
       ></app-star-rating>
     </div>
     <div fxFlex="30" fxFlexAlign="center" fxLayoutAlign="end">
-      <mat-icon>thumb_up</mat-icon>
+      <app-like [problem]="item"></app-like>
     </div>
-  </div> 
+  </div>    
 </div>

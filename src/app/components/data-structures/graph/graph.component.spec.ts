@@ -10,6 +10,7 @@ import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
 import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
 import { StarComponent } from '../../star/star.component';
+import { LikeComponent } from '../../like/like.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Add Vertex (Average)', complexity_avg: 'O(1)', type_worst: 'Add Vertex (Worst)', complexity_worst: 'O(1)'},
@@ -30,7 +31,8 @@ describe('GraphComponent', () => {
       declarations: [
         GraphComponent,
         TopicProblemsComponent,
-        StarComponent
+        StarComponent,
+        LikeComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
