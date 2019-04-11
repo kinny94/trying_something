@@ -10,6 +10,7 @@ import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
 import { StarComponent } from '../../star/star.component';
 import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
+import { LikeComponent } from '../../like/like.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {
@@ -52,7 +53,8 @@ describe('SortingComponent', () => {
       declarations: [
         SortingComponent,
         TopicProblemsComponent,
-        StarComponent
+        StarComponent,
+        LikeComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),

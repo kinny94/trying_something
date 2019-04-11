@@ -10,6 +10,7 @@ import { environment } from './../../../../environments/environment.prod';
 import { Complexities } from './../../../../models/model';
 import { StarComponent } from '../../star/star.component';
 import { TopicProblemsComponent } from '../../topic-problems/topic-problems.component';
+import { LikeComponent } from '../../like/like.component';
 
 const MOCK_ELEMENT_DATA: Complexities[] = [
   {type_avg: 'Linear Search (Average)', complexity_avg: 'O(n)', type_worst: 'Linear Search (Worst)', complexity_worst: 'O(n)'},
@@ -25,7 +26,8 @@ describe('SearchingComponent', () => {
       declarations: [
         SearchingComponent,
         TopicProblemsComponent,
-        StarComponent
+        StarComponent,
+        LikeComponent
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
