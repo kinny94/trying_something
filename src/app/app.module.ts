@@ -39,6 +39,7 @@ import { TopicProblemsComponent } from './components/topic-problems/topic-proble
 import { CbAnimationDirective } from './directives/animation-directive';
 import { Globals } from './global';
 import { LikeComponent } from './components/like/like.component';
+import { AdminGuardService } from './services/auth/admin-guard-service';
 
 @NgModule({
   declarations: [
@@ -90,10 +91,10 @@ import { LikeComponent } from './components/like/like.component';
       { path: 'hash-table', component: HashTableComponent, pathMatch: 'full' },
       { path: 'searching', component: SearchingComponent, pathMatch: 'full' },
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
-      { path: 'upload', component: UploadFormComponent, pathMatch: 'full' },
+      { path: 'upload', component: UploadFormComponent, pathMatch: 'full', canActivate: [AdminGuardService]},
       { path: 'signup', component: SignupComponent, pathMatch: 'full' },
       { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },
-      { path: 'user/:id', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuardService] }
+      { path: 'user/:id', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuardService]}
     ])
   ],
   providers: [
