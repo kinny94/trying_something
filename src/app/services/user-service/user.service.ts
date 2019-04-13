@@ -36,7 +36,7 @@ export class UserService {
     return this.db.object(`/usernames/${username}`).valueChanges();
   }
 
-  isRatedProblem(currentUser:string, problem: ProblemKeyValue) {
+  isRatedProblem(currentUser: string, problem: ProblemKeyValue) {
     return this.db.list(`/users/${currentUser}/ratedProblems/${problem.key}`).valueChanges();
   }
 
