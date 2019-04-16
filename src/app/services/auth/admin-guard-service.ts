@@ -21,7 +21,6 @@ export class AdminGuardService implements CanActivate {
         if ( user ) {
           if (this.globals.user) {
             if (this.globals.userData && this.globals.userData.isAdmin) {
-              console.log(true);
               this.router.navigate(['/upload']);
               return true;
             }

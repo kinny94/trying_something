@@ -19,7 +19,6 @@ export class AuthGuardService implements CanActivate {
       return this.authService.user$.pipe(
         map( user => {
           if ( user ) {
-            console.log(this.globals.currentUser);
             return true;
           }
           this.router.navigate(['/']);

@@ -19,7 +19,7 @@ export class Globals implements OnDestroy {
   userDataSubscription: Subscription;
 
   userSubject: BehaviorSubject<string> = new BehaviorSubject(undefined);
-  userSnapshotSubject: BehaviorSubject<string> = new BehaviorSubject(undefined);
+  userEmailSubject: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
   constructor(
     private authService: AuthService,
@@ -68,14 +68,21 @@ export class Globals implements OnDestroy {
       }),
       switchMap(snapshot => of(snapshot.filter(data => data['payload'].val()['email'] === this.userSubject.value))),
       flatMap((snap: any) => {
-        this.userSnapshotSubject.next(snap.key);
+        this.userEmailSubject.next(snap[0].payload.key);
         return snap;
       })
     );
   }
 
   getUserData() {
-
+    return this.getUserDataSnapshot().pipe(
+      switchMap(() => {
+        return this.db.object(`/users/${this.userEmailSubject.value}`).valueChanges();
+      }),
+      flatMap((userdata) => {
+        return of(userdata);
+      }),
+    );
   }
 
   ngOnDestroy() {
