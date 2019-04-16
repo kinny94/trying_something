@@ -41,6 +41,12 @@ export class StarComponent implements OnInit, OnDestroy {
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
+
+    this.globals.getUserDataSnapshot().pipe(
+      map(data => {
+        console.log(data);
+      })
+    ).subscribe();
   }
 
   onClick(rating: number) {

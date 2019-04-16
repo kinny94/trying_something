@@ -101,7 +101,6 @@ import { AdminGuardService } from './services/auth/admin-guard-service';
     { provide: StorageBucket, useValue: 'codebase-e1c81.appspot.com' },
     AuthService,
     AuthGuardService,
-    Globals
   ],
   bootstrap: [AppComponent]
 })

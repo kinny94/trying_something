@@ -53,6 +53,6 @@ export class UserService {
   }
 
   checkProblemLiked(currentUser: string, problem: ProblemKeyValue) {
-    return this.db.list(`/users/${currentUser}/likedProblems/${problem.key}`);
+    return this.db.list(`/users/${currentUser}/`).valueChanges();
   }
 }
