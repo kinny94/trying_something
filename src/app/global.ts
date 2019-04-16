@@ -79,7 +79,7 @@ export class Globals implements OnDestroy {
       switchMap(() => {
         return this.db.object(`/users/${this.userEmailSubject.value}`).valueChanges();
       }),
-      flatMap((userdata) => {
+      flatMap((userdata: UserData) => {
         return of(userdata);
       }),
     );

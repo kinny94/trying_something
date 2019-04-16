@@ -1,9 +1,10 @@
+import { map, filter, switchMap, flatMap } from 'rxjs/operators';
 import { Component, OnInit, Input } from '@angular/core';
-import { ProblemKeyValue } from './../../../models/model';
+import { ProblemKeyValue, UserData, ProblemData } from './../../../models/model';
 import { Globals } from './../../global';
 import { UserService } from './../../services/user-service/user.service';
 import { MatSnackBar } from '@angular/material';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-like',
@@ -15,6 +16,8 @@ export class LikeComponent implements OnInit {
   @Input() problem: ProblemKeyValue;
   color: Observable<string>;
   private snackBarDuration = 2000;
+  isLikedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isLiked: Observable<boolean> = this.isLikedSubject.asObservable();
 
   constructor(
     private globals: Globals,
@@ -23,11 +26,12 @@ export class LikeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.globals.user) {
-      if (this.globals.userData.likedProblems && this.globals.userData.likedProblems[this.problem.key]) {
-        this.color = of('warn');
-      }
-    }
+    this.color = this.globals.getUserData().pipe(
+      map((userdata: UserData) => userdata),
+      flatMap(data => of(!!data.likedProblems[this.problem.key])),
+      map(isLiked => this.isLikedSubject.next(isLiked)),
+      map(() => this.isLikedSubject.value ? 'warn' : '')
+    );
   }
 
   onClick() {
