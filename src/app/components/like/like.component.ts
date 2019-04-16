@@ -1,3 +1,4 @@
+import { User } from 'firebase';
 import { map, filter, switchMap, flatMap } from 'rxjs/operators';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProblemKeyValue, UserData, ProblemData } from './../../../models/model';
@@ -13,11 +14,15 @@ import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 })
 export class LikeComponent implements OnInit {
 
-  @Input() problem: ProblemKeyValue;
+  @Input()
+  problem: ProblemKeyValue;
+
   color: Observable<string>;
-  private snackBarDuration = 2000;
   isLikedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isLiked: Observable<boolean> = this.isLikedSubject.asObservable();
+
+  user$: Observable<string>;
+  userdata$: Observable<UserData>;
 
   constructor(
     private globals: Globals,
@@ -26,7 +31,14 @@ export class LikeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.color = this.globals.getUserData().pipe(
+    this.user$ = this.userService.getUser();
+    this.userdata$ = this.userService.getUserData();
+    this.color = (this.user$ && this.userdata$) ? this.getColor() : undefined;
+  }
+
+
+  getColor() {
+    return this.userService.getUserData().pipe(
       map((userdata: UserData) => userdata),
       flatMap(data => of(!!data.likedProblems[this.problem.key])),
       map(isLiked => this.isLikedSubject.next(isLiked)),
@@ -40,20 +52,20 @@ export class LikeComponent implements OnInit {
         this.userService.unlikeProblem(this.globals.currentUser, this.problem).then(() => {
           this.color = of('');
           this.snackBar.open(`You unliked ${this.problem.value.name}`, '', {
-            duration: this.snackBarDuration
+            duration: 2000,
           });
         });
       } else {
         this.userService.likeProblem(this.globals.currentUser, this.problem).then(() => {
           this.color = of('warn');
           this.snackBar.open(`You liked ${this.problem.value.name}`, '', {
-            duration: this.snackBarDuration,
+            duration: 2000,
           });
         });
       }
     } else {
       this.snackBar.open(`You need to login to like a problem.`, '', {
-        duration: this.snackBarDuration
+        duration: 2000,
       });
     }
   }

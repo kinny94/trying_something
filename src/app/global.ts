@@ -49,42 +49,6 @@ export class Globals implements OnDestroy {
     ).subscribe();
   }
 
-  getUser() {
-    return this.authService.user$.pipe(
-      map((user: User) => {
-        if (user) {
-          this.userSubject.next(user.email);
-          return this.userSubject.value;
-        }
-        return undefined;
-      }),
-    );
-  }
-
-  getUserDataSnapshot() {
-    return this.getUser().pipe(
-      switchMap(() => {
-        return this.db.list(`/usernames/`).snapshotChanges();
-      }),
-      switchMap(snapshot => of(snapshot.filter(data => data['payload'].val()['email'] === this.userSubject.value))),
-      flatMap((snap: any) => {
-        this.userEmailSubject.next(snap[0].payload.key);
-        return snap;
-      })
-    );
-  }
-
-  getUserData() {
-    return this.getUserDataSnapshot().pipe(
-      switchMap(() => {
-        return this.db.object(`/users/${this.userEmailSubject.value}`).valueChanges();
-      }),
-      flatMap((userdata: UserData) => {
-        return of(userdata);
-      }),
-    );
-  }
-
   ngOnDestroy() {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
