@@ -1,56 +1,87 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ProblemKeyValue } from './../../../models/model';
-import { Globals } from './../../global';
+import { map, flatMap, take } from 'rxjs/operators';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { ProblemKeyValue, UserData } from './../../../models/model';
 import { UserService } from './../../services/user-service/user.service';
 import { MatSnackBar } from '@angular/material';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-like',
   templateUrl: './like.component.html',
   styleUrls: ['./like.component.scss']
 })
-export class LikeComponent implements OnInit {
+export class LikeComponent implements OnInit, OnDestroy {
 
-  @Input() problem: ProblemKeyValue;
+  @Input()
+  problem: ProblemKeyValue;
+
   color: Observable<string>;
-  private snackBarDuration = 2000;
+  isLikedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isLiked: Observable<boolean> = this.isLikedSubject.asObservable();
+
+  user$: Observable<string>;
+  userdata$: Observable<UserData>;
+  currentUserSubject: BehaviorSubject<string> = new BehaviorSubject(undefined);
+
+  subscription: Subscription;
 
   constructor(
-    private globals: Globals,
     private userService: UserService,
     private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
-    if (this.globals.user) {
-      if (this.globals.userData.likedProblems && this.globals.userData.likedProblems[this.problem.key]) {
-        this.color = of('warn');
-      }
-    }
+    this.user$ = this.userService.getUser();
+    this.userdata$ = this.userService.getUserData();
+    this.color = (this.user$ && this.userdata$) ? this.getColor() : undefined;
   }
 
-  onClick() {
-    if (this.globals.user) {
-      if (this.globals.userData.likedProblems && this.globals.userData.likedProblems[this.problem.key]) {
-        this.userService.unlikeProblem(this.globals.currentUser, this.problem).then(() => {
-          this.color = of('');
-          this.snackBar.open(`You unliked ${this.problem.value.name}`, '', {
-            duration: this.snackBarDuration
+
+  getColor() {
+    return this.userService.getUserData().pipe(
+      flatMap(data => of(!!data.likedProblems[this.problem.key])),
+      map(isLiked => this.isLikedSubject.next(isLiked)),
+      map(() => this.isLikedSubject.value ? 'warn' : '')
+    );
+  }
+
+  unauthClick() {
+    this.snackBar.open(`Login or Signup to like a problem.`, '', {
+      duration: 2000,
+    });
+  }
+
+  authClick() {
+    this.subscription = this.userdata$.pipe(
+      map((userdata: UserData) => {
+        this.currentUserSubject.next(userdata.username);
+        return userdata;
+      }),
+      flatMap((data) => of(!!data.likedProblems[this.problem.key])),
+      map(isLiked => {
+        if (isLiked) {
+          this.userService.unlikeProblem(this.currentUserSubject.value, this.problem).then(() => {
+            this.color = of('');
+            this.snackBar.open(`You unliked ${this.problem.value.name}`, '', {
+              duration: 2000,
+            });
           });
-        });
-      } else {
-        this.userService.likeProblem(this.globals.currentUser, this.problem).then(() => {
-          this.color = of('warn');
-          this.snackBar.open(`You liked ${this.problem.value.name}`, '', {
-            duration: this.snackBarDuration,
+        } else {
+          this.userService.likeProblem(this.currentUserSubject.value, this.problem).then(() => {
+            this.color = of('warn');
+            this.snackBar.open(`You liked ${this.problem.value.name}`, '', {
+              duration: 2000,
+            });
           });
-        });
-      }
-    } else {
-      this.snackBar.open(`You need to login to like a problem.`, '', {
-        duration: this.snackBarDuration
-      });
+        }
+      }),
+      take(1),
+    ).subscribe();
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
-import { Globals } from 'src/app/global';
-
+import { UserService } from '../user-service/user.service';
+import { UserData } from 'src/models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +10,19 @@ import { Globals } from 'src/app/global';
 export class AdminGuardService implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private globals: Globals
+    private userService: UserService,
   ) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.authService.user$.pipe(
-      map( user => {
-        if ( user ) {
-          if (this.globals.user) {
-            if (this.globals.userData && this.globals.userData.isAdmin) {
-              console.log(true);
-              this.router.navigate(['/upload']);
-              return true;
-            }
-          }
+
+    return this.userService.getUserData().pipe(
+      map((userdata: UserData) => {
+        if (userdata.isAdmin) {
+          return true;
         }
         this.router.navigate(['/']);
         return false;
-      })
+      }),
     );
   }
 }

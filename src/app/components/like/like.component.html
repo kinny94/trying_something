@@ -1,1 +1,6 @@
-<button mat-mini-fab color="{{ color | async }}" (click)="onClick()"><mat-icon>favorite</mat-icon></button>
+<ng-container *ngIf="(user$ | async) && (userdata$ | async); else unauth">
+  <button mat-mini-fab color="{{ color | async }}" (click)="authClick()"><mat-icon>favorite</mat-icon></button>
+</ng-container>
+<ng-template #unauth>
+  <button mat-mini-fab color="{{ color | async }}" (click)="unauthClick()"><mat-icon>favorite</mat-icon></button>
+</ng-template>

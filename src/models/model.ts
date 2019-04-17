@@ -35,7 +35,7 @@ export interface UserData {
   lastname: string;
   username: string;
   email: string;
-  isAdmin?: string;
+  isAdmin?: boolean;
   likedProblems: ProblemData[];
   ratedProblems: ProblemData[];
 }
