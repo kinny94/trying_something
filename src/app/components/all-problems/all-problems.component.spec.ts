@@ -11,7 +11,6 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../environments/environment.prod';
 import { StarComponent } from '../star/star.component';
 import { LikeComponent } from '../like/like.component';
-import { Globals } from './../../global';
 
 describe('AllProblemsComponent', () => {
   let comp: AllProblemsComponent;
@@ -37,7 +36,6 @@ describe('AllProblemsComponent', () => {
       ],
       providers: [
         ProblemsService,
-        Globals,
         { provide: APP_BASE_HREF, useValue : '/' }
       ]
     });

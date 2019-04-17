@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { ProblemKeyValue } from './../../../models/model';
+import { ProblemKeyValue, UserData } from './../../../models/model';
 import { ProblemsService } from './../../services/problems/problems.service';
 import { User } from 'firebase';
-import { Globals } from './../../global';
 import { UserService } from './../../services/user-service/user.service';
-import { map, take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { map, take, flatMap, switchMap } from 'rxjs/operators';
+import { Subscription, Observable, BehaviorSubject, of } from 'rxjs';
 
 @Component({
   selector: 'app-star-rating',
@@ -24,63 +23,73 @@ export class StarComponent implements OnInit, OnDestroy {
   @Input()
   problem: ProblemKeyValue;
 
-  private snackBarDuration = 2000;
   private ratingArr = [];
   user: User;
 
-  problemSubscription: Subscription;
+  subscription: Subscription;
+
+  user$: Observable<string>;
+  userdata$: Observable<UserData>;
+  currentUserSubject: BehaviorSubject<string> = new BehaviorSubject(undefined);
+
 
   constructor(
     private snackBar: MatSnackBar,
     private problemService: ProblemsService,
-    private globals: Globals,
     private userService: UserService
   ) { }
 
   ngOnInit() {
+    this.user$ = this.userService.getUser();
+    this.userdata$ = this.userService.getUserData();
+
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
 
+  authClick() {
+
+  }
+
+  unauthClick() {
+    this.snackBar.open('Login to rate the problems', '', {
+      duration: 2000,
+    });
+  }
+
   onClick(rating: number) {
     const previousRating = this.rating;
-    if (this.globals.user) {
-      const currentUser = this.globals.userData.username;
-      if (this.globals.userData.ratedProblems && this.globals.userData.ratedProblems[this.problem.key]) {
-        this.problemSubscription = this.problemService.changeRatings(this.problem, rating, previousRating).pipe(
-          map(newRatings => {
-            this.problemService.addNewRatings(this.problem, newRatings);
-          }),
-          take(1),
-          map(() => {
-            this.userService.addRating(currentUser, this.problem, rating);
-          }),
-          take(1),
-        ).subscribe();
-      } else {
-        this.problemSubscription = this.problemService.setNewRatings(this.problem, rating).pipe(
-          map(newRatings => {
-            this.problemService.addNewRatings(this.problem, newRatings);
-          }),
-          take(1),
-          map(() => {
-            this.userService.addRating(currentUser, this.problem, rating);
-          }),
-          take(1),
-        ).subscribe();
-      }
 
-      this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
-        duration: this.snackBarDuration
-      });
-      this.rating = rating;
-      return false;
-    } else {
-      this.snackBar.open('Login to rate the problems', '', {
-        duration: this.snackBarDuration
-      });
-    }
+    this.subscription = this.userdata$.pipe(
+      map((userdata: UserData) => {
+        this.currentUserSubject.next(userdata.username);
+        return userdata;
+      }),
+      flatMap((data) => of(!!data.ratedProblems[this.problem.key])),
+      switchMap(isRated => {
+        if (isRated) {
+          return this.problemService.changeRatings(this.problem, rating, previousRating);
+        } else {
+          return this.problemService.setNewRatings(this.problem, rating);
+        }
+      }),
+      take(1),
+      map(newRatings => {
+        return this.problemService.addNewRatings(this.problem, newRatings);
+      }),
+      take(1),
+      map(() => {
+        return this.userService.addRating(this.currentUserSubject.value, this.problem, rating);
+      }),
+      take(1),
+    ).subscribe();
+
+    this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
+      duration: 2000,
+    });
+    this.rating = rating;
+    return false;
   }
 
   showIcon(index: number) {
@@ -92,8 +101,8 @@ export class StarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.problemSubscription) {
-      this.problemSubscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

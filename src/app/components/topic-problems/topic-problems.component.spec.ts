@@ -10,7 +10,6 @@ import { ProblemComponent } from '../problem/problem.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../environments/environment.prod';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { Globals } from './../../global';
 import { LikeComponent } from '../like/like.component';
 
 describe('TopicProblemsComponent', () => {
@@ -37,7 +36,6 @@ describe('TopicProblemsComponent', () => {
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
-        Globals
       ]
     });
 

@@ -37,7 +37,6 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { StarComponent } from './components/star/star.component';
 import { TopicProblemsComponent } from './components/topic-problems/topic-problems.component';
 import { CbAnimationDirective } from './directives/animation-directive';
-import { Globals } from './global';
 import { LikeComponent } from './components/like/like.component';
 import { AdminGuardService } from './services/auth/admin-guard-service';
 

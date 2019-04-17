@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Globals } from './global';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,7 @@ export class AppComponent implements OnInit {
   title = 'codebase';
   data = '';
 
-  constructor(private globals: Globals) {}
+  constructor() {}
 
   ngOnInit() {}
 }
