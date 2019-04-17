@@ -3,7 +3,7 @@
   [color]="color" 
   *ngFor="let ratingId of ratingArr;index as i" 
   [id]="'star_'+i" 
-  (click)="onClick(i+1)" 
+  (click)="authClick(i+1)" 
   [matTooltip]="ratingId+1" 
   matTooltipPosition="above"
   >
@@ -17,7 +17,7 @@
   [color]="color" 
   *ngFor="let ratingId of ratingArr;index as i" 
   [id]="'star_'+i" 
-  (click)="onClick(i+1)" 
+  (click)="unauthClick(i+1)" 
   [matTooltip]="ratingId+1" 
   matTooltipPosition="above"
   >

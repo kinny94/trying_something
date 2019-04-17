@@ -40,8 +40,10 @@ export class LikeComponent implements OnInit, OnDestroy {
   getColor() {
     return this.userService.getUserData().pipe(
       flatMap(data => of(!!data.likedProblems[this.problem.key])),
-      map(isLiked => this.isLikedSubject.next(isLiked)),
-      map(() => this.isLikedSubject.value ? 'warn' : '')
+      map(isLiked => {
+        this.isLikedSubject.next(isLiked);
+        return this.isLikedSubject.value ? 'warn' : '';
+      }),
     );
   }
 
