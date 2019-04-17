@@ -42,32 +42,20 @@ export class StarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.user$ = this.userService.getUser();
     this.userdata$ = this.userService.getUserData();
-
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
 
-  authClick() {
-
-  }
-
-  unauthClick() {
-    this.snackBar.open('Login to rate the problems', '', {
-      duration: 2000,
-    });
-  }
-
-  onClick(rating: number) {
+  authClick(rating: number) {
     const previousRating = this.rating;
-
     this.subscription = this.userdata$.pipe(
       map((userdata: UserData) => {
         this.currentUserSubject.next(userdata.username);
         return userdata;
       }),
-      flatMap((data) => of(!!data.ratedProblems[this.problem.key])),
-      switchMap(isRated => {
+      switchMap((data) => of(!!data.ratedProblems[this.problem.key])),
+      flatMap(isRated => {
         if (isRated) {
           return this.problemService.changeRatings(this.problem, rating, previousRating);
         } else {
@@ -89,7 +77,13 @@ export class StarComponent implements OnInit, OnDestroy {
       duration: 2000,
     });
     this.rating = rating;
-    return false;
+    return;
+  }
+
+  unauthClick() {
+    this.snackBar.open('Login to rate the problems', '', {
+      duration: 2000,
+    });
   }
 
   showIcon(index: number) {
@@ -106,6 +100,7 @@ export class StarComponent implements OnInit, OnDestroy {
     }
   }
 }
+
 export enum StarRatingColor {
   primary = 'primary',
   accent = 'accent',
