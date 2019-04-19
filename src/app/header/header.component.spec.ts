@@ -1,3 +1,4 @@
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { HeaderComponent } from './header.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
@@ -23,6 +24,7 @@ describe('HeaderComponent', () => {
         MaterialModule,
         BrowserAnimationsModule,
         AngularFireAuthModule,
+        AngularFireDatabaseModule,
         AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           {path: '', component: AppComponent, pathMatch: 'full'}
