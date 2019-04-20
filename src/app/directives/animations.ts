@@ -63,7 +63,13 @@ CbAnimations['slit_in_hor']  = animate('1s ease-out', keyframes([
 
 CbAnimations['slide_in_top'] = animate('0.65s 0.1s cubic-bezier(0.250, 0.460, 0.450, 0.940)', keyframes([
   style({ visibility: 'visible', opacity: 0, }),
-  style({ transform: 'translateY(-1000px)', opacity: 0, }),
+  style({ transform: 'translateY(1000px)', opacity: 0, }),
+  style({ transform: 'translateY(0)', opacity: 1, }),
+]));
+
+CbAnimations['slide_in_top_fade'] = animate('1.2s 0.1s cubic-bezier(0.250, 0.460, 0.450, 0.940)', keyframes([
+  style({ visibility: 'none', opacity: 0, }),
+  style({ transform: 'translateY(100px)', opacity: 0, }),
   style({ transform: 'translateY(0)', opacity: 1, }),
 ]));
 

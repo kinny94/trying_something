@@ -37,6 +37,9 @@
   <div fxLayout="row" class="full__width">
     <h4>Problems: </h4>
   </div><br/>
+  <div fxFlexFill fxLayout="row" fxLayoutAlign="center center" *ngIf="(_allProblems | async)?.length === 0;">
+    <mat-spinner></mat-spinner>
+  </div>
   <div fxLayout="row" class="list_width">
     <mat-list class="list_width">
       <ng-container *ngFor="let item of (_allProblems | async) | keyvalue ">

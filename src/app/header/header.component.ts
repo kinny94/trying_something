@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { AuthService } from '../services/auth/auth.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { THEMES } from './../model';
+import { UserService } from '../services/user-service/user.service';
+import { UserData } from './../../models/model';
 
 @Component({
   selector: 'app-header',
@@ -17,10 +18,12 @@ export class HeaderComponent implements OnInit {
   theme: BehaviorSubject<string> = new BehaviorSubject('default-theme');
 
   user$: Observable<firebase.User>;
+  userdata$: Observable<UserData>;
 
   constructor(
     private overlayContainer: OverlayContainer,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -29,6 +32,7 @@ export class HeaderComponent implements OnInit {
     if (localStorage.getItem('codebase-theme') !== null) {
       this.activeTheme = localStorage.getItem('codebase-theme');
     }
+    this.userdata$ = this.userService.getUserData();
   }
 
   changeTheme(theme: string) {

@@ -6,6 +6,9 @@
       </mat-form-field>
     </form>
   </div>
+  <div fxFlexFill *ngIf="(_isLoading$ | async);" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
   <div fxLayout="row wrap">
     <mat-list class="list_width">
       <ng-container *ngFor="let item of _filteredProblems$ | async">

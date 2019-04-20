@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemsService } from './../../services/problems/problems.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 export interface Problem {
@@ -18,8 +18,11 @@ export class AllProblemsComponent implements OnInit {
   _filteredProblems$?: Observable<Array<Object>>;
   _everyProblemsSubject: BehaviorSubject<Array<Object>> = new BehaviorSubject<Array<Object>>([]);
   _everyProblem$: Observable<Array<Object>> = this._everyProblemsSubject.asObservable();
-  searchText = '';
 
+  isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  _isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
+
+  searchText = '';
   starColor = 'accent';
 
   constructor(
@@ -29,7 +32,10 @@ export class AllProblemsComponent implements OnInit {
   ngOnInit() {
     this._everyProblem$ = this.problemService.getEverything().valueChanges().pipe(
       map(element => element),
-      tap(data => this._everyProblemsSubject.next(data)),
+      tap(data => {
+        this.isLoadingSubject.next(false);
+        return this._everyProblemsSubject.next(data);
+      }),
     );
     this._filteredProblems$ = this._everyProblem$;
   }
