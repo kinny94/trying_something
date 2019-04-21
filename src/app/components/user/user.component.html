@@ -1,13 +1,22 @@
-<div fxLayout="column wrap" fxLayoutAlign="space-between center">
-  <div fxLayout="row" fxFlexAlign="center" fxfill>
-    Profile
+<div *ngIf="(userdata$ | async); else loading" fxLayout="column" fxFlexfill fxLayoutGap="32px">
+  <div fxLayout="row" fxFlexFill fxLayoutAlign="center center" fxLayoutGap="32px">
+    <h2>Profile</h2>
   </div>
-  <div fxLayout="row" fxLayoutAlign="space-between" fxfill>
-    <div fxLayout="column" fxFill fxLayoutAlign="center">
-      Likes
+  <div fxLayout="row" fxFlexFill fxLayoutGap="32px">
+    <div fxLayout="column" fxFlex="calc(50% - 64px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
+      <div fxFlexFill fxLayoutAlign="center center">
+        <h2>Liked Problems</h2>
+      </div>
     </div>
-    <div fxLayout="column" fxFill fxLayoutAlign="center">
-      Stars
+    <div fxLayout="column" fxFlex="calc(50% - 64px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
+      <div fxFlexFill fxLayoutAlign="center center">
+        <h2>Rated Problems</h2>
+      </div>
     </div>
   </div>
 </div>
+<ng-template #loading>
+  <div fxFlexFill fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>  
