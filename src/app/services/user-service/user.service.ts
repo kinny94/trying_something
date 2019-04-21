@@ -57,7 +57,9 @@ export class UserService {
   }
 
   likeProblem(currentUser: string, problem: ProblemKeyValue) {
-    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, problem.value);
+    let firebaseRefValue;
+    this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`).on('value', (snapshot) => firebaseRefValue = snapshot.val());
+    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, firebaseRefValue);
   }
 
   unlikeProblem(currentUser: string, problem: ProblemKeyValue) {

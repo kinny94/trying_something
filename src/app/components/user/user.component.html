@@ -1,6 +1,29 @@
 <div *ngIf="(userdata$ | async); else loading" fxLayout="column" fxFlexfill fxLayoutGap="32px">
   <div fxLayout="row" fxFlexFill fxLayoutAlign="center center" fxLayoutGap="32px">
-    <h2>Profile</h2>
+    <div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
+      <div>
+        <h2>Profile</h2>
+      </div>
+      <div fxFlexFill fxLayout="column">
+        <mat-form-field fxFlexFill > 
+          <input matInput placeholder="First name" value="{{ (userdata$ | async)?.firstname}}">
+        </mat-form-field>
+
+        <mat-form-field fxFlexFill > 
+          <input matInput placeholder="Last name" value="{{ (userdata$ | async)?.lastname}}">
+        </mat-form-field>
+
+        <mat-form-field fxFlexFill > 
+          <input matInput placeholder="username" value="{{ (userdata$ | async)?.username}}">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-select placeholder="Select">
+            <mat-option value="option">Option</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
   </div>
   <div fxLayout="row" fxFlexFill fxLayoutGap="32px">
     <div fxLayout="column" fxFlex="calc(50% - 32px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
