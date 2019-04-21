@@ -1,11 +1,12 @@
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { UserData, Username, ProblemKeyValue } from './../../../models/model';
-
+import { UserData, Username, ProblemKeyValue, ProblemData } from './../../../models/model';
 import { User } from 'firebase';
+import * as firebase from 'firebase';
 import { map, switchMap, flatMap, filter } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
+import { ProblemsService } from '../problems/problems.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class UserService {
 
   constructor(
     private db: AngularFireDatabase,
-    private authService: AuthService
+    private authService: AuthService,
+    private problemService: ProblemsService
     ) { }
 
   saveUser(userData: UserData) {
@@ -49,11 +51,13 @@ export class UserService {
   }
 
   addRating(currentUser: string, problem: ProblemKeyValue, rating: number) {
-    return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, problem.value.topic);
+    let firebaseRefValue;
+    this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`).on('value', (snapshot) => firebaseRefValue = snapshot.val());
+    return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, firebaseRefValue);
   }
 
   likeProblem(currentUser: string, problem: ProblemKeyValue) {
-    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, problem.value.topic);
+    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, problem.value);
   }
 
   unlikeProblem(currentUser: string, problem: ProblemKeyValue) {

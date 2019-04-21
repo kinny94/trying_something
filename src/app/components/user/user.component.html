@@ -3,14 +3,34 @@
     <h2>Profile</h2>
   </div>
   <div fxLayout="row" fxFlexFill fxLayoutGap="32px">
-    <div fxLayout="column" fxFlex="calc(50% - 64px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
-      <div fxFlexFill fxLayoutAlign="center center">
+    <div fxLayout="column" fxFlex="calc(50% - 32px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
+      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
         <h2>Liked Problems</h2>
+      </div>
+      <div fxFlexFill fxLayout="column">
+        <mat-list fxLayout="column" fxFlexFill>
+          <ng-container *ngFor="let item of (likedProblems$ | async) | keyvalue ">
+            <mat-list-item>
+              <app-topic-problems fxFlex [item]="item"></app-topic-problems>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </ng-container>
+        </mat-list>
       </div>
     </div>
     <div fxLayout="column" fxFlex="calc(50% - 64px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
-      <div fxFlexFill fxLayoutAlign="center center">
+      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
         <h2>Rated Problems</h2>
+      </div>
+      <div fxFlexFill fxLayout="column">
+        <mat-list fxLayout="column" fxFlexFill>
+          <ng-container *ngFor="let item of (ratedProblems$ | async) | keyvalue ">
+            <mat-list-item>
+              <app-topic-problems fxFlex [item]="item"></app-topic-problems>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </ng-container>
+        </mat-list>
       </div>
     </div>
   </div>

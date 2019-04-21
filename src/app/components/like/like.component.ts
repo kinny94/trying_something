@@ -1,4 +1,4 @@
-import { map, flatMap, take } from 'rxjs/operators';
+import { map, flatMap, take, switchMap } from 'rxjs/operators';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ProblemKeyValue, UserData } from './../../../models/model';
 import { UserService } from './../../services/user-service/user.service';
@@ -39,7 +39,12 @@ export class LikeComponent implements OnInit, OnDestroy {
 
   getColor() {
     return this.userService.getUserData().pipe(
-      flatMap(data => of(!!data.likedProblems[this.problem.key])),
+      flatMap(data => {
+        if (data.likedProblems) {
+          return of(!!data.likedProblems[this.problem.key]);
+        }
+        return of(false);
+      }),
       map(isLiked => {
         this.isLikedSubject.next(isLiked);
         return this.isLikedSubject.value ? 'warn' : '';
@@ -59,7 +64,12 @@ export class LikeComponent implements OnInit, OnDestroy {
         this.currentUserSubject.next(userdata.username);
         return userdata;
       }),
-      flatMap((data) => of(!!data.likedProblems[this.problem.key])),
+      switchMap((data) => {
+        if (data.likedProblems) {
+          return of(!!data.likedProblems[this.problem.key]);
+        }
+        return of(false);
+      }),
       map(isLiked => {
         if (isLiked) {
           this.userService.unlikeProblem(this.currentUserSubject.value, this.problem).then(() => {
