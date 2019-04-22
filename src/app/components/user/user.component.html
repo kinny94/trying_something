@@ -1,34 +1,63 @@
-<div *ngIf="(userdata$ | async); else loading" fxLayout="column" fxFlexfill fxLayoutGap="32px">
+<div *ngIf="(userdata$ | async); else loading" fxLayout="column" fxFlexfill fxLayoutGap="64px">
   <div fxLayout="row" fxFlexFill fxLayoutAlign="center center" fxLayoutGap="32px">
-    <div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
+    <div fxLayout="column" fxLayoutAlign="start center">
       <div>
-        <h2>Profile</h2>
+        <h2>Hi! {{ (userdata$ | async)?.firstname }} {{ (userdata$ | async)?.lastname }} aka '{{ (userdata$ | async)?.username }}'</h2>
       </div>
       <div fxFlexFill fxLayout="column">
-        <mat-form-field fxFlexFill > 
-          <input matInput placeholder="First name" value="{{ (userdata$ | async)?.firstname}}">
-        </mat-form-field>
+        <form *ngIf="!showChangePasswordForm" [formGroup]="updateProfileForm" fxFlexFill (ngSubmit)="updateProfile()" fxLayoutGap="12px"> 
+          <div fxLayout="row" fxLayoutGap="32px">
+            <mat-form-field fxFlex>
+              <input matInput="text" placeholder="Update First name" formControlName="firstname" autocomplete="off" required>
+              <mat-error *ngIf="updateProfileForm.hasError('required', ['firstname'])">Field is required</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field fxFlex>
+              <input matInput="text" placeholder="Update Last name" formControlName="lastname" autocomplete="off">
+            </mat-form-field>
+    
+            <mat-form-field fxFlex>
+              <input matInput="text" placeholder=" Update Username" formControlName="username" autocomplete="off" required>
+              <mat-error *ngIf="updateProfileForm.hasError('required', ['username'])">Field is required</mat-error>
+              <mat-error *ngIf="updateProfileForm.hasError('pattern', ['username'])">Invalid username</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex fxLayoutAlign="center center" fxLayoutGap="32px">
+            <button [disabled]="!updateProfileForm.valid" mat-raised-button color="primary" value="submit">Update</button>
+            <button *ngIf="!showChangePasswordForm" (click)="changeForm()" mat-raised-button color="primary">Change Password</button>
+          </div>
+        </form>
 
-        <mat-form-field fxFlexFill > 
-          <input matInput placeholder="Last name" value="{{ (userdata$ | async)?.lastname}}">
-        </mat-form-field>
-
-        <mat-form-field fxFlexFill > 
-          <input matInput placeholder="username" value="{{ (userdata$ | async)?.username}}">
-        </mat-form-field>
-      
-        <mat-form-field>
-          <mat-select placeholder="Select">
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <form *ngIf="showChangePasswordForm" [formGroup]="changePassowordForm" fxFlexFill (ngSubmit)="changePassoword()" fxLayoutGap="12px">
+          <div fxLayout="row" fxLayoutGap="32px">
+            <mat-form-field fxFlex>
+              <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" 
+              autocomplete="off" >
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngIf="updateProfileForm.hasError('required', ['password'])">Field is required!</mat-error>
+              <mat-error *ngIf="updateProfileForm.hasError('minlength', ['password'])">Atleast 8 characters required!</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field fxFlex> 
+              <input matInput placeholder="Confirm password" formControlName="confirmPassword" autocomplete="off"
+              [type]="hideConfirmPassword ? 'password' : 'text'" [errorStateMatcher]="matcher">
+              <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngIf="updateProfileForm.hasError('required', ['password'])">Field is required!</mat-error>
+              <mat-error *ngIf="updateProfileForm.hasError('notSame')">Passwords do not match</mat-error>  
+            </mat-form-field>
+          </div>
+          <div fxFlex fxLayoutAlign="center center" fxLayoutGap="32px">
+            <button [disabled]="!changePassowordForm.valid" mat-raised-button color="primary" value="submit">Change</button>
+            <button *ngIf="showChangePasswordForm" (click)="changeForm()" mat-raised-button color="primary">Update Profile</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
   <div fxLayout="row" fxFlexFill fxLayoutGap="32px">
     <div fxLayout="column" fxFlex="calc(50% - 32px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
       <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-        <h2>Liked Problems</h2>
+        <h2>You Liked the following problems</h2>
       </div>
       <div fxFlexFill fxLayout="column">
         <mat-list fxLayout="column" fxFlexFill>
@@ -43,7 +72,7 @@
     </div>
     <div fxLayout="column" fxFlex="calc(50% - 64px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
       <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-        <h2>Rated Problems</h2>
+        <h2>You Rated the following problems</h2>
       </div>
       <div fxFlexFill fxLayout="column">
         <mat-list fxLayout="column" fxFlexFill>
