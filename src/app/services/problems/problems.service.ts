@@ -3,8 +3,6 @@ import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angula
 
 import { TopicProblems, ProblemData, ProblemKeyValue } from './../../../models/model';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,7 @@ export class ProblemsService {
     private db: AngularFireDatabase
   ) { }
 
-  getAllTopicProblems(topic: string): AngularFireObject<TopicProblems> {
+  getAllProblems(topic: string): AngularFireObject<TopicProblems> {
     return this.db.object(`/problems/${topic}`);
   }
 

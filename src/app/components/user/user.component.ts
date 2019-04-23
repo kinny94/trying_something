@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserData, Username } from 'src/models/model';
 import { map } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
@@ -17,12 +17,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+export interface UpdateProfileData {
+  firstname: string;
+  lastname?: string;
+  username: string;
+}
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   userdata$: Observable<UserData>;
   likedProblems$: Observable<Object>;
@@ -35,6 +41,9 @@ export class UserComponent implements OnInit {
   hideConfirmPassword = true;
 
   showChangePasswordForm = false;
+
+  updateProfileData: UpdateProfileData;
+  userdataSubscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -58,6 +67,20 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.userdata$ = this.userService.getUserData();
+    this.userdataSubscription = this.userdata$.pipe(
+      map((userdata: UserData) => {
+        this.updateProfileForm.controls.firstname.setValue(userdata.firstname);
+        this.updateProfileForm.controls.lastname.setValue(userdata.lastname);
+        this.updateProfileForm.controls.username.setValue(userdata.username);
+
+        this.updateProfileData = {
+          firstname: userdata.firstname,
+          lastname: userdata.lastname,
+          username: userdata.username
+        };
+      })
+    ).subscribe();
+
     this.likedProblems$ = this.userdata$.pipe(
       map((userdata: UserData) => {
         return userdata.likedProblems;
@@ -68,6 +91,12 @@ export class UserComponent implements OnInit {
         return userdata.ratedProblems;
       }),
     );
+  }
+
+  ngOnDestroy() {
+    if (this.userdataSubscription) {
+      this.userdataSubscription.unsubscribe();
+    }
   }
 
   usernameTaken(username: string): Observable<boolean> {
@@ -86,13 +115,33 @@ export class UserComponent implements OnInit {
     this.showChangePasswordForm = !this.showChangePasswordForm;
   }
 
-  onSubmit() {
-    this.showChangePasswordForm ? this.changePassword() : this.updateProfile();
+  updateProfile() {
+    if (this.updateProfileForm.valid && this.profileFormValueChanged()) {
+      const newUserData: UpdateProfileData = {
+        firstname: this.updateProfileForm.controls.firstname.value,
+        lastname: this.updateProfileForm.controls.lastname.value,
+        username: this.updateProfileForm.controls.username.value
+      };
+
+      this.usernameTaken(newUserData.username).pipe(
+        map((isTaken: boolean) => {
+          if (isTaken) {
+            
+          }
+        })
+      )
+    }
   }
 
-  updateProfile() {
-    if (this.updateProfileForm.valid) {
-
+  profileFormValueChanged() {
+    if (
+      this.updateProfileForm.controls.firstname.value === this.updateProfileData.firstname &&
+      this.updateProfileForm.controls.lastname.value === this.updateProfileData.lastname &&
+      this.updateProfileForm.controls.username.value === this.updateProfileData.username
+    ) {
+      return false;
+    } else {
+      return true;
     }
   }
 
