@@ -27,6 +27,9 @@
             <button *ngIf="!showChangePasswordForm" (click)="changeForm()" mat-raised-button color="primary">Change Password</button>
           </div>
         </form>
+        <span fxFlexAlign="center" fxLayoutAlign="center"> 
+          <mat-error *ngIf="usernameExists">Username already taken!</mat-error>
+        </span>
 
         <form *ngIf="showChangePasswordForm" [formGroup]="changePassowordForm" fxFlexFill (ngSubmit)="changePassoword()" fxLayoutGap="12px">
           <div fxLayout="row" fxLayoutGap="32px">

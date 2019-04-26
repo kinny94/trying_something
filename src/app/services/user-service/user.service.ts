@@ -70,6 +70,10 @@ export class UserService {
     return this.db.list(`/users/${currentUser}/`).valueChanges();
   }
 
+  updateUserData(currentUser: string, newData: Object) {
+    return this.db.object(`/users/${currentUser}/`).update({newData});
+  }
+
   getUser() {
     return this.authService.user$.pipe(
       map((user: User) => {

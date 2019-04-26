@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { UserData, Username } from 'src/models/model';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { checkPasswords } from '../signup/validators';
 import { ErrorStateMatcher } from '@angular/material';
@@ -44,6 +44,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
   updateProfileData: UpdateProfileData;
   userdataSubscription: Subscription;
+
+  usernameExists = false;
 
   constructor(
     private userService: UserService,
@@ -126,10 +128,18 @@ export class UserComponent implements OnInit, OnDestroy {
       this.usernameTaken(newUserData.username).pipe(
         map((isTaken: boolean) => {
           if (isTaken) {
-            
+            this.usernameExists = true;
+            throw new Error('Username already taken!');
           }
+        }),
+        map(() => {
+          return this.userService.getUserData();
+        }),
+        switchMap((userdata: UserData) => {
+          console.log(userdata);
+          return of(false);
         })
-      )
+      ).subscribe();
     }
   }
 
