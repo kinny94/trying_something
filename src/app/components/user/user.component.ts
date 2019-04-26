@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { UserData, Username } from 'src/models/model';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, flatMap, take } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { checkPasswords } from '../signup/validators';
 import { ErrorStateMatcher } from '@angular/material';
@@ -19,8 +19,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export interface UpdateProfileData {
   firstname: string;
-  lastname?: string;
-  username: string;
+  lastname: string;
 }
 
 @Component({
@@ -54,11 +53,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.updateProfileForm = this.formBuilder.group({
       firstname: ['', [ Validators.required ]],
       lastname: [''],
-      username: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.pattern(/^[a-z0-9]+$/i)
-      ]],
     });
 
     this.changePassowordForm = this.formBuilder.group({
@@ -73,12 +67,10 @@ export class UserComponent implements OnInit, OnDestroy {
       map((userdata: UserData) => {
         this.updateProfileForm.controls.firstname.setValue(userdata.firstname);
         this.updateProfileForm.controls.lastname.setValue(userdata.lastname);
-        this.updateProfileForm.controls.username.setValue(userdata.username);
 
         this.updateProfileData = {
           firstname: userdata.firstname,
           lastname: userdata.lastname,
-          username: userdata.username
         };
       })
     ).subscribe();
@@ -101,53 +93,33 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  usernameTaken(username: string): Observable<boolean> {
-    return this.userService.isUsernameTaken(username).pipe(
-      map((user: Username) => {
-        if (user === null) {
-          return false;
-        } else {
-          return true;
-        }
-      }),
-    );
-  }
-
   changeForm() {
     this.showChangePasswordForm = !this.showChangePasswordForm;
   }
 
   updateProfile() {
     if (this.updateProfileForm.valid && this.profileFormValueChanged()) {
-      const newUserData: UpdateProfileData = {
+      const newUserFormData: UpdateProfileData = {
         firstname: this.updateProfileForm.controls.firstname.value,
         lastname: this.updateProfileForm.controls.lastname.value,
-        username: this.updateProfileForm.controls.username.value
       };
 
-      this.usernameTaken(newUserData.username).pipe(
-        map((isTaken: boolean) => {
-          if (isTaken) {
-            this.usernameExists = true;
-            throw new Error('Username already taken!');
-          }
-        }),
-        map(() => {
-          return this.userService.getUserData();
+      this.userdata$.pipe(
+        map((userdata: UserData) => {
+          return userdata;
         }),
         switchMap((userdata: UserData) => {
-          console.log(userdata);
-          return of(false);
-        })
-      ).subscribe();
+          return this.userService.updateUserData(userdata.username, newUserFormData);
+        }),
+        take(1)
+      ),
     }
   }
 
   profileFormValueChanged() {
     if (
       this.updateProfileForm.controls.firstname.value === this.updateProfileData.firstname &&
-      this.updateProfileForm.controls.lastname.value === this.updateProfileData.lastname &&
-      this.updateProfileForm.controls.username.value === this.updateProfileData.username
+      this.updateProfileForm.controls.lastname.value === this.updateProfileData.lastname
     ) {
       return false;
     } else {

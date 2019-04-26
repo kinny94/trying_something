@@ -71,7 +71,7 @@ export class UserService {
   }
 
   updateUserData(currentUser: string, newData: Object) {
-    return this.db.object(`/users/${currentUser}/`).update({newData});
+    return this.db.object(`/users/${currentUser}/`).update(newData);
   }
 
   getUser() {

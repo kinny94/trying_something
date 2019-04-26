@@ -16,20 +16,12 @@
               <input matInput="text" placeholder="Update Last name" formControlName="lastname" autocomplete="off">
             </mat-form-field>
     
-            <mat-form-field fxFlex>
-              <input matInput="text" placeholder=" Update Username" formControlName="username" autocomplete="off" required>
-              <mat-error *ngIf="updateProfileForm.hasError('required', ['username'])">Field is required</mat-error>
-              <mat-error *ngIf="updateProfileForm.hasError('pattern', ['username'])">Invalid username</mat-error>
-            </mat-form-field>
           </div>
           <div fxFlex fxLayoutAlign="center center" fxLayoutGap="32px">
             <button [disabled]="!updateProfileForm.valid" mat-raised-button color="primary" value="submit">Update</button>
             <button *ngIf="!showChangePasswordForm" (click)="changeForm()" mat-raised-button color="primary">Change Password</button>
           </div>
         </form>
-        <span fxFlexAlign="center" fxLayoutAlign="center"> 
-          <mat-error *ngIf="usernameExists">Username already taken!</mat-error>
-        </span>
 
         <form *ngIf="showChangePasswordForm" [formGroup]="changePassowordForm" fxFlexFill (ngSubmit)="changePassoword()" fxLayoutGap="12px">
           <div fxLayout="row" fxLayoutGap="32px">
