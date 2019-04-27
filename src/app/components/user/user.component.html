@@ -2,29 +2,28 @@
   <div fxLayout="row" fxFlexFill fxLayoutAlign="center center" fxLayoutGap="32px">
     <div fxLayout="column" fxLayoutAlign="start center">
       <div>
-        <h2>Hi! {{ (userdata$ | async)?.firstname }} {{ (userdata$ | async)?.lastname }} aka '{{ (userdata$ | async)?.username }}'</h2>
+        <h4>Hi! {{ (userdata$ | async)?.firstname }} {{ (userdata$ | async)?.lastname }} aka '{{ (userdata$ | async)?.username }}'</h4>
       </div>
-      <div fxFlexFill fxLayout="column">
-        <form *ngIf="!showChangePasswordForm" [formGroup]="updateProfileForm" fxFlexFill (ngSubmit)="updateProfile()" fxLayoutGap="12px"> 
-          <div fxLayout="row" fxLayoutGap="32px">
+      <div fxLayoutGap="32px">
+        <form fxLayout="row" fxLayout.lt-md ="column" *ngIf="!showChangePasswordForm" [formGroup]="updateProfileForm" fxFlexFill (ngSubmit)="updateProfile()" fxLayoutGap="12px"> 
+          <div fxLayoutGap="16px" fxLayout="row" fxLayout.lt-sm="column">
             <mat-form-field fxFlex>
               <input matInput="text" placeholder="Update First name" formControlName="firstname" autocomplete="off" required>
               <mat-error *ngIf="updateProfileForm.hasError('required', ['firstname'])">Field is required</mat-error>
             </mat-form-field>
-  
+          </div>
+          <div fxLayoutGap="32px" fxLayout="row" fxLayout.lt-sm="column">
             <mat-form-field fxFlex>
               <input matInput="text" placeholder="Update Last name" formControlName="lastname" autocomplete="off">
             </mat-form-field>
-    
           </div>
-          <div fxFlex fxLayoutAlign="center center" fxLayoutGap="32px">
+          <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="16px">
             <button [disabled]="!updateProfileForm.valid" mat-raised-button color="primary" value="submit">Update</button>
             <button *ngIf="!showChangePasswordForm" (click)="changeForm()" mat-raised-button color="primary">Change Password</button>
           </div>
         </form>
-
-        <form *ngIf="showChangePasswordForm" [formGroup]="changePassowordForm" fxFlexFill (ngSubmit)="changePassword()" fxLayoutGap="12px">
-          <div fxLayout="row" fxLayoutGap="32px">
+        <form *ngIf="showChangePasswordForm" [formGroup]="changePassowordForm" fxFlexFill (ngSubmit)="changePassoword()" fxLayoutGap="12px">
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="32px">
             <mat-form-field fxFlex>
               <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" 
               autocomplete="off" >
@@ -49,10 +48,10 @@
       </div>
     </div>
   </div>
-  <div fxLayout="row" fxFlexFill fxLayoutGap="32px">
+  <div fxLayout="row" fxLayout.lt-md="column" fxFlexFill fxLayoutGap="32px">
     <div fxLayout="column" fxFlex="calc(50% - 32px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
       <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-        <h2>You Liked the following problems</h2>
+        <h4>You Liked the following problems</h4>
       </div>
       <div fxFlexFill fxLayout="column">
         <mat-list fxLayout="column" fxFlexFill>
@@ -67,7 +66,7 @@
     </div>
     <div fxLayout="column" fxFlex="calc(50% - 64px)" fxLayoutAlign="space-around center" fxLayoutGap="32px">
       <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-        <h2>You Rated the following problems</h2>
+        <h4>You Rated the following problems</h4>
       </div>
       <div fxFlexFill fxLayout="column">
         <mat-list fxLayout="column" fxFlexFill>

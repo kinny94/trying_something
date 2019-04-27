@@ -137,7 +137,7 @@ export class UserComponent implements OnInit, OnDestroy {
       });
     })
     .catch((err) => {
-      this.snackBar.open(`Something went wrong!`, '', {
+      this.snackBar.open(`Something went wrong!`, err.message, {
         duration: 2000,
       });
     });
