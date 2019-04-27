@@ -1,12 +1,12 @@
 <div fxLayout="column">
   <div>
-    <h3>Problem: {{ (problem$ | async)?.name }}</h3>
+    <h4>Problem: {{ (problem$ | async)?.name }}</h4>
   </div>
   <div>
-    <h4>{{ (problem$ | async)?.description }}</h4>
+    <h5>{{ (problem$ | async)?.description }}</h5>
   </div>
   <div>
-    <h4>Complexity: {{ (problem$ | async)?.complexity }}</h4>
+    <h5>Complexity: {{ (problem$ | async)?.complexity }}</h5>
   </div>
   <div>
     <ng-container *ngFor="let tag of (problem$ | async)?.tags">
