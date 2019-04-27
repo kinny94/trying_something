@@ -18,7 +18,7 @@ export class ProblemsService {
   }
 
   getProblem(topic: string, id: string): AngularFireObject<ProblemData> {
-    return this.db.object(`/problems/${topic}/${id} `);
+    return this.db.object(`/problems/${topic}/${id}`);
   }
 
   getEverything(): AngularFireList<TopicProblems> {
