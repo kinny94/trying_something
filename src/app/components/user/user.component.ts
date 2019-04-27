@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { UserService } from './../../services/user-service/user.service';
 import { Observable, Subscription, of } from 'rxjs';
-import { UserData, Username } from 'src/models/model';
-import { map, switchMap, flatMap, take } from 'rxjs/operators';
+import { UserData } from './../../../models/model';
+import { map, switchMap, take } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { checkPasswords } from '../signup/validators';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';

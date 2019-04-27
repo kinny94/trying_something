@@ -1,12 +1,10 @@
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { UserData, Username, ProblemKeyValue, ProblemData } from './../../../models/model';
+import { UserData, Username, ProblemKeyValue } from './../../../models/model';
 import { User } from 'firebase';
-import * as firebase from 'firebase';
 import { map, switchMap, flatMap, filter } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
-import { ProblemsService } from '../problems/problems.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
@@ -21,7 +19,6 @@ export class UserService {
     private db: AngularFireDatabase,
     private authService: AuthService,
     private afAuth: AngularFireAuth,
-    private problemService: ProblemsService
     ) { }
 
   saveUser(userData: UserData) {
