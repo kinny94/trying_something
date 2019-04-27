@@ -2,10 +2,10 @@ import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { UserData, Username, ProblemKeyValue } from './../../../models/model';
-
 import { User } from 'firebase';
 import { map, switchMap, flatMap, filter } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class UserService {
 
   constructor(
     private db: AngularFireDatabase,
-    private authService: AuthService
+    private authService: AuthService,
+    private afAuth: AngularFireAuth,
     ) { }
 
   saveUser(userData: UserData) {
@@ -49,11 +50,15 @@ export class UserService {
   }
 
   addRating(currentUser: string, problem: ProblemKeyValue, rating: number) {
-    return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, rating);
+    let firebaseRefValue;
+    this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`).on('value', (snapshot) => firebaseRefValue = snapshot.val());
+    return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, firebaseRefValue);
   }
 
   likeProblem(currentUser: string, problem: ProblemKeyValue) {
-    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, true);
+    let firebaseRefValue;
+    this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`).on('value', (snapshot) => firebaseRefValue = snapshot.val());
+    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, firebaseRefValue);
   }
 
   unlikeProblem(currentUser: string, problem: ProblemKeyValue) {
@@ -62,6 +67,10 @@ export class UserService {
 
   checkProblemLiked(currentUser: string, problem: ProblemKeyValue) {
     return this.db.list(`/users/${currentUser}/`).valueChanges();
+  }
+
+  updateUserData(currentUser: string, newData: Object) {
+    return this.db.object(`/users/${currentUser}/`).update(newData);
   }
 
   getUser() {
@@ -100,5 +109,9 @@ export class UserService {
         return of(userdata);
       }),
     );
+  }
+
+  changePassword(password: string) {
+    return this.afAuth.auth.currentUser.updatePassword(password);
   }
 }

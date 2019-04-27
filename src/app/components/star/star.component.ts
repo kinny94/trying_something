@@ -54,7 +54,12 @@ export class StarComponent implements OnInit, OnDestroy {
         this.currentUserSubject.next(userdata.username);
         return userdata;
       }),
-      switchMap((data) => of(!!data.ratedProblems[this.problem.key])),
+      switchMap((data) => {
+        if (data.ratedProblems) {
+          return of(!!data.ratedProblems[this.problem.key]);
+        }
+        return of(false);
+      }),
       flatMap(isRated => {
         if (isRated) {
           return this.problemService.changeRatings(this.problem, rating, previousRating);

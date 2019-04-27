@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, NgZone  } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
-import { checkPasswords } from './varlidators';
+import { checkPasswords } from './validators';
 import { ErrorStateMatcher } from '@angular/material';
 import { UserData, Username } from './../../../models/model';
 import { UserService } from './../../services/user-service/user.service';
