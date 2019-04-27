@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { map, switchMap, flatMap, filter } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
 import { ProblemsService } from '../problems/problems.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class UserService {
   constructor(
     private db: AngularFireDatabase,
     private authService: AuthService,
+    private afAuth: AngularFireAuth,
     private problemService: ProblemsService
     ) { }
 
@@ -110,5 +112,9 @@ export class UserService {
         return of(userdata);
       }),
     );
+  }
+
+  changePassword(password: string) {
+    return this.afAuth.auth.currentUser.updatePassword(password);
   }
 }

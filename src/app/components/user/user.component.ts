@@ -5,7 +5,7 @@ import { UserData, Username } from 'src/models/model';
 import { map, switchMap, flatMap, take } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { checkPasswords } from '../signup/validators';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -49,6 +49,7 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
   ) {
     this.updateProfileForm = this.formBuilder.group({
       firstname: ['', [ Validators.required ]],
@@ -104,7 +105,7 @@ export class UserComponent implements OnInit, OnDestroy {
         lastname: this.updateProfileForm.controls.lastname.value,
       };
 
-      this.userdata$.pipe(
+      return this.userdata$.pipe(
         map((userdata: UserData) => {
           return userdata;
         }),
@@ -112,7 +113,7 @@ export class UserComponent implements OnInit, OnDestroy {
           return this.userService.updateUserData(userdata.username, newUserFormData);
         }),
         take(1)
-      ),
+      ).subscribe();
     }
   }
 
@@ -128,7 +129,18 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   changePassword() {
-    console.log('I am gonna change password');
+    const newPassword = this.changePassowordForm.controls.password.value;
+    return this.userService.changePassword(newPassword)
+    .then(() => {
+      this.snackBar.open(`Password changed.`, '', {
+        duration: 2000,
+      });
+    })
+    .catch((err) => {
+      this.snackBar.open(`Something went wrong!`, '', {
+        duration: 2000,
+      });
+    });
   }
 
 }
