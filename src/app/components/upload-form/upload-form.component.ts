@@ -46,16 +46,22 @@ export class UploadFormComponent implements OnInit {
   ngOnInit() {}
 
   onTagSelected (value: string) {
-    const selectedTagsArray: Array<string> = this.selectedTagsSubject.getValue();
-    const newSelectedArray: Array<string> = [...selectedTagsArray, value];
-    this.selectedTagsSubject.next(newSelectedArray);
+    if (!this.selectedTagsSubject.getValue().includes(value)) {
+      const selectedTagsArray: Array<string> = [...this.selectedTagsSubject.getValue(), value];
+    this.selectedTagsSubject.next(selectedTagsArray);
 
     const availableTagsArray: Array<string> = this.availableTagsSubject.getValue();
-    availableTagsArray.forEach((item, index) => {
-      if (item === value) {
-        availableTagsArray.splice(index, 1);
-      }
-    });
+    availableTagsArray.filter((item) => item !== value);
+    this.availableTagsSubject.next(availableTagsArray);
+    }
+  }
+
+  onTagRemoved(value: string) {
+    const selectedTagsArray: Array<string> = this.selectedTagsSubject.getValue();
+    const newSelectedArray: Array<string> = selectedTagsArray.filter((item) => item !== value);
+    this.selectedTagsSubject.next(newSelectedArray);
+
+    const availableTagsArray: Array<string> = [...this.availableTagsSubject.getValue(), value];
     this.availableTagsSubject.next(availableTagsArray);
   }
 

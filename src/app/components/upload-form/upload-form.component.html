@@ -32,7 +32,9 @@
     </mat-form-field>
   </div>
   <span *ngIf="(selectedTags$ | async)?.length > 0">
-    <button class="upload__tags" mat-raised-button color="accent" *ngFor="let tag of selectedTags$ | async">{{ tag }}</button>
+    <button class="upload__tags" mat-raised-button color="accent" *ngFor="let tag of selectedTags$ | async" (click)="onTagRemoved(tag)">
+      {{ tag }}
+    </button>
   </span>
   
   <div>
@@ -48,7 +50,7 @@
   <div class="upload__form-field">
     <input mattInput type="file" (change)="upload($event)" accept=".java" />
   </div>
-
+  
   <div class="upload__form-field">
     <button [disabled]="submitDisabled" mat-raised-button color="primary" [disabled]="submitDisabled" value="submit">Submit</button>
   </div>
