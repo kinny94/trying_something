@@ -48,11 +48,12 @@ export class StarComponent implements OnInit, OnDestroy {
   }
 
   authClick(rating: number) {
-    const previousRating = this.rating;
+    let userdata: UserData;
     this.subscription = this.userdata$.pipe(
-      map((userdata: UserData) => {
-        this.currentUserSubject.next(userdata.username);
-        return userdata;
+      map((data: UserData) => {
+        this.currentUserSubject.next(data.username);
+        userdata = data;
+        return data;
       }),
       switchMap((data) => {
         if (data.ratedProblems) {
@@ -62,6 +63,7 @@ export class StarComponent implements OnInit, OnDestroy {
       }),
       flatMap(isRated => {
         if (isRated) {
+          const previousRating = userdata.ratedProblems[this.problem.key].rating;
           return this.problemService.changeRatings(this.problem, rating, previousRating);
         } else {
           return this.problemService.setNewRatings(this.problem, rating);
@@ -70,7 +72,7 @@ export class StarComponent implements OnInit, OnDestroy {
       take(1),
       map(newRatings => {
         return this.problemService.addNewRatings(this.problem, newRatings);
-      }), 
+      }),
       take(1),
       map(() => {
         return this.userService.addRating(this.currentUserSubject.value, this.problem, rating);

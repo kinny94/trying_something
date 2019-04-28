@@ -46,7 +46,7 @@ export class UploadFormComponent implements OnInit {
   ngOnInit() {}
 
   onTagSelected (value: string) {
-    if (!this.selectedTagsSubject.getValue().includes(value)) {
+    if (!this.selectedTagsSubject.getValue().includes(value))   {
       const selectedTagsArray: Array<string> = [...this.selectedTagsSubject.getValue(), value];
     this.selectedTagsSubject.next(selectedTagsArray);
 
@@ -87,6 +87,7 @@ export class UploadFormComponent implements OnInit {
         stars: 0,
         topic: topic.toLowerCase(),
         likes: 0,
+        raters: 0,
         description: this.uploadForm.controls.description.value,
         tags: tags,
         complexity: this.uploadForm.controls.complexity.value,

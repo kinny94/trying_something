@@ -6,6 +6,7 @@ import { User } from 'firebase';
 import { map, switchMap, flatMap, filter, take } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -50,15 +51,26 @@ export class UserService {
   }
 
   addRating(currentUser: string, problem: ProblemKeyValue, rating: number) {
-    let firebaseRefValue;
-    this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`).on('value', (snapshot) => firebaseRefValue = snapshot.val());
-    return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, firebaseRefValue);
+    return new Promise((resolve, reject) => {
+      this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`)
+      .on('value', (snapshot) => resolve(snapshot.val()));
+    }).then((firebaseRefValue) => {
+      const problemDataWithRating = {...firebaseRefValue, rating: rating };
+      return this.db.list(`/users/${currentUser}/ratedProblems/`).set(problem.key, problemDataWithRating);
+    }).catch((err) => {
+      throw new Error(err);
+    });
   }
 
   likeProblem(currentUser: string, problem: ProblemKeyValue) {
-    let firebaseRefValue;
-    this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`).on('value', (snapshot) => firebaseRefValue = snapshot.val());
-    return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, firebaseRefValue);
+    return new Promise((resolve, reject) => {
+      this.db.database.ref(`/problems/${problem.value.topic}/${problem.key}`)
+      .on('value', (snapshot) => resolve(snapshot.val()));
+    }).then((firebaseRef) => {
+      return this.db.list(`/users/${currentUser}/likedProblems/`).set(problem.key, firebaseRef);
+    }).catch((err) => {
+      throw new Error(err);
+    });
   }
 
   unlikeProblem(currentUser: string, problem: ProblemKeyValue) {

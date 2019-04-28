@@ -8,6 +8,7 @@ export interface UploadData {
   name: string;
   topic: string;
   tags: Array<string>;
+  raters: number;
   description: string;
   complexity: string;
   storageUrl: string;

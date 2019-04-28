@@ -65,12 +65,12 @@ describe('UploadFormComponent', () => {
   it('`onTagSelected` method should remove tags from the availableTags behaviorSubject', () => {
     const length = comp.availableTagsSubject.getValue().length;
     comp.onTagSelected('Array');
-    expect(comp.availableTagsSubject.getValue().length).toEqual(length - 1);
+    expect(comp.availableTagsSubject.getValue().length).toEqual(length);
     comp.onTagSelected('LinkedList');
-    expect(comp.availableTagsSubject.getValue().length).toEqual(length - 2);
+    expect(comp.availableTagsSubject.getValue().length).toEqual(length);
     comp.onTagSelected('Sorting');
     comp.onTagSelected('Searching');
-    expect(comp.availableTagsSubject.getValue().length).toEqual(length - 4);
+    expect(comp.availableTagsSubject.getValue().length).toEqual(length);
   });
 
   it('`onSubmit` method should toggle form disabled and enabled feature', () => {

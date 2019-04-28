@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProblemsService } from './../../services/problems/problems.service';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 
 export interface Problem {
   name: string;
@@ -36,6 +36,7 @@ export class AllProblemsComponent implements OnInit {
         this.isLoadingSubject.next(false);
         return this._everyProblemsSubject.next(data);
       }),
+      take(1)
     );
     this._filteredProblems$ = this._everyProblem$;
   }
