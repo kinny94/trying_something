@@ -70,7 +70,7 @@ export class StarComponent implements OnInit, OnDestroy {
       take(1),
       map(newRatings => {
         return this.problemService.addNewRatings(this.problem, newRatings);
-      }),
+      }), 
       take(1),
       map(() => {
         return this.userService.addRating(this.currentUserSubject.value, this.problem, rating);

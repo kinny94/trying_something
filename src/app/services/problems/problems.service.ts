@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
 
 import { TopicProblems, ProblemData, ProblemKeyValue } from './../../../models/model';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,7 @@ export class ProblemsService {
         const newRaters = currentProblem.raters + 1;
         return {stars: newStars, raters: newRaters};
       }),
+      take(1)
     );
   }
 
@@ -46,6 +47,7 @@ export class ProblemsService {
         const newRaters = currentProblem.raters;
         return {stars: newStars, raters: newRaters};
       }),
+      take(1)
     );
   }
 

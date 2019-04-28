@@ -28,6 +28,19 @@ export const TAGS = [
   'Hash-Table'
 ];
 
+export const TOPICS = [
+  'Array',
+  'LinkedList',
+  'Stack',
+  'Queue',
+  'Graph',
+  'Tree',
+  'Searching',
+  'Sorting',
+  'Dynamic Programming',
+  'Hash-Table'
+]
+
 export const THEMES = new Map<string, string>([
   ['Dark', 'dark-theme'],
   ['Default', 'default-theme'],

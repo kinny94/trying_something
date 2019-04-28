@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UploadService, UploadData } from './../../services/upload-services/upload.service';
-import { COMPLEXITIES, TAGS } from './../../model';
+import { COMPLEXITIES, TAGS, TOPICS } from './../../model';
 import { UUID } from 'angular2-uuid';
 
 @Component({
@@ -25,6 +25,7 @@ export class UploadFormComponent implements OnInit {
   // Convert array constants into observable
   allComplexities$ = of(COMPLEXITIES);
   allTopics = [...TAGS];
+  topics = [...TOPICS];
 
   // Subject observable in order to remove from the available tags array
   availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);

@@ -40,6 +40,9 @@
       <mat-menu #settings="matMenu" color="primary">
         <a><button mat-menu-item [matMenuTriggerFor]="themes">Themes</button></a>
         <a *ngIf="(user$ | async)"><button mat-menu-item routerLink="/user/{{ (userdata$ | async)?.username }}">My Account</button></a>
+        <a *ngIf="(user$ | async) && (userdata$ | async)?.isAdmin">
+          <button mat-menu-item routerLink="/upload">Upload</button>
+        </a>
       </mat-menu>
       <mat-menu #themes="matMenu" color="primary">
         <a><button mat-menu-item *ngFor="let theme of availableThemes | keyvalue" (click)="changeTheme(theme.key)">

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { UserData, Username, ProblemKeyValue } from './../../../models/model';
 import { User } from 'firebase';
-import { map, switchMap, flatMap, filter } from 'rxjs/operators';
+import { map, switchMap, flatMap, filter, take } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -82,6 +82,7 @@ export class UserService {
         }
         return undefined;
       }),
+      take(1),
     );
   }
 
@@ -95,7 +96,8 @@ export class UserService {
       flatMap((snap: any) => {
         this.userEmailSubject.next(snap[0].payload.key);
         return snap;
-      })
+      }),
+      take(1),
     );
   }
 
@@ -108,6 +110,7 @@ export class UserService {
       flatMap((userdata: UserData) => {
         return of(userdata);
       }),
+      take(1)
     );
   }
 

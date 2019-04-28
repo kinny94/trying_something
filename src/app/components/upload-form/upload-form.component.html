@@ -9,8 +9,8 @@
   <div>
     <mat-form-field>
       <mat-select placeholder="Topic" formControlName="topic">
-        <mat-option *ngFor="let tag of allTopics" [value]="tag">
-          {{tag}}
+        <mat-option *ngFor="let topic of topics" [value]="topic">
+          {{topic}}
         </mat-option>
       </mat-select>
     </mat-form-field>
