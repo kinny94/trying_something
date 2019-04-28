@@ -91,7 +91,8 @@
             <div>
               <mat-form-field>
                 <input matInput placeholder="Password" formControlName="password" autocomplete="off" type="
-                password">
+                password" [type]="hideConfirmPassword ? 'password' : 'text'" [errorStateMatcher]="matcher">
+                <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 <mat-error *ngIf="signupForm.hasError('required', ['password'])">Field is required!</mat-error>
                 <mat-error *ngIf="signupForm.hasError('minlength', ['password'])">Atleast 8 characters required!</mat-error>
               </mat-form-field>

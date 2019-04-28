@@ -34,10 +34,8 @@ export class ProblemComponent implements OnInit {
     const id = this.route.snapshot.params.id;
 
     this.problem$ = this.problemService.getProblem(topic, id).valueChanges();
-    
     this.content$ = this.problem$.pipe(
       map((problem: ProblemData) => {
-        console.log(problem);
         return this.storage.ref(`${problem.topic}/${problem.storageUrl}.java`).getDownloadURL()}),
       switchMap((obser: Observable<string>) =>
         obser.pipe(

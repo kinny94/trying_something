@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/dist/codebase'));
 
 router.get('/api', (req, res) => {
-  console.log('something');   
   res.send({content});
 }); 
 
