@@ -36,7 +36,7 @@ export class ProblemsService {
         const newRaters = currentProblem.raters + 1;
         return {stars: newStars, raters: newRaters};
       }),
-      take(1)
+      take(1),
     );
   }
 
