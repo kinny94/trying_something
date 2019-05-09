@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMdModule } from 'ngx-md';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -78,6 +79,7 @@ import { AdminGuardService } from './services/auth/admin-guard-service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
+    NgxMdModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'all', component: AllProblemsComponent, pathMatch: 'full' },

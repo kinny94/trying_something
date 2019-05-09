@@ -2,10 +2,14 @@ import java.util.Arrays;
 
 class FindMaximumSubArray {
 
+    // initializing the max_left index and max_right index 
     public static int max_left = 0;
     public static int max_right = 0;        
 
+    // combine the left and right part of the array
     public static int[] findMaximumCrossingSubArray(int a[], int low, int mid, int high) {
+
+        // setting left_sum to the lowest possible value.
         int left_sum = Integer.MIN_VALUE;
         int sum = 0;
         
@@ -17,6 +21,7 @@ class FindMaximumSubArray {
             }
         }
 
+        // setting right_sum to the lowest possible value.
         int right_sum = Integer.MIN_VALUE;
         sum = 0;
         for (int j=mid+1; j<=high; ++j) {
@@ -34,6 +39,7 @@ class FindMaximumSubArray {
 
     public static int[] findMaximumSubArray(int a[], int low, int high) {
 
+        // base condition
         if (high == low) {
             int arr[] = {low, high, a[low]};
             return arr;

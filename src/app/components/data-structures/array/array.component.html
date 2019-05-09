@@ -9,7 +9,7 @@
       position of each element can be computed from its index tuple by a mathematical formula. The simplest type 
       of data structure is a linear array, also called one-dimensional array.
     </p>
-  </div>
+  </div>  
   <div fxLayout="row wrap" class="data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="type_avg">
@@ -38,8 +38,8 @@
   <div fxFlexFill fxLayout="row" fxLayoutAlign="center center" *ngIf="(_allProblems | async)?.length === 0;">
     <mat-spinner></mat-spinner>
   </div>
-  <div fxLayout="row" class="list_width">
-    <mat-list class="list_width">
+  <div fxLayout="column" class="list_width">
+    <mat-list fxLayout="column">
       <ng-container *ngFor="let item of (_allProblems | async) | keyvalue ">
         <mat-list-item class="list_width" fxFlex>
           <app-topic-problems fxFlex  [item]="item"></app-topic-problems>
