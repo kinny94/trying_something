@@ -1,16 +1,16 @@
-<div fxLayout="column" fxLayoutGap="-16px">
+<div fxLayout="column" fxLayoutGap="0px">
   <div>
     <h4>{{ (problem$ | async)?.name }}</h4>
   </div>
   <div>
-    <h5>{{ (problem$ | async)?.description }}</h5>
+    <p class="description"><ngx-md [data]="data"></ngx-md></p>
   </div>
   <div>
     <h5>Complexity: {{ (problem$ | async)?.complexity }}</h5>
   </div>
   <div>
   </div>
-  <div fxLayoutGap="10px">
+  <div fxLayoutGap="10px" fxLa>
     <ng-container *ngFor="let tag of (problem$ | async)?.tags"> 
       <span><button mat-raised-button color="accent">{{ tag }}</button></span>
     </ng-container>

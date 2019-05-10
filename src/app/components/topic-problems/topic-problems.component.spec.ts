@@ -11,6 +11,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from './../../../environments/environment.prod';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LikeComponent } from '../like/like.component';
+import { NgxMdModule } from 'ngx-md';
 
 describe('TopicProblemsComponent', () => {
   let comp: TopicProblemsComponent;
@@ -29,6 +30,7 @@ describe('TopicProblemsComponent', () => {
         AngularFireAuthModule,
         MaterialModule,
         FlexLayoutModule,
+        NgxMdModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },

@@ -10,6 +10,7 @@ import { environment } from './../../../environments/environment.prod';
 import { MaterialModule } from './../../material.module';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMdModule } from 'ngx-md';
 
 describe('ProblemComponent', () => {
   let comp: ProblemComponent;
@@ -25,6 +26,7 @@ describe('ProblemComponent', () => {
         AngularFireDatabaseModule,
         AngularFireStorageModule,
         HttpClientModule,
+        NgxMdModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
         RouterModule.forRoot([
           {path: ':id/:topic/:problem', component:ProblemComponent, pathMatch: 'full'}

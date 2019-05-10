@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { map, switchMap, flatMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ProblemData } from './../../../models/model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ProblemsService } from './../../services/problems/problems.service';
 
 export interface Content {
@@ -16,11 +16,13 @@ export interface Content {
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss']
 })
-export class ProblemComponent implements OnInit {
+export class ProblemComponent implements OnInit, OnDestroy {
 
   problem$ ?: Observable<ProblemData>;
   testObservable?: Observable<ProblemData>;
   content$ ?: Observable<any>;
+  subscription?: Subscription;
+  data?: string;
 
   constructor(
     private problemService: ProblemsService,
@@ -44,5 +46,15 @@ export class ProblemComponent implements OnInit {
       ),
       flatMap((url: string) => this.http.get<string>(url, { responseType: 'text' as 'json' }))
     );
+
+    this.subscription = this.problem$.subscribe((data) => {
+      this.data = data.description;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
