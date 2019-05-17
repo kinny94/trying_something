@@ -1,4 +1,8 @@
-The Strassen algorithm is an algorithm for matrix multiplication. It is faster than the standard matrix multiplication algorithm and is useful in practice for large matrices, but would be slower than the fastest known algorithms for extremely large matrices. Strassen's algorithm works for any ring, such as plus/multiply, but not all semirings, such as min-plus or boolean algebra, where the naive algorithm still works, and so called combinatorial matrix multiplication. The standard matrix multiplication takes approximately 2N3 (where N = 2n) arithmetic operations (additions and multiplications); the asymptotic complexity is **Θ(N3)**.
+Heap sort is a comparison based sorting technique based on Binary Heap data structure. It is similar to selection sort where we first find the maximum element and place the maximum element at the end. We repeat the same process for remaining element.
+*A heap is an array object that we can view as a nearly complete binary tree*
 
-The number of additions and multiplications required in the Strassen algorithm can be calculated as follows: let f(n) be the number of operations for a *2n × 2n matrix*. Then by recursive application of the Strassen algorithm, we see that *f(n) = 7f(n−1) + ℓ4n*, for some constant *ℓ* that depends on the number of additions performed at each application of the algorithm. 
+There are two kinds of binary heap: 
+**Max-heap**: Largest element is at the root.
+**Min-heap**: Smallest element is at the root.
 
+At each step the largest the of the element, **A[i]**, **A[LEFT(i)]** and **A[RIGHT(i)]** is determined and its idex is stored in largest.
