@@ -1,3 +1,19 @@
 a {
     color: black;
+    width: inherit;
+}
+
+.ellipsis {
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1 2 auto;
+}
+
+@media only screen and (max-width: 750px) {
+    .ellipsis {
+        width: 150px;
+    }
 }

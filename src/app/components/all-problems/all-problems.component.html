@@ -15,10 +15,10 @@
         <ng-container *ngFor="let object of item | keyvalue">
           <mat-list-item class="list_width">
             <div class="row" fxLayoutAlign="space-between" fxFlex fxFlexAlign="center">
-              <div fxFlex="50" fxFlexAlign="center">
-                <a routerLink="/{{ object.key }}/{{ object.value.topic }}/{{ changeName(object.value.name) }}">
-                  <span>{{ object.value.name }}</span>
-                </a>
+              <div fxFlex="50" fxFlexAlign="center"> 
+                <p class="ellipsis" routerLink="/{{ object.key }}/{{ object.value.topic }}/{{ changeName(object.value.name) }}">
+                  {{ object.value.name }}
+                </p>
               </div>
               <div fxFlex="50">
                 <div fxFlex="70" fxLayoutGap="40px" fxLayoutAlign="start" fxFlexAlign="center">
