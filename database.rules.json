@@ -1,6 +1,16 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "problems": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "users": {
+      ".read": "true",
+      ".write": "true"
+    },
+    "usernames": {
+      ".read": "true",
+      ".write": "true"
+    }
   }
 }

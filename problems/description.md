@@ -1,8 +1,10 @@
-Heap sort is a comparison based sorting technique based on Binary Heap data structure. It is similar to selection sort where we first find the maximum element and place the maximum element at the end. We repeat the same process for remaining element.
-*A heap is an array object that we can view as a nearly complete binary tree*
+Quicksort is a really efficient algorithm which is used in most of the in-built sorting algorithms. It is based on the divide and conquer algorithm.
 
-There are two kinds of binary heap: 
-**Max-heap**: Largest element is at the root.
-**Min-heap**: Smallest element is at the root.
+*Divide*: Partition the array **A[p...r]** into two sub-arrays **A[p...q-1]** and **A[q+1...r]** such that each element of **A[p...q-1]** is less than or equal to **A[q]**, which is in turn less than or equal to each element of **A[q+1...r]**.
+*Conquer*: Sort the two sub-arrays **A[p...q-1]** and **A[q+1...r]** by recurrsively calls.
+*Partition*: Always selects and element *x = A[r]* as a pivot around which to partition the sub-array **A[p...r]**.
+*Randomized Partition*: Instead of always using **A[r]** as pivot, we will randomly select element from sub-array **A[p...r]**, we do so by first exchanging element **A[r]** with an element chosen at random from **A[p...r]**.
 
-At each step the largest the of the element, **A[i]**, **A[LEFT(i)]** and **A[RIGHT(i)]** is determined and its idex is stored in largest.
+*Worst-case*: It occurs when the partitioning routine, produce, one sub-poblem with n-1 elements and one with 0 elements. since the recurssively call on an arry of size 0 just return O(1).
+
+*Best-case*: When the partitioning produces two sub-problems, each of the size no more than **n/2**, since one is of size **[n/2]** and one of **[n/2 - 1]**.
