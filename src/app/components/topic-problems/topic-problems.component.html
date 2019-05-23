@@ -1,8 +1,8 @@
 <div class="row" fxLayoutAlign="space-between" fxFlex fxFlexAlign="center">
   <div fxFlex="33" fxLayoutAlign="start center">
-    <a routerLink="/{{ item.key }}/{{ item.value.topic }}/{{ changeName(item.value.name) }}">
-      <span>{{ item.value.name }}</span>
-    </a>
+    <p class="ellipsis" routerLink="/{{ item.key }}/{{ item.value.topic }}/{{ changeName(item.value.name) }}">
+      {{ item.value.name }}
+    </p>
   </div>
   <div fxFlex="33" fxLayoutGap="40px" fxLayoutAlign="center">
     <app-star-rating 
