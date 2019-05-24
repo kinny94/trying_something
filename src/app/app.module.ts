@@ -96,9 +96,9 @@ import { EditProblemComponent } from './components/edit-problem/edit-problem.com
       { path: 'sorting', component: SortingComponent, pathMatch: 'full' },
       { path: 'upload', component: UploadFormComponent, pathMatch: 'full', canActivate: [AdminGuardService]},
       { path: 'signup', component: SignupComponent, pathMatch: 'full' },
+      { path: 'edit/:topic/:id', component: EditProblemComponent, pathMatch: 'full', canActivate: [AdminGuardService]},
       { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },
       { path: 'user/:id', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
-      { path: 'edit/:id', component: EditProblemComponent, pathMatch: 'full', canActivate: [AuthGuardService, AdminGuardService]}
     ])
   ],
   providers: [

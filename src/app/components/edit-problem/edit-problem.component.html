@@ -1,3 +1,71 @@
-<p>
-  edit-problem works!
-</p>
+<div fxLayout="column" fxFlexFill>
+  <div fxFlexFill>
+    <h3>Editing: {{ (problem$ | async)?.name }}</h3>
+  </div>
+  <div fxFlexFill fxLayout="column" >
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="form-container" fxFlexFill>
+      
+      <div>
+        <mat-form-field fxFlexFill> 
+          <input matInput placeholder="Name" formControlName="name" autocomplete="off" [value]="(problem$ | async)?.name">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field fxFlexFill>
+          <mat-select placeholder="Topic" formControlName="topic" [value]="">
+            <mat-option *ngFor="let topic of topics" [value]="topic">
+              {{topic}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field fxFlexFill>
+          <textarea 
+            matInput placeholder="Description" 
+            formControlName="description" 
+            autocomplete="off" 
+            [value]="(problem$ | async)?.description">
+          </textarea>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field fxFlexFill>
+          <mat-select placeholder="Tags">
+            <mat-option *ngFor="let tag of availableTags$ | async" [value]="tag" (click)="onTagSelected(tag)">
+              {{tag}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <span *ngIf="(selectedTags$ | async)?.length > 0" fxLayoutGap="10px">
+        <button class="upload__tags" mat-raised-button color="accent" *ngFor="let tag of selectedTags$ | async" (click)="onTagRemoved(tag)">
+          {{ tag }}
+        </button>
+      </span>
+        
+      <div>
+        <mat-form-field fxFlexFill>
+          <mat-select placeholder="Complexity" formControlName="complexity">
+            <mat-option *ngFor="let complexity of allComplexities$ | async" [value]="complexity">
+              {{complexity}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="upload__form-field">
+        <input mattInput type="file" (change)="upload($event)" accept=".java" />
+      </div>
+
+      <div class="upload__form-field">
+        <button [disabled]="!editForm.valid" mat-raised-button color="primary" value="submit">Submit</button>
+      </div>
+      <span *ngIf="dataUploaded">Data uploaded successfully!</span>
+    </form>
+  </div>
+</div>

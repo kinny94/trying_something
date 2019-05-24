@@ -14,7 +14,11 @@
       <ng-container *ngFor="let item of _filteredProblems$ | async">
         <ng-container *ngFor="let object of item | keyvalue">
           <mat-list-item class="list_width">
-            <a routerLink="/edit/{{object.key}}"><span *ngIf="(userdata$ | async)?.isAdmin" class="edit"><mat-icon>edit</mat-icon></span></a>
+            <a routerLink="/edit/{{ object.value.topic }}/{{ object.key }}/">
+              <span *ngIf="(userdata$ | async)?.isAdmin" class="edit">
+                <mat-icon>edit</mat-icon>
+              </span>
+            </a>
             <div class="row" fxLayoutAlign="space-between" fxFlex fxFlexAlign="center">
               <div fxFlex="50" fxFlexAlign="center"> 
                 <p class="ellipsis" routerLink="/{{ object.key }}/{{ object.value.topic }}/{{ changeName(object.value.name) }}">
