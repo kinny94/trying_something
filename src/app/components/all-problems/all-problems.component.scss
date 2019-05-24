@@ -13,8 +13,13 @@ a {
     cursor: pointer;
 }
 
+.edit {
+    margin: 0 15px;
+}
+
 @media only screen and (max-width: 750px) {
     .ellipsis {
         width: 150px;   
     }
 }
+

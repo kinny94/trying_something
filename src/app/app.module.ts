@@ -40,6 +40,7 @@ import { TopicProblemsComponent } from './components/topic-problems/topic-proble
 import { CbAnimationDirective } from './directives/animation-directive';
 import { LikeComponent } from './components/like/like.component';
 import { AdminGuardService } from './services/auth/admin-guard-service';
+import { EditProblemComponent } from './components/edit-problem/edit-problem.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { AdminGuardService } from './services/auth/admin-guard-service';
     StarComponent,
     TopicProblemsComponent,
     LikeComponent,
+    EditProblemComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ import { AdminGuardService } from './services/auth/admin-guard-service';
       { path: 'upload', component: UploadFormComponent, pathMatch: 'full', canActivate: [AdminGuardService]},
       { path: 'signup', component: SignupComponent, pathMatch: 'full' },
       { path: ':id/:topic/:problem,', component: ProblemComponent, pathMatch: 'full' },
-      { path: 'user/:id', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuardService]}
+      { path: 'user/:id', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
+      { path: 'edit/:id', component: EditProblemComponent, pathMatch: 'full', canActivate: [AuthGuardService, AdminGuardService]}
     ])
   ],
   providers: [
