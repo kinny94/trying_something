@@ -6,7 +6,7 @@ import { ProblemData } from 'src/models/model';
 import { TAGS, COMPLEXITIES, TOPICS } from 'src/app/model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { UploadData } from 'src/app/services/upload-services/upload.service';
+import { UploadData, UploadService } from 'src/app/services/upload-services/upload.service';
 
 @Component({
   selector: 'app-edit-problem',
@@ -24,6 +24,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
   });
 
   problem$ ?: Observable<ProblemData>;
+  problemData ?: ProblemData;
   subscriptions ?: Subscription;
 
    // Convert array constants into observable
@@ -47,6 +48,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
   constructor(
     private problemService: ProblemsService,
     private route: ActivatedRoute,
+    private uploadService: UploadService
   ) { }
 
   ngOnInit() {
@@ -56,10 +58,10 @@ export class EditProblemComponent implements OnInit, OnDestroy {
     this.problem$ = this.problemService.getProblem(topic, id).valueChanges();
     this.subscriptions = this.problem$.pipe(
       map(problemData => {
+        this.problemData = problemData;
         this.selectedTagsSubject.next(problemData.tags);
       }),
     ).subscribe();
-    this.problem$.subscribe(data => console.log(data));
   }
 
   onTagRemoved(value: string) {
@@ -79,6 +81,17 @@ export class EditProblemComponent implements OnInit, OnDestroy {
     const availableTagsArray: Array<string> = this.availableTagsSubject.getValue();
     availableTagsArray.filter((item) => item !== value);
     this.availableTagsSubject.next(availableTagsArray);
+    }
+  }
+
+  onSubmit() {
+    if (this.editForm.valid) {
+      const name = this.editForm.controls.name.value;
+      const topic = this.editForm.controls.topic.value;
+      const complexity = this.editForm.controls.complexity.value;
+      const filePath = this.problemData.storageUrl;
+      console.log(`${topic}`)
+      this.uploadService.uploadFile(this.file, filePath, () => {});
     }
   }
 

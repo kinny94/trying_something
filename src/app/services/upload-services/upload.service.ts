@@ -37,4 +37,8 @@ export class UploadService {
     this.db.list(`/problems/${data.topic}`).push(data);
     callback();
   }
+  
+  deleteFile(path: string) {
+    return this.storage.ref(path).delete();
+  }
 }
