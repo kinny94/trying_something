@@ -6,7 +6,9 @@ import { ProblemData } from 'src/models/model';
 import { TAGS, COMPLEXITIES, TOPICS } from 'src/app/model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { UploadData, UploadService } from 'src/app/services/upload-services/upload.service';
+import { UploadData, UploadService, EditData } from 'src/app/services/upload-services/upload.service';
+import { UUID } from 'angular2-uuid';
+
 
 @Component({
   selector: 'app-edit-problem',
@@ -98,6 +100,29 @@ export class EditProblemComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.editForm.valid && this.isFormValid()) {
       this.formError = false;
+      if (!this.file) {
+        const data: EditData = {
+          name:  this.editForm.controls.name.value,
+          complexity: this.editForm.controls.name.value,
+          description: this.editForm.controls.description.value,
+          tags: this.selectedTagsSubject.getValue(),
+          topic: this.editForm.controls.topic.value,
+          storageUrl: this.problemData.storageUrl
+        };
+        this.uploadService.editProblemWithoutFile(data);
+      } else {
+        const data: EditData = {
+          name:  this.editForm.controls.name.value,
+          complexity: this.editForm.controls.name.value,
+          description: this.editForm.controls.description.value,
+          tags: this.selectedTagsSubject.getValue(),
+          topic: this.editForm.controls.topic.value,
+          storageUrl: this.problemData.storageUrl
+        };
+        const uuid = UUID.UUID();
+        const filePath = `${data.topic.toLowerCase()}/${uuid}.java`;
+        this.uploadService.editProblemWithFile(data, this.file, filePath);
+      }
     } else {
       this.formError = true;
     }

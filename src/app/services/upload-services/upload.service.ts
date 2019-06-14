@@ -14,6 +14,15 @@ export interface UploadData {
   storageUrl: string;
 }
 
+export interface EditData {
+  name: string;
+  topic: string;
+  tags: Array<string>;
+  description: string;
+  complexity: string;
+  storageUrl: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +46,15 @@ export class UploadService {
     this.db.list(`/problems/${data.topic}`).push(data);
     callback();
   }
-  
+
+  editProblemWithFile(data: EditData, file: File, filePath: string) {
+    console.log(filePath);
+  }
+
+  editProblemWithoutFile(data: EditData) {
+    console.log(data);
+  }
+
   deleteFile(path: string) {
     return this.storage.ref(path).delete();
   }
