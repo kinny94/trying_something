@@ -26,6 +26,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
   problem$ ?: Observable<ProblemData>;
   problemData ?: ProblemData;
   subscriptions ?: Subscription;
+  formError = false;
 
    // Convert array constants into observable
    allComplexities$ = of(COMPLEXITIES);
@@ -60,6 +61,11 @@ export class EditProblemComponent implements OnInit, OnDestroy {
       map(problemData => {
         this.problemData = problemData;
         this.selectedTagsSubject.next(problemData.tags);
+        this.editForm.controls.name.setValue(this.problemData.name);
+        this.editForm.controls.topic.setValue(this.problemData.topic);
+        this.editForm.controls.description.setValue(this.problemData.description);
+        this.editForm.controls.complexity.setValue(this.problemData.complexity);
+        this.editForm.controls.tags.setValue(this.problemData.tags);
       }),
     ).subscribe();
   }
@@ -84,14 +90,16 @@ export class EditProblemComponent implements OnInit, OnDestroy {
     }
   }
 
+  isFormValid() {
+    if (this.selectedTagsSubject.getValue().length === 0) { return false; }
+    return true;
+  }
+
   onSubmit() {
-    if (this.editForm.valid) {
-      const name = this.editForm.controls.name.value;
-      const topic = this.editForm.controls.topic.value;
-      const complexity = this.editForm.controls.complexity.value;
-      const filePath = this.problemData.storageUrl;
-      console.log(`${topic}`)
-      this.uploadService.uploadFile(this.file, filePath, () => {});
+    if (this.editForm.valid && this.isFormValid()) {
+      this.formError = false;
+    } else {
+      this.formError = true;
     }
   }
 

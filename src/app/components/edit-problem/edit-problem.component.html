@@ -66,6 +66,7 @@
         <button [disabled]="!editForm.valid" mat-raised-button color="primary" value="submit">Submit</button>
       </div>
       <span *ngIf="dataUploaded">Data uploaded successfully!</span>
+      <span class="error" *ngIf="formError">Form is invalid!</span>
     </form>
   </div>
 </div>
