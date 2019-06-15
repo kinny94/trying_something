@@ -31,6 +31,7 @@
       </mat-select>
     </mat-form-field>
   </div>
+  
   <span *ngIf="(selectedTags$ | async)?.length > 0">
     <button class="upload__tags" mat-raised-button color="accent" *ngFor="let tag of selectedTags$ | async" (click)="onTagRemoved(tag)">
       {{ tag }}

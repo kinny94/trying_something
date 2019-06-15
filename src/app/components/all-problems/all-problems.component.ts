@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProblemsService } from './../../services/problems/problems.service';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map, tap, take } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user-service/user.service';
+import { UserData } from 'src/models/model';
 
 export interface Problem {
   name: string;
@@ -21,15 +23,18 @@ export class AllProblemsComponent implements OnInit {
 
   isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   _isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
+  userdata$: Observable<UserData>;
 
   searchText = '';
-  starColor = 'accent';
+    starColor = 'accent';
 
-  constructor(
-    private problemService: ProblemsService
+    constructor(
+      private problemService: ProblemsService,
+      private userService: UserService,
   ) { }
 
   ngOnInit() {
+    this.userdata$ = this.userService.getUserData();
     this._everyProblem$ = this.problemService.getEverything().valueChanges().pipe(
       map(element => element),
       tap(data => {

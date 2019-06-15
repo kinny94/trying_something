@@ -14,6 +14,15 @@ export interface UploadData {
   storageUrl: string;
 }
 
+export interface EditData {
+  name: string;
+  topic: string;
+  tags: Array<string>;
+  description: string;
+  complexity: string;
+  storageUrl: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,5 +45,26 @@ export class UploadService {
   uploadData(data: UploadData, callback) {
     this.db.list(`/problems/${data.topic}`).push(data);
     callback();
+  }
+
+  editProblemWithFile(data: EditData, file: File, filePath: string, oldFilePath: string, id: string) {
+    const storagePath = `${data.topic}/${oldFilePath}`;
+    const newStoragePath = `${data.topic}/${filePath}.java`;
+    console.log(id);
+    this.db.object(`/problems/${data.topic}/${id}`).update(data)
+    .then(() => {
+      this.storage.ref(storagePath).delete();
+    })
+    .then(() => {
+      this.uploadFile(file, newStoragePath, () => {});
+    });
+  }
+
+  editProblemWithoutFile(data: EditData, id: string) {
+    return this.db.object(`/problems/${data.topic}/${id}`).update(data);
+  }
+
+  deleteFile(path: string) {
+    return this.storage.ref(path).delete();
   }
 }
