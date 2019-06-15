@@ -103,25 +103,27 @@ export class EditProblemComponent implements OnInit, OnDestroy {
       if (!this.file) {
         const data: EditData = {
           name:  this.editForm.controls.name.value,
-          complexity: this.editForm.controls.name.value,
+          complexity: this.editForm.controls.complexity.value,
           description: this.editForm.controls.description.value,
           tags: this.selectedTagsSubject.getValue(),
           topic: this.editForm.controls.topic.value,
           storageUrl: this.problemData.storageUrl
         };
-        this.uploadService.editProblemWithoutFile(data);
+        const id = this.route.snapshot.params.id;
+        return this.uploadService.editProblemWithoutFile(data, id);
       } else {
+        const newFilePath = UUID.UUID();
+        const oldFilePath = `${this.problemData.storageUrl}.java`;
         const data: EditData = {
           name:  this.editForm.controls.name.value,
-          complexity: this.editForm.controls.name.value,
+          complexity: this.editForm.controls.complexity.value,
           description: this.editForm.controls.description.value,
           tags: this.selectedTagsSubject.getValue(),
           topic: this.editForm.controls.topic.value,
-          storageUrl: this.problemData.storageUrl
+          storageUrl: newFilePath
         };
-        const uuid = UUID.UUID();
-        const filePath = `${data.topic.toLowerCase()}/${uuid}.java`;
-        this.uploadService.editProblemWithFile(data, this.file, filePath);
+        const id = this.route.snapshot.params.id;
+        return this.uploadService.editProblemWithFile(data, this.file, newFilePath, oldFilePath, id);
       }
     } else {
       this.formError = true;

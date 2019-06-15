@@ -47,12 +47,21 @@ export class UploadService {
     callback();
   }
 
-  editProblemWithFile(data: EditData, file: File, filePath: string) {
-    console.log(filePath);
+  editProblemWithFile(data: EditData, file: File, filePath: string, oldFilePath: string, id: string) {
+    const storagePath = `${data.topic}/${oldFilePath}`;
+    const newStoragePath = `${data.topic}/${filePath}.java`;
+    console.log(id);
+    this.db.object(`/problems/${data.topic}/${id}`).update(data)
+    .then(() => {
+      this.storage.ref(storagePath).delete();
+    })
+    .then(() => {
+      this.uploadFile(file, newStoragePath, () => {});
+    });
   }
 
-  editProblemWithoutFile(data: EditData) {
-    console.log(data);
+  editProblemWithoutFile(data: EditData, id: string) {
+    return this.db.object(`/problems/${data.topic}/${id}`).update(data);
   }
 
   deleteFile(path: string) {
