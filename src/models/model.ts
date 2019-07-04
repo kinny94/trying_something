@@ -57,3 +57,7 @@ export interface ProblemKeyValue {
     [problem: string]: ProblemData;
   };
 }
+
+export interface ProgrammingLanguage {
+  name: string;
+}

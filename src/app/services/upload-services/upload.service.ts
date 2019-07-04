@@ -12,6 +12,7 @@ export interface UploadData {
   description: string;
   complexity: string;
   storageUrl: string;
+  language: string;
 }
 
 export interface EditData {

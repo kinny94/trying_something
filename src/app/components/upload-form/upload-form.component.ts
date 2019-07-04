@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { UploadService, UploadData } from './../../services/upload-services/upload.service';
-import { COMPLEXITIES, TAGS, TOPICS } from './../../model';
+import { COMPLEXITIES, TAGS, TOPICS, PROGRAMMING_LANGUAGE } from './../../model';
 import { UUID } from 'angular2-uuid';
 
 @Component({
@@ -19,6 +19,7 @@ export class UploadFormComponent implements OnInit {
     tags: new FormControl(''),
     description: new FormControl('', [Validators.required]),
     complexity: new FormControl('', [Validators.required]),
+    language: new FormControl('', [Validators.required]),
     file: new FormControl('')
   });
 
@@ -26,6 +27,7 @@ export class UploadFormComponent implements OnInit {
   allComplexities$ = of(COMPLEXITIES);
   allTopics = [...TAGS];
   topics = [...TOPICS];
+  languages = [...PROGRAMMING_LANGUAGE];
 
   // Subject observable in order to remove from the available tags array
   availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);
@@ -75,6 +77,7 @@ export class UploadFormComponent implements OnInit {
     if (this.uploadForm.valid) {
       const name = this.uploadForm.controls.name.value;
       const topic = this.uploadForm.controls.topic.value;
+      const language = this.uploadForm.controls.language.value;
       const uuid = UUID.UUID();
       const filePath = `${topic.toLowerCase()}/${uuid}.java`;
       this.uploadService.uploadFile(this.file, filePath, () => {
@@ -88,6 +91,7 @@ export class UploadFormComponent implements OnInit {
         topic: topic.toLowerCase(),
         likes: 0,
         raters: 0,
+        language: language,
         description: this.uploadForm.controls.description.value,
         tags: tags,
         complexity: this.uploadForm.controls.complexity.value,
