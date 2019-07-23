@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { ProblemData } from 'src/models/model';
 
 export interface UploadData {
   stars: number;
@@ -43,7 +44,7 @@ export class UploadService {
     callback();
   }
 
-  uploadData(data: UploadData, callback) {
+  uploadData(data: ProblemData, callback) {
     this.db.list(`/problems/${data.topic}`).push(data);
     callback();
   }
@@ -51,7 +52,6 @@ export class UploadService {
   editProblemWithFile(data: EditData, file: File, filePath: string, oldFilePath: string, id: string) {
     const storagePath = `${data.topic}/${oldFilePath}`;
     const newStoragePath = `${data.topic}/${filePath}.java`;
-    console.log(id);
     this.db.object(`/problems/${data.topic}/${id}`).update(data)
     .then(() => {
       this.storage.ref(storagePath).delete();
