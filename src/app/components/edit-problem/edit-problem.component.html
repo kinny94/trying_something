@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFlexFill>
+<div fxLayout="column" fxFlexFill fxLayoutGap="32px">
   <div fxFlexFill>
     <h3>Editing: {{ (problem$ | async)?.name }}</h3>
   </div>
@@ -57,6 +57,16 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div>
+        <mat-form-field fxFlexFill>
+          <mat-select placeholder="Language" formControlName="language">
+            <mat-option *ngFor="let language of languages" [value]="language">
+              {{language}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>    
 
       <div class="upload__form-field">
         <input mattInput type="file" (change)="upload($event)" accept=".java" />

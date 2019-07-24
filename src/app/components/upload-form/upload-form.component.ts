@@ -2,10 +2,10 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { UploadService, UploadData } from './../../services/upload-services/upload.service';
+import { UploadService } from './../../services/upload-services/upload.service';
 import { COMPLEXITIES, TAGS, TOPICS, PROGRAMMING_LANGUAGE } from './../../model';
 import { UUID } from 'angular2-uuid';
-import { ProblemData } from 'src/models/model';
+import { ProblemData } from './../../../models/model';
 
 @Component({
   selector: 'app-upload-form',
@@ -43,7 +43,7 @@ export class UploadFormComponent implements OnInit {
   file: File;
   submitDisabled = true;
   dataUploaded = false;
-  
+
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {}

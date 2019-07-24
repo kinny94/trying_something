@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProblemsService } from 'src/app/services/problems/problems.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
-import { ProblemData } from 'src/models/model';
-import { TAGS, COMPLEXITIES, TOPICS } from 'src/app/model';
+import { ProblemData } from './../../../models/model';
+import { TAGS, COMPLEXITIES, TOPICS, PROGRAMMING_LANGUAGE } from './../../model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { UploadData, UploadService, EditData } from 'src/app/services/upload-services/upload.service';
+import { UploadService } from 'src/app/services/upload-services/upload.service';
 import { UUID } from 'angular2-uuid';
 
 
@@ -23,6 +23,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
     tags: new FormControl(''),
     description: new FormControl('', [Validators.required]),
     complexity: new FormControl('', [Validators.required]),
+    language: new FormControl('', [Validators.required]),
   });
 
   problem$ ?: Observable<ProblemData>;
@@ -34,6 +35,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
    allComplexities$ = of(COMPLEXITIES);
    allTopics = [...TAGS];
    topics = [...TOPICS];
+   languages = [...PROGRAMMING_LANGUAGE];
 
   // Subject observable in order to remove from the available tags array
   availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);
@@ -44,7 +46,6 @@ export class EditProblemComponent implements OnInit, OnDestroy {
   selectedTags$: Observable<Array<string>> = this.selectedTagsSubject.asObservable();
 
   // Data upload variables
-  uploadData: UploadData;
   file: File;
   dataUploaded = false;
 
@@ -97,33 +98,70 @@ export class EditProblemComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  createStorageUrl(topic: string, language: string, id: string) {
+    if (language.toLowerCase() === 'java') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.java`;
+    }
+
+    if (language.toLowerCase() === 'typescript') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.ts`;
+    }
+
+    if (language.toLowerCase() === 'python') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.py`;
+    }
+
+    if (language.toLowerCase() === 'javascript') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.js`;
+    }
+  }
+
   onSubmit() {
     if (this.editForm.valid && this.isFormValid()) {
       this.formError = false;
       if (!this.file) {
-        const data: EditData = {
+        const data: ProblemData = {
           name:  this.editForm.controls.name.value,
           complexity: this.editForm.controls.complexity.value,
           description: this.editForm.controls.description.value,
           tags: this.selectedTagsSubject.getValue(),
           topic: this.editForm.controls.topic.value,
-          storageUrl: this.problemData.storageUrl
+          id: this.problemData.id,
+          likes: this.problemData.likes,
+          raters: this.problemData.raters,
+          stars: this.problemData.stars,
+          storageUrl: {
+            ...this.problemData.storageUrl
+          }
         };
         const id = this.route.snapshot.params.id;
-        return this.uploadService.editProblemWithoutFile(data, id);
+        return this.uploadService.editProblemData(data, id);
       } else {
-        const newFilePath = UUID.UUID();
-        const oldFilePath = `${this.problemData.storageUrl}.java`;
-        const data: EditData = {
+        const newFilePath = this.createStorageUrl(
+          this.editForm.controls.topic.value,
+          this.editForm.controls.language.value,
+          this.problemData.id
+        );
+
+        this.uploadService.uploadFile(this.file, newFilePath, () => {});
+
+        const data: ProblemData = {
+          id: this.problemData.id,
+          likes: this.problemData.likes,
+          raters: this.problemData.raters,
+          stars: this.problemData.stars,
           name:  this.editForm.controls.name.value,
           complexity: this.editForm.controls.complexity.value,
           description: this.editForm.controls.description.value,
           tags: this.selectedTagsSubject.getValue(),
           topic: this.editForm.controls.topic.value,
-          storageUrl: newFilePath
+          storageUrl: {
+            ...this.problemData.storageUrl,
+            [this.editForm.controls.language.value.toLowerCase()]: newFilePath
+          }
         };
         const id = this.route.snapshot.params.id;
-        return this.uploadService.editProblemWithFile(data, this.file, newFilePath, oldFilePath, id);
+        return this.uploadService.editProblemData(data, id);
       }
     } else {
       this.formError = true;
