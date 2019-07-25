@@ -38,7 +38,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
     this.problem$ = this.problemService.getProblem(topic, id).valueChanges();
     this.content$ = this.problem$.pipe(
       map((problem: ProblemData) => {
-        return this.storage.ref(`${problem.topic}/${problem.storageUrl}.java`).getDownloadURL()}),
+        return this.storage.ref(`${problem.topic}/${problem.id}/'java'/${problem.id}.java`).getDownloadURL(); }),
       switchMap((obser: Observable<string>) =>
         obser.pipe(
           map(data => data)
