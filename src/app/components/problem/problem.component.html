@@ -16,10 +16,35 @@
     </ng-container>
   </div>
 </div>
-<div>
-  <pre *ngIf="content$ | async as content">
-    <code highlight class="hljs java">
-      {{ content.toString() }}
-    </code>
-  </pre> 
-</div>
+<mat-tab-group>
+  <mat-tab *ngFor="let pro of program$ | async as program;" label="{{ pro?.language }}"> 
+    <pre *ngIf="pro?.code | async as code">
+      <ng-container *ngIf="pro?.language.toLowerCase() === 'java'">
+        <code highlight class="hljs java">
+          {{ code.toString() }}
+        </code>
+      </ng-container>
+    </pre> 
+    <pre *ngIf="pro?.code | async as code">
+      <ng-container *ngIf="pro?.language.toLowerCase() === 'javascript'">
+        <code highlight class="hljs js">
+          {{ code.toString() }}
+        </code>
+      </ng-container>
+    </pre> 
+    <pre *ngIf="pro?.code | async as code">
+      <ng-container *ngIf="pro?.language.toLowerCase() === 'typescript'">
+        <code highlight class="hljs ts">
+          {{ code.toString() }}
+        </code>
+      </ng-container>
+    </pre> 
+    <pre *ngIf="pro?.code | async as code">
+      <ng-container *ngIf="pro?.language.toLowerCase() === 'python'">
+        <code highlight class="hljs py">
+          {{ code.toString() }}
+        </code>
+      </ng-container>
+    </pre> 
+  </mat-tab>
+</mat-tab-group>
