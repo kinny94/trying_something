@@ -19,32 +19,18 @@
 <mat-tab-group>
   <mat-tab *ngFor="let pro of program$ | async as program;" label="{{ pro?.language }}"> 
     <pre *ngIf="pro?.code | async as code">
-      <ng-container *ngIf="pro?.language.toLowerCase() === 'java'">
-        <code highlight class="hljs java">
-          {{ code.toString() }}
-        </code>
-      </ng-container>
-    </pre> 
-    <pre *ngIf="pro?.code | async as code">
-      <ng-container *ngIf="pro?.language.toLowerCase() === 'javascript'">
-        <code highlight class="hljs js">
-          {{ code.toString() }}
-        </code>
-      </ng-container>
-    </pre> 
-    <pre *ngIf="pro?.code | async as code">
-      <ng-container *ngIf="pro?.language.toLowerCase() === 'typescript'">
-        <code highlight class="hljs ts">
-          {{ code.toString() }}
-        </code>
-      </ng-container>
-    </pre> 
-    <pre *ngIf="pro?.code | async as code">
-      <ng-container *ngIf="pro?.language.toLowerCase() === 'python'">
-        <code highlight class="hljs py">
-          {{ code.toString() }}
-        </code>
-      </ng-container>
-    </pre> 
+      <code *ngIf="pro?.language === 'Java'" highlight class="hljs java">
+        {{ code.toString() }}
+      </code>
+      <code *ngIf="pro?.language === 'TypeScript'" highlight class="hljs ts">
+        {{ code.toString() }}
+      </code>
+      <code *ngIf="pro?.language === 'Python'" highlight class="hljs py">
+        {{ code.toString() }}
+      </code>
+      <code *ngIf="pro?.language === 'JavaScript'" highlight class="hljs js">
+        {{ code.toString() }}
+      </code>
+    </pre>
   </mat-tab>
 </mat-tab-group>

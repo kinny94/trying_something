@@ -54,43 +54,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
     this.program$ = this.problem$.pipe(
       map((problem: ProblemData) => {
-        let lanagugeDownloadURLs: Content[] = [];
-        if (problem.storageUrl.java) {
-          lanagugeDownloadURLs = [
-            ...lanagugeDownloadURLs,
-            {
-              language: 'Java',
-              code: this.getProgramCode(of(`${problem.topic}/${problem.id}/java/${problem.id}.java`)),
-          }];
-        }
-
-        if (problem.storageUrl.typescript) {
-          lanagugeDownloadURLs = [
-            ...lanagugeDownloadURLs,
-            {
-              language: 'TypeScript',
-              code: this.getProgramCode(of(`${problem.topic}/${problem.id}/typescript/${problem.id}.ts`)),
-          }];
-        }
-
-        if (problem.storageUrl.javascript) {
-          lanagugeDownloadURLs = [
-            ...lanagugeDownloadURLs,
-            {
-              language: 'Javascript',
-              code: this.getProgramCode(of(`${problem.topic}/${problem.id}/javascript/${problem.id}.js`))
-          }];
-        }
-
-        if (problem.storageUrl.python) {
-          lanagugeDownloadURLs = [
-            ...lanagugeDownloadURLs,
-            {
-              language: 'Python',
-              code: this.getProgramCode(of(`${problem.topic}/${problem.id}/python/${problem.id}.py`))
-          }];
-        }
-        return lanagugeDownloadURLs;
+        return this.getproblemData(problem);
       })
     );
 
@@ -98,7 +62,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
       this.data = data.description;
     });
 
-    this.program$.subscribe(console.log);
   }
 
   getProgramCode(storageUrl: Observable<string>): Observable<string> {
@@ -116,9 +79,68 @@ export class ProblemComponent implements OnInit, OnDestroy {
       flatMap((url: string) => this.http.get<string>(url, { responseType: 'text' as 'json' })));
   }
 
+  getproblemData(problem: ProblemData): Content[] {
+    let lanagugeDownloadURLs: Content[] = [];
+    if (problem.storageUrl.java) {
+      lanagugeDownloadURLs = [
+        ...lanagugeDownloadURLs,
+        {
+          language: 'Java',
+          code: this.getProgramCode(of(`${problem.topic.toLowerCase()}/${problem.id}/java/${problem.id}.java`)),
+      }];
+    }
+
+    if (problem.storageUrl.typescript) {
+      lanagugeDownloadURLs = [
+        ...lanagugeDownloadURLs,
+        {
+          language: 'TypeScript',
+          code: this.getProgramCode(of(`${problem.topic.toLowerCase()}/${problem.id}/typescript/${problem.id}.ts`)),
+      }];
+    }
+
+    if (problem.storageUrl.javascript) {
+      lanagugeDownloadURLs = [
+        ...lanagugeDownloadURLs,
+        {
+          language: 'Javascript',
+          code: this.getProgramCode(of(`${problem.topic.toLowerCase()}/${problem.id}/javascript/${problem.id}.js`))
+      }];
+    }
+
+    if (problem.storageUrl.python) {
+      lanagugeDownloadURLs = [
+        ...lanagugeDownloadURLs,
+        {
+          language: 'Python',
+          code: this.getProgramCode(of(`${problem.topic.toLowerCase()}/${problem.id}/python/${problem.id}.py`))
+      }];
+    }
+    return lanagugeDownloadURLs;
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  getLanguageStyle(language: string): string {
+    console.log(language);
+    if (language === 'Java') {
+      return 'java';
+    }
+
+    if (language === 'Python') {
+      return 'py';
+    }
+
+    if (language === 'TypeScript') {
+      return 'ts';
+    }
+
+    if (language === 'JavaScript') {
+      return 'js';
     }
   }
 }
