@@ -6,7 +6,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { UploadFormComponent } from './upload-form.component';
 import { MaterialModule } from './../../material.module';
 import { UploadService } from './../../services/upload-services/upload.service';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';

@@ -2,9 +2,10 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { UploadService, UploadData } from './../../services/upload-services/upload.service';
-import { COMPLEXITIES, TAGS, TOPICS } from './../../model';
+import { UploadService } from './../../services/upload-services/upload.service';
+import { COMPLEXITIES, TAGS, TOPICS, PROGRAMMING_LANGUAGE } from './../../model';
 import { UUID } from 'angular2-uuid';
+import { ProblemData } from './../../../models/model';
 
 @Component({
   selector: 'app-upload-form',
@@ -19,6 +20,7 @@ export class UploadFormComponent implements OnInit {
     tags: new FormControl(''),
     description: new FormControl('', [Validators.required]),
     complexity: new FormControl('', [Validators.required]),
+    language: new FormControl('', [Validators.required]),
     file: new FormControl('')
   });
 
@@ -26,6 +28,7 @@ export class UploadFormComponent implements OnInit {
   allComplexities$ = of(COMPLEXITIES);
   allTopics = [...TAGS];
   topics = [...TOPICS];
+  languages = [...PROGRAMMING_LANGUAGE];
 
   // Subject observable in order to remove from the available tags array
   availableTagsSubject: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(TAGS);
@@ -36,7 +39,7 @@ export class UploadFormComponent implements OnInit {
   selectedTags$: Observable<Array<string>> = this.selectedTagsSubject.asObservable();
 
   // Data upload variables
-  uploadData: UploadData;
+  uploadData: ProblemData;
   file: File;
   submitDisabled = true;
   dataUploaded = false;
@@ -70,28 +73,50 @@ export class UploadFormComponent implements OnInit {
     this.submitDisabled = false;
   }
 
+  createStorageUrl(topic: string, language: string, id: string) {
+    if (language.toLowerCase() === 'java') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.java`;
+    }
+
+    if (language.toLowerCase() === 'typescript') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.ts`;
+    }
+
+    if (language.toLowerCase() === 'python') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.py`;
+    }
+
+    if (language.toLowerCase() === 'javascript') {
+      return `${topic.toLowerCase()}/${id}/${language.toLowerCase()}/${id}.js`;
+    }
+  }
+
   onSubmit() {
     this.submitDisabled = true;
     if (this.uploadForm.valid) {
       const name = this.uploadForm.controls.name.value;
-      const topic = this.uploadForm.controls.topic.value;
+      const topic = this.uploadForm.controls.topic.value.toLowerCase();
+      const language = this.uploadForm.controls.language.value.toLowerCase();
       const uuid = UUID.UUID();
-      const filePath = `${topic.toLowerCase()}/${uuid}.java`;
+      const filePath = this.createStorageUrl(topic, language, uuid);
       this.uploadService.uploadFile(this.file, filePath, () => {
         this.submitDisabled = false;
       });
 
       const tags = this.selectedTagsSubject.getValue();
       this.uploadData = {
+        id: uuid,
         name: name,
         stars: 0,
-        topic: topic.toLowerCase(),
+        topic: topic,
         likes: 0,
         raters: 0,
         description: this.uploadForm.controls.description.value,
         tags: tags,
         complexity: this.uploadForm.controls.complexity.value,
-        storageUrl: uuid
+        storageUrl: {
+          [language]: filePath
+        }
       };
 
       this.uploadService.uploadData(this.uploadData, () => {

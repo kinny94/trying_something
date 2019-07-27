@@ -15,13 +15,16 @@ export interface Complexities {
 }
 
 export interface ProblemData {
+  id: string;
   complexity: string;
   description: string;
   likes: number;
   name: string;
   stars: number;
   raters: number;
-  storageUrl: string;
+  storageUrl: {
+    [language: string]: string;
+  };
   tags: Array<string>;
   topic: string;
 }
@@ -56,4 +59,8 @@ export interface ProblemKeyValue {
   value: {
     [problem: string]: ProblemData;
   };
+}
+
+export interface ProgrammingLanguage {
+  name: string;
 }

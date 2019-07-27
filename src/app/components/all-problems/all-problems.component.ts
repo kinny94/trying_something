@@ -3,7 +3,7 @@ import { ProblemsService } from './../../services/problems/problems.service';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map, tap, take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { UserData } from 'src/models/model';
+import { UserData } from './../../../models/model';
 
 export interface Problem {
   name: string;

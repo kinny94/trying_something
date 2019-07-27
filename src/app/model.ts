@@ -1,5 +1,4 @@
-import { DsDesctiption } from "./../models/model";
-
+import { DsDesctiption, ProgrammingLanguage } from "./../models/model";
 
 export const COMPLEXITIES = [
   'O(1)',
@@ -40,6 +39,13 @@ export const TOPICS = [
   'Dynamic Programming',
   'Hash-Table'
 ]
+
+export const PROGRAMMING_LANGUAGE = [
+  'Java',
+  'TypeScript',
+  'JavaScript',
+  'Python'
+];
 
 export const THEMES = new Map<string, string>([
   ['Dark', 'dark-theme'],

@@ -1,27 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
 import { AngularFireDatabase } from '@angular/fire/database';
-
-export interface UploadData {
-  stars: number;
-  likes: number;
-  name: string;
-  topic: string;
-  tags: Array<string>;
-  raters: number;
-  description: string;
-  complexity: string;
-  storageUrl: string;
-}
-
-export interface EditData {
-  name: string;
-  topic: string;
-  tags: Array<string>;
-  description: string;
-  complexity: string;
-  storageUrl: string;
-}
+import { ProblemData } from './../../../models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,32 +16,19 @@ export class UploadService {
     private db: AngularFireDatabase
   ) {}
 
-  uploadFile (file: File, filePath:string, callback) {
+  uploadFile (file: File, filePath: string, callback: any) {
     this.ref = this.storage.ref(filePath);
     this.task = this.ref.put(file);
     callback();
   }
 
-  uploadData(data: UploadData, callback) {
+  uploadData(data: ProblemData, callback: any) {
     this.db.list(`/problems/${data.topic}`).push(data);
     callback();
   }
 
-  editProblemWithFile(data: EditData, file: File, filePath: string, oldFilePath: string, id: string) {
-    const storagePath = `${data.topic}/${oldFilePath}`;
-    const newStoragePath = `${data.topic}/${filePath}.java`;
-    console.log(id);
-    this.db.object(`/problems/${data.topic}/${id}`).update(data)
-    .then(() => {
-      this.storage.ref(storagePath).delete();
-    })
-    .then(() => {
-      this.uploadFile(file, newStoragePath, () => {});
-    });
-  }
-
-  editProblemWithoutFile(data: EditData, id: string) {
-    return this.db.object(`/problems/${data.topic}/${id}`).update(data);
+  editProblemData(data: ProblemData, id: string) {
+    return this.db.object(`/problems/${data.topic}/${id}`).set(data);
   }
 
   deleteFile(path: string) {
