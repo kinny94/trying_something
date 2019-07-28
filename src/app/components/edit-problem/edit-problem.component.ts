@@ -125,7 +125,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
           complexity: this.editForm.controls.complexity.value,
           description: this.editForm.controls.description.value,
           tags: this.selectedTagsSubject.getValue(),
-          topic: this.editForm.controls.topic.value,
+          topic: this.editForm.controls.topic.value.toLowerCase(),
           id: this.problemData.id,
           likes: this.problemData.likes,
           raters: this.problemData.raters,
@@ -154,7 +154,7 @@ export class EditProblemComponent implements OnInit, OnDestroy {
           complexity: this.editForm.controls.complexity.value,
           description: this.editForm.controls.description.value,
           tags: this.selectedTagsSubject.getValue(),
-          topic: this.editForm.controls.topic.value,
+          topic: this.editForm.controls.topic.value.toLowerCase(),
           storageUrl: {
             ...this.problemData.storageUrl,
             [this.editForm.controls.language.value.toLowerCase()]: newFilePath

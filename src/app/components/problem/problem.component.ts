@@ -126,7 +126,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   getLanguageStyle(language: string): string {
-    console.log(language);
     if (language === 'Java') {
       return 'java';
     }

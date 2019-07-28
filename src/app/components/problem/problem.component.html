@@ -19,16 +19,7 @@
 <mat-tab-group>
   <mat-tab *ngFor="let pro of program$ | async as program;" label="{{ pro?.language }}"> 
     <pre *ngIf="pro?.code | async as code">
-      <code *ngIf="pro?.language === 'Java'" highlight class="hljs java">
-        {{ code.toString() }}
-      </code>
-      <code *ngIf="pro?.language === 'TypeScript'" highlight class="hljs ts">
-        {{ code.toString() }}
-      </code>
-      <code *ngIf="pro?.language === 'Python'" highlight class="hljs py">
-        {{ code.toString() }}
-      </code>
-      <code *ngIf="pro?.language === 'JavaScript'" highlight class="hljs js">
+      <code highlight class="hljs getLanguageStyle(pro?.language)">
         {{ code.toString() }}
       </code>
     </pre>
