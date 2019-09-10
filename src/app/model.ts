@@ -36,9 +36,10 @@ export const TOPICS = [
   'Tree',
   'Searching',
   'Sorting',
+  'Algorithms',
   'Dynamic Programming',
   'Hash-Table'
-]
+];
 
 export const PROGRAMMING_LANGUAGE = [
   'Java',
