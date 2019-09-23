@@ -130,7 +130,6 @@ class FindMiddleNode<T extends Comparable<T>> implements List<T> {
         list.insert(13);
         list.insert(5);   
         list.insert(1);
-
         list.traverseList();
         list.getMiddleNode();
     }
