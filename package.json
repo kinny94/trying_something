@@ -61,7 +61,7 @@
     "jest-preset-angular": "^7.0.1",
     "karma-angular": "0.0.6",
     "karma-spec-reporter": "0.0.32",
-    "ng-packagr": "^4.2.0",
+    "ng-packagr": "^10.1.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.29.0",
